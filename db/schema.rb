@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_04_160833) do
+ActiveRecord::Schema.define(version: 2022_02_04_181249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,13 +28,14 @@ ActiveRecord::Schema.define(version: 2022_02_04_160833) do
     t.boolean "admin"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
   end
 
   create_table "items", force: :cascade do |t|
     t.string "bin"
     t.boolean "active"
     t.bigint "part_id", null: false
-    t.bigint "employee_id", null: false
+    t.bigint "employee_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["employee_id"], name: "index_items_on_employee_id"
@@ -69,7 +70,6 @@ ActiveRecord::Schema.define(version: 2022_02_04_160833) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "items", "employees"
   add_foreign_key "items", "parts"
   add_foreign_key "jobs", "clients"
   add_foreign_key "jobs", "employees"
