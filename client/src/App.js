@@ -1,6 +1,8 @@
 import './App.css';
 import { useState, useEffect } from "react";
 
+// import Pic from "../image/ProfilePicture.png"
+
 function App() {
   const [count, setCount] = useState(0);
 
