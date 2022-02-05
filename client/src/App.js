@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 // import Pic from "../image/ProfilePicture.png"
 
@@ -12,9 +13,18 @@ function App() {
       .then((data) => setCount(data.count));
   }, []);
 
+  
   return (
     <div className="App">
-      <h1>Page Count: {count}</h1>
+      <nav
+        style={{
+          borderBottom: "solid 1px",
+          paddingBottom: "1rem"
+        }}
+      >
+        <Link to="/parts">Parts</Link> |{" "}
+        <Link to="/employees">Employees</Link>
+      </nav>
     </div>
   );
 }
