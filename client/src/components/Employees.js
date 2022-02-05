@@ -1,18 +1,18 @@
-import './App.css';
+import './style/App.css';
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // import Pic from "../image/ProfilePicture.png"
 
-function HomePage() {
+function Employees() {
  
 
   
   return (
-    <div className="HomePage">
-      <h2>The HomePage</h2>
+    <div className="Employees">
+      <h2>The Employees Page</h2>
     </div>
   );
 }
 
-export default HomePage;
+export default Employees;

@@ -1,18 +1,18 @@
-import './App.css';
+import './style/App.css';
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // import Pic from "../image/ProfilePicture.png"
 
-function Login() {
+function HomePage() {
  
 
   
   return (
-    <div className="Login">
-      <h2>The Login Page</h2>
+    <div className="HomePage">
+      <h2>The HomePage</h2>
     </div>
   );
 }
 
-export default Login;
+export default HomePage;
