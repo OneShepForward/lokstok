@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: %i[ show update destroy ]
+  # before_action :set_employee, only: %i[ show update destroy ]
 
   # GET /employees
   def index
@@ -10,18 +10,29 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1
   def show
-    render json: @employee
+    if current_employee
+      render json: current_employee, status: :ok
+    else
+      render json: "No user logged in", status: :unauthorized
+    end
   end
 
   # POST /employees
   def create
-    @employee = Employee.new(employee_params)
+    employee = Employee.create(employee_params)
+      if employee.valid?
+        session[:employee_id] = employee.id
+        render json: employee, status: :ok
+      else
+        render json: employee.errors.full_messages, status: :unprocessable_entity
+      end 
+    # @employee = Employee.new(employee_params)
 
-    if @employee.save
-      render json: @employee, status: :created, location: @employee
-    else
-      render json: @employee.errors, status: :unprocessable_entity
-    end
+    # if @employee.save
+    #   render json: @employee, status: :created, location: @employee
+    # else
+    #   render json: @employee.errors, status: :unprocessable_entity
+    # end
   end
 
   # PATCH/PUT /employees/1
@@ -40,12 +51,12 @@ class EmployeesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_employee
-      @employee = Employee.find(params[:id])
-    end
+    # def set_employee
+    #   @employee = Employee.find(params[:id])
+    # end
 
     # Only allow a list of trusted parameters through.
     def employee_params
-      params.require(:employee).permit(:name, :position, :admin)
+      params.permit(:name, :position, :password, :password_confirmation)
     end
 end

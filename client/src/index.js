@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import Employees from './components/Employees';
 import Parts from './components/Parts';
+import Signup from './components/Signup';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,6 +20,7 @@ ReactDOM.render(
         <Route path="/" element={<App />} />
         <Route path="employees" element={<Employees />} />
         <Route path="parts" element={<Parts />} />
+        <Route path="signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
