@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sessions/create'
+  get 'sessions/destroy'
   resources :jobs
   resources :items
   resources :clients
@@ -9,7 +11,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  get "/hello", to: "application#hello_world"
+  get "/signup", to: "employees#create"
+  get "/me", to: "employees#show"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
 
   get "*path",
     to: "fallback#index",
