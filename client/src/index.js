@@ -9,11 +9,17 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import Employees from './components/Employees';
+import Parts from './components/Parts';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="employees" element={<Employees />} />
+        <Route path="parts" element={<Parts />} />
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import Login from "./components/Login";
+import Employees from "./components/Employees";
 
 
 // import Pic from "../image/ProfilePicture.png"
@@ -27,7 +28,6 @@ function App() {
       >
         <Link to="/parts">Parts</Link> |{" "}
         <Link to="/employees">Employees</Link>
-        <Button variant="contained">Hello World</Button>
       </nav>
       <Login/>
     </div>
