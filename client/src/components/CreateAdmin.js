@@ -5,55 +5,31 @@ import logo from "../image/lokstok_cover_photo.png";
 
 // import Pic from "../image/ProfilePicture.png"
 
-function Signup() {
+function CreateAdmin() {
   const [formData, setFormData] = useState({
     name: "",
-    position: "",
     password: "",
-    passwordConfirmation: "",
+    position: "",
   });
-  let passwordConfirmation
 
   const handleChange = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value,
-      });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
-  // const handleChange = (e) => {
-  //   if (e.target.name === passwordConfirmation) {
-  //     setFormData({
-  //       ...formData,
-  //       password_confirmation: e.target.value,
-  //     });
-  // }
-  //   else {
-  //     setFormData({
-  //       ...formData,
-  //       [e.target.name]: e.target.value,
-  //     });
-  // }
-  // };
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    // const userCreds = { 
-    //   ...formData,
-    //   password_confirmation: passwordConfirmation
-    // };
+    const userCreds = { ...formData, admin: true };
 
-    fetch("/employees", {
+    fetch("/create_an_admin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ 
-        name: formData.name,
-        position: formData.position,
-        password: formData.password,
-        password_confirmation: formData.passwordConfirmation
-      }),
+      body: JSON.stringify(userCreds),
     })
       .then((r) => r.json())
       .then((employee) => {
@@ -61,8 +37,7 @@ function Signup() {
         setFormData({
           name: "",
           password: "",
-          position: "",
-          passwordConfirmation: "",
+          position: ""
         });
       });
   }
@@ -70,11 +45,11 @@ function Signup() {
   return (
     <>
     <img src={logo} alt="LokStok Logo"/>
-      <h1>Signup Here!</h1>
+      <h1>CreateAdmin Here!</h1>
       <form onSubmit={handleSubmit}>
         {/* <label htmlFor="name">name: </label> */}
         <input
-          id="name-signup-input"
+          id="name-CreateAdmin-input"
           type="text"
           placeholder='Username...'
           name="name"
@@ -84,7 +59,7 @@ function Signup() {
         <br />
         {/* <label htmlFor="position">Position: </label> */}
         <input
-          id="position-signup-input"
+          id="position-CreateAdmin-input"
           type="text"
           placeholder='Position...'
           name="position"
@@ -94,20 +69,11 @@ function Signup() {
         <br />
         {/* <label htmlFor="password">Password: </label> */}
         <input
-          id="password-signup-input"
+          id="password-CreateAdmin-input"
           type="password"
           placeholder='Password...'
           name="password"
           value={formData.password}
-          onChange={handleChange}
-        />
-        <br />
-        <input
-          id="password-confirmation-signup-input"
-          type="password"
-          placeholder='Confirm Password...'
-          name="passwordConfirmation"
-          value={formData.passwordConfirmation}
           onChange={handleChange}
         />
         <br />
@@ -120,4 +86,4 @@ function Signup() {
   );
 };
 
-export default Signup;
+export default CreateAdmin;

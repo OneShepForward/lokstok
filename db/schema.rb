@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_02_04_181249) do
   create_table "employees", force: :cascade do |t|
     t.string "name"
     t.string "position"
-    t.boolean "admin"
+    t.boolean "admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"

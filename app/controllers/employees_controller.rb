@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-  # before_action :set_employee, only: %i[ show update destroy ]
+  before_action :set_employee, only: %i[ update destroy ]
 
   # GET /employees
   def index
@@ -19,20 +19,15 @@ class EmployeesController < ApplicationController
 
   # POST /employees
   def create
-    employee = Employee.create(employee_params)
-      if employee.valid?
-        session[:employee_id] = employee.id
-        render json: employee, status: :ok
-      else
-        render json: employee.errors.full_messages, status: :unprocessable_entity
-      end 
-    # @employee = Employee.new(employee_params)
+    employee = Employee.create!(employee_params)
+    session[:employee_id] = employee.id
+    render json: employee, status: :ok
+  end
 
-    # if @employee.save
-    #   render json: @employee, status: :created, location: @employee
-    # else
-    #   render json: @employee.errors, status: :unprocessable_entity
-    # end
+  def create_admin
+    admin = Employee.create!(admin_params)
+    session[:employee_id] = employee.id
+    render json: employee, status: :ok
   end
 
   # PATCH/PUT /employees/1
@@ -51,12 +46,16 @@ class EmployeesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    # def set_employee
-    #   @employee = Employee.find(params[:id])
-    # end
+    def set_employee
+      @employee = Employee.find(params[:id])
+    end
 
     # Only allow a list of trusted parameters through.
     def employee_params
       params.permit(:name, :position, :password, :password_confirmation)
+    end
+
+    def admin_params
+      params.permit(:name, :position, :password, :password_confirmation, :admin)
     end
 end
