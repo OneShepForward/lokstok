@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render } from "react-dom"; 
 import './style/index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
   BrowserRouter,
   Routes,
   Route
 } from "react-router-dom";
+
+import App from './App';
 import Employees from './components/Employees';
 import Parts from './components/Parts';
 import Signup from './components/Signup';
-import HomePage from './components/HomePage';
+import ItemGet from './components/ItemGet';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,9 +21,10 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="home" element={<App />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="get_parts" element={<ItemGet />} />
         <Route path="employees" element={<Employees />} />
         <Route path="parts" element={<Parts />} />
-        <Route path="signup" element={<Signup />} />
 
         <Route
           path="*"
@@ -32,6 +34,7 @@ ReactDOM.render(
             </main>
           }
         />
+        
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

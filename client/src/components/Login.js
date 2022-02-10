@@ -39,11 +39,11 @@ function Login({onLogin}) {
             console.log(employee)
             onLogin(employee);
             setErrorState(null);
-            navigate(`/home`)
             setFormData({
               name: "",
               password: "",
             });
+            navigate(`/home`);
           });
         }
         else {
