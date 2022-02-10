@@ -6,6 +6,15 @@
   text-align: center;
 }
 
+.HomePage {
+  text-align: center;
+}
+
+div.HomePage {
+  column-count: 3;
+  column-rule-style: solid;
+}
+
 .error {
   color: red;
   margin-top: 0px;

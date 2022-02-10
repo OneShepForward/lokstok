@@ -5,20 +5,24 @@ import { Link } from "react-router-dom";
 import logo from "../image/lokstok_cover_photo.png";
 
 
-function Header({ currentEmployee, isAuthenticated }) {
+function Header({ currentEmployee, isAuthenticated, onLogout }) {
 
 if (currentEmployee) { 
 
     return (
     <div className="Header">
       <img src={logo} alt="LokStok Logo"/>
-      <h2 id="header"> Welcome, {currentEmployee.name} </h2>
+      <h2 id="header"> Signed in as {currentEmployee.name} </h2>
       <nav
         style={{
           borderBottom: "solid 1px",
           paddingBottom: "1rem"
         }}
       >
+        <Link 
+          to="/"
+          onClick={() => onLogout()}  
+        >Logout</Link>
       </nav>
     </div>
     );

@@ -1,11 +1,13 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 
 
 
 function Login({onLogin}) {
+
+  let navigate = useNavigate();
  
   const [formData, setFormData] = useState({
     name: "",
@@ -37,6 +39,7 @@ function Login({onLogin}) {
             console.log(employee)
             onLogin(employee);
             setErrorState(null);
+            navigate(`/home`)
             setFormData({
               name: "",
               password: "",

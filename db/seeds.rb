@@ -141,28 +141,39 @@ puts "Seeding clients..."
 puts "Seeding employees..."
 positions = ["plumber", "plumber", "plumber", "plumber", "plumber", "assistant", "manager"]
 
+        my_password = BCrypt::Password.create('123')
+        Employee.create(
+            name: "Kilgore Trout",
+            position: "plumber",
+            admin: true,
+            password_digest: my_password
+        )
+
         20.times do
             # create a game with random data
+            my_password = BCrypt::Password.create('123')
             Employee.create(
                 name: Faker::Name.unique.name,
                 position: positions[rand(positions.length)],
                 admin: false,
-                password_digest: BCrypt::Password.create('123')
+                password_digest: my_password
             )
         end
 
+        my_password = BCrypt::Password.create('123')
         Employee.create(
-                name: "Kilgore Trout",
-                position: "director",
-                admin: true,
-                password_digest: BCrypt::Password.create('123')
+            name: "Billy Pilgrim",
+            position: "director",
+            admin: true,
+            password_digest: my_password
         )
-
+        
+        my_password = BCrypt::Password.create('123')
         Employee.create(
                 name: "I. Teeguy",
                 position: "IT",
                 admin: true,
-                password_digest: BCrypt::Password.create('123')
+                password_digest: my_password
         )
 
 
@@ -170,7 +181,13 @@ puts "Seeding items..."
 
 bins = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 
-        50.times do
+        Item.create(
+            bin: "1",
+            active: true,
+            part_id: 1,
+        )
+        
+        49.times do
             # create an item with random data
             Item.create(
                 ## Arbitrary number of bins: 12
@@ -182,7 +199,7 @@ bins = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
         end
 
 
-puts "Seeding job..."
+puts "Seeding jobs..."
 
         Job.create(
             name: "Fix the leak",
@@ -191,5 +208,32 @@ puts "Seeding job..."
             job_is_active: true
         )
 
+        Job.create(
+            name: "Fix another leak",
+            client_id: 2,
+            employee_id: 1,
+            job_is_active: true
+        )
 
-puts "Data seeded!"
+        Job.create(
+            name: "Blown Main",
+            client_id: 3,
+            employee_id: 1,
+            job_is_active: true
+        )
+
+        Job.create(
+            name: "Clogged sink",
+            client_id: 2,
+            employee_id: 1,
+            job_is_active: true
+        )
+
+        Job.create(
+            name: "Burst pipes",
+            client_id: 1,
+            employee_id: 1,
+            job_is_active: true
+        )
+
+        puts "Data seeded!"

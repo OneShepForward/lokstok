@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Login from "./components/Login";
 import Employees from "./components/Employees";
 import Header from './components/Header';
+import HomePage from './components/HomePage';
 
 
 
@@ -28,8 +29,14 @@ function App() {
     .then(res => {
           if (res.ok) {
             setCurrentEmployee(null)
+            setIsAuthenticated(false)
           }
         })
+  }
+
+  const handleLogin = (employee) => {
+    setCurrentEmployee(employee);
+    setIsAuthenticated(true);
   }
   
   return (
@@ -38,19 +45,34 @@ function App() {
       <Header
         currentEmployee={currentEmployee}
         isAuthenticated={isAuthenticated}
+        onLogout={handleLogout}
       />
 
-      <Login
-        onLogin={setCurrentEmployee}
-      />
-
-      <br /> 
+    { 
+    isAuthenticated ? 
+      (
+        <HomePage
+          currentEmployee={currentEmployee}
+          isAuthenticated={isAuthenticated}
+        />
+      )
+      :
+      (
+      <div className='login-required'>  
+        <Login
+          onLogin={handleLogin}
+        />
+        <br /> 
         <Link to="/signup">Not registered? Click here to create a new user!</Link>
-      <br />  
-      {/* <Link to="/parts">Parts</Link> |{" "}
-      <Link to="/employees">Employees</Link> */}
+        <br /> 
+      </div>   
+      )
+    }
     </div>
   );
 }
 
 export default App;
+
+{/* <Link to="/parts">Parts</Link> |{" "}
+<Link to="/employees">Employees</Link> */}
