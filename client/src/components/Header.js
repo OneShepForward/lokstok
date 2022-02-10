@@ -21,8 +21,21 @@ if (currentEmployee) {
       >
         <Link 
           to="/"
+          // activeClassName="active"
+          // react-dom.development.js:67 Warning: React does not recognize the `activeClassName` prop on a DOM element...
+        >Home</Link>
+        
+        <Link 
+          to="/settings"
+          // activeClassName="active"
+        >Account Settings</Link>
+        
+        <Link 
+          to="/"
           onClick={() => onLogout()}  
         >Logout</Link>
+
+
       </nav>
     </div>
     );

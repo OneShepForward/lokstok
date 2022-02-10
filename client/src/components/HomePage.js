@@ -3,9 +3,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 
-function HomePage() {
+function HomePage({currentEmployee}) {
 
-  
   return (
     <div className="HomePage">
       <div className='column-1'>
@@ -15,7 +14,9 @@ function HomePage() {
         <Button type="submit" variant="contained">Create Job</Button>
       </div>
       <div className='column-3'>
-        <Button type="submit" variant="contained">Get Parts</Button>
+        <Link to="/get_parts"
+          state={{ logged_in: currentEmployee }}
+        >Get Parts</Link>
       </div>
     </div>
   );

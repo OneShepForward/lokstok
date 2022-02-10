@@ -15,6 +15,20 @@ div.HomePage {
   column-rule-style: solid;
 }
 
+.ItemGet {
+  text-align: center;
+}
+
+a {
+  padding: 5%
+}
+
+#item-cart {
+  align-items: center;
+}
+
+
+
 .error {
   color: red;
   margin-top: 0px;
