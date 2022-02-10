@@ -1,11 +1,14 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Header from './Header';
 import logo from "../image/lokstok_cover_photo.png";
 
-// import Pic from "../image/ProfilePicture.png"
+import Button from '@mui/material/Button';
+
 
 function Signup() {
+  const [errorState, setErrorState] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     position: "",
@@ -20,28 +23,9 @@ function Signup() {
         [e.target.name]: e.target.value,
       });
   };
-  // const handleChange = (e) => {
-  //   if (e.target.name === passwordConfirmation) {
-  //     setFormData({
-  //       ...formData,
-  //       password_confirmation: e.target.value,
-  //     });
-  // }
-  //   else {
-  //     setFormData({
-  //       ...formData,
-  //       [e.target.name]: e.target.value,
-  //     });
-  // }
-  // };
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    // const userCreds = { 
-    //   ...formData,
-    //   password_confirmation: passwordConfirmation
-    // };
 
     fetch("/employees", {
       method: "POST",
@@ -54,22 +38,49 @@ function Signup() {
         password: formData.password,
         password_confirmation: formData.passwordConfirmation
       }),
-    })
-      .then((r) => r.json())
-      .then((employee) => {
-        console.log(employee);
+    }).then((r) => {
+      if (r.ok) {
+      r.json().then((employee) => {
+        console.log(employee, "signed up!");
         setFormData({
           name: "",
-          password: "",
           position: "",
+          password: "",
+          passwordConfirmation: "",
+        });
+        setErrorState(null);
+        // navigate to HomePage
+      });
+    } else {
+      r.json().then((errors) => {
+        console.log(errors);
+        setErrorState(errors);
+        setFormData({
+          name: "",
+          position: "",
+          password: "",
           passwordConfirmation: "",
         });
       });
-  }
+    }
+  })
+}
+
+  //     .then((r) => r.json())
+  //     .then((employee) => {
+  //       console.log(employee);
+  //       setFormData({
+  //         name: "",
+  //         password: "",
+  //         position: "",
+  //         passwordConfirmation: "",
+  //       });
+  //     });
+  // }
 
   return (
-    <>
-    <img src={logo} alt="LokStok Logo"/>
+  <div className='Signup'>
+    <Header />
       <h1>Signup Here!</h1>
       <form onSubmit={handleSubmit}>
         {/* <label htmlFor="name">name: </label> */}
@@ -110,13 +121,14 @@ function Signup() {
           value={formData.passwordConfirmation}
           onChange={handleChange}
         />
-        <br />
-        <button type="submit">Submit</button>
+        <br /><br />
+      {errorState ? <p className="error">{errorState.error}</p> : <br />}
+        <Button type="submit" variant="contained">Sign up</Button>
       </form>
       <Link to="/" replace>
         Have an account already? Log in!
       </Link>
-    </>
+    </div>
   );
 };
 

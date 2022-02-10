@@ -1,12 +1,13 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
-import logo from "../image/lokstok_cover_photo.png";
 
-// import Pic from "../image/ProfilePicture.png"
+
 
 function Login({onLogin}) {
+
+  let navigate = useNavigate();
  
   const [formData, setFormData] = useState({
     name: "",
@@ -38,6 +39,7 @@ function Login({onLogin}) {
             console.log(employee)
             onLogin(employee);
             setErrorState(null);
+            navigate(`/home`)
             setFormData({
               name: "",
               password: "",
@@ -54,38 +56,8 @@ function Login({onLogin}) {
     }
 
 
-//   return (
-//     <div className="login">
-      
-//       <form onSubmit={handleSubmit}>
-//         <h2>Login</h2>
-//         <input
-//           type="text"
-//           id="username"
-//           placeholder='Username'
-//           value={username}
-//           onChange={(e) => setUsername(e.target.value)}
-//         />
-//         <br/>
-//         <input
-//           type="password"
-//           id="password"
-//           placeholder='Password'
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//         />
-//         <br/>
-//         {errorState ? <p class="error">{errorState.error}</p> : null}
-//         <br/>
-//         <Button type="submit" variant="contained">Login</Button>
-//       </form>
-//     </div>
-//   );
-// }
-
 return (
-  <>
-    <img src={logo} alt="LokStok Logo"/>
+  <div className='Login'>
     <h1>Login</h1>
     <form onSubmit={handleSubmit}>
       {/* <label htmlFor="name">name: </label> */}
@@ -117,13 +89,11 @@ return (
         value={formData.password}
         onChange={handleChange}
       />
-      <br />
+      <br /><br />
+      {errorState ? <p className="error">{errorState.errors}</p> : <br />}
       <Button type="submit" variant="contained">Login</Button>
     </form>
-    <Link to="/" replace>
-      Have an account already? Log in!
-    </Link>
-  </>
+  </div>
 );
 };
 

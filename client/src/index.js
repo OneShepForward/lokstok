@@ -12,17 +12,26 @@ import {
 import Employees from './components/Employees';
 import Parts from './components/Parts';
 import Signup from './components/Signup';
-import CreateAdmin from './components/CreateAdmin';
+import HomePage from './components/HomePage';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
+        <Route path="home" element={<App />} />
         <Route path="employees" element={<Employees />} />
         <Route path="parts" element={<Parts />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="create_admin" element={<CreateAdmin />} />
+
+        <Route
+          path="*"
+          element={
+            <main style={{ padding: "1rem" }}>
+              <p>There's nothing here!</p>
+            </main>
+          }
+        />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
