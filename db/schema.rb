@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_10_032352) do
+ActiveRecord::Schema.define(version: 2022_02_10_205045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 2022_02_10_032352) do
     t.string "password_digest"
   end
 
+  create_table "item_jobs", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "job_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_item_jobs_on_item_id"
+    t.index ["job_id"], name: "index_item_jobs_on_job_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "bin"
     t.boolean "active"
@@ -40,15 +49,6 @@ ActiveRecord::Schema.define(version: 2022_02_10_032352) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["employee_id"], name: "index_items_on_employee_id"
     t.index ["part_id"], name: "index_items_on_part_id"
-  end
-
-  create_table "items_jobs", id: false, force: :cascade do |t|
-    t.bigint "item_id"
-    t.bigint "job_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["item_id"], name: "index_items_jobs_on_item_id"
-    t.index ["job_id"], name: "index_items_jobs_on_job_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 2022_02_10_032352) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "item_jobs", "items"
+  add_foreign_key "item_jobs", "jobs"
   add_foreign_key "items", "parts"
   add_foreign_key "jobs", "clients"
   add_foreign_key "jobs", "employees"

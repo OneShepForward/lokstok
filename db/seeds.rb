@@ -236,4 +236,31 @@ puts "Seeding jobs..."
             job_is_active: true
         )
 
+        puts "Adding items to jobs..."
+
+        ItemJob.create(
+            job_id: 1,
+            item_id: 1,
+        )
+
+        ItemJob.create(
+            job_id: 1,
+            item_id: 2,
+        )
+
+        ItemJob.create(
+            job_id: 1,
+            item_id: 3,
+        )
+
+        ItemJob.create(
+            job_id: 2,
+            item_id: 4,
+        )
+
+        ItemJob.create(
+            job_id: 2,
+            item_id: 5,
+        )
+
         puts "Data seeded!"

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get "/me", to: "employees#show"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
-  post "/create_an_admin", to: "employees#create_admin"
+  post "/create_item_job", to: "items#create_item_job"
 
   get "*path",
     to: "fallback#index",
