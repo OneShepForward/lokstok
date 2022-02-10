@@ -121,33 +121,54 @@ function ItemGet({}) {
 
   const displayCart = itemCart.map((item) => {
     return (
-    <>
     <li className='cart-item'
         key={item.item_id}
-    >· Item: {item.item_id} 
+    >· Item: {item.item_id}
+    <br/> 
     {/* Add a way to remove item from the cart */}
-    </li>
-    <br/>
-    </>)
+    </li>)
   })
 
+  // we'll work on this some more after I get the db sorted.
   const handleAssignItems = () => {
     console.log("send", itemCart, "to post")
-  }
-
+    itemCart.forEach((itemJob) => {
+      console.log(itemJob)
+      fetch("/create_items_jobs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: itemJob.user_id,
+          job_id: itemJob.job_id
+        }),
+      }).then((r) => {
+        if (r.ok) {
+          r.json().then((item) => {
+            console.log("reached r.ok condition with", item)
+          })
+        } else {
+          console.log("Hit the r.not.ok else")
+        }
+      }
+    )
+  })
+}
   
   
   return (
     <div className="ItemGet">
       <Header currentEmployee={logged_in} />
-      <h2>Add a part to a job</h2>
+      <h1>Add a part to a job</h1>
       <Button
         id="basic-button"
+        variant="outlined"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-      >
+        >
         Select Job
       </Button>
       <Menu
@@ -158,16 +179,17 @@ function ItemGet({}) {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
-      >
+        >
         {jobMenu}
       </Menu>
       {currentJob ? 
         <h3> Job selected: {currentJob.name} </h3> :
-        <h3> Select a job to add parts </h3>}
+        <h3> Select a job to add parts to</h3>}
       <br/>
 
       <Button
         id="basic-button"
+        variant="outlined"
         aria-controls={itemOpen ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={itemOpen ? 'true' : undefined}
@@ -195,7 +217,7 @@ function ItemGet({}) {
 
       {currentItem ? 
         <h3> Part selected: {currentItem.id} </h3> :
-        <h3> Select a Part to add parts </h3>}
+        <h3> Select a Part to add </h3>}
       {currentItem && currentJob ?
         <Button 
         type="submit" 

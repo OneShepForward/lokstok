@@ -1,6 +1,6 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from './Header';
 import logo from "../image/lokstok_cover_photo.png";
 
@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 
 
 function Signup() {
+  let navigate = useNavigate();
   const [errorState, setErrorState] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -23,6 +24,12 @@ function Signup() {
         [e.target.name]: e.target.value,
       });
   };
+
+  // This won't navigate... why?
+  const goHome = () => {
+    console.log("Headed home")
+    navigate(`/home`);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -50,6 +57,7 @@ function Signup() {
         });
         setErrorState(null);
         // navigate to HomePage
+        goHome();
       });
     } else {
       r.json().then((errors) => {
@@ -83,7 +91,6 @@ function Signup() {
     <Header />
       <h1>Signup Here!</h1>
       <form onSubmit={handleSubmit}>
-        {/* <label htmlFor="name">name: </label> */}
         <input
           id="name-signup-input"
           type="text"
@@ -93,7 +100,6 @@ function Signup() {
           onChange={handleChange}
           />
         <br />
-        {/* <label htmlFor="position">Position: </label> */}
         <input
           id="position-signup-input"
           type="text"
@@ -103,7 +109,6 @@ function Signup() {
           onChange={handleChange}
           />
         <br />
-        {/* <label htmlFor="password">Password: </label> */}
         <input
           id="password-signup-input"
           type="password"
@@ -125,7 +130,7 @@ function Signup() {
       {errorState ? <p className="error">{errorState.error}</p> : <br />}
         <Button type="submit" variant="contained">Sign up</Button>
       </form>
-      <Link to="/" replace>
+      <Link to="/home" replace>
         Have an account already? Log in!
       </Link>
     </div>
