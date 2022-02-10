@@ -3,7 +3,7 @@ class CreateEmployees < ActiveRecord::Migration[7.0]
     create_table :employees do |t|
       t.string :name
       t.string :position
-      t.boolean :admin
+      t.boolean :admin, default: false
 
       t.timestamps
     end

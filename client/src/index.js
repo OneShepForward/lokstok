@@ -12,6 +12,7 @@ import {
 import Employees from './components/Employees';
 import Parts from './components/Parts';
 import Signup from './components/Signup';
+import CreateAdmin from './components/CreateAdmin';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,6 +22,7 @@ ReactDOM.render(
         <Route path="employees" element={<Employees />} />
         <Route path="parts" element={<Parts />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="create_admin" element={<CreateAdmin />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
