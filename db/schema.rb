@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_04_181249) do
+ActiveRecord::Schema.define(version: 2022_02_10_032352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,10 +43,12 @@ ActiveRecord::Schema.define(version: 2022_02_04_181249) do
   end
 
   create_table "items_jobs", id: false, force: :cascade do |t|
-    t.bigint "item_id", null: false
-    t.bigint "job_id", null: false
-    t.index ["item_id", "job_id"], name: "index_items_jobs_on_item_id_and_job_id"
-    t.index ["job_id", "item_id"], name: "index_items_jobs_on_job_id_and_item_id"
+    t.bigint "item_id"
+    t.bigint "job_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_items_jobs_on_item_id"
+    t.index ["job_id"], name: "index_items_jobs_on_job_id"
   end
 
   create_table "jobs", force: :cascade do |t|
