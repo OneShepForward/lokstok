@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import Login from "./components/Login";
 import Employees from "./components/Employees";
+import Header from './components/Header';
 
 
-// import Pic from "../image/ProfilePicture.png"
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -34,23 +34,21 @@ function App() {
   
   return (
     <div className="App">
-      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem"
-        }}
-      >
-        <Link to="/parts">Parts</Link> |{" "}
-        <Link to="/employees">Employees</Link>
-      </nav>
-      {currentEmployee ? <h2><i>Welcome, {currentEmployee.name}!</i></h2> : <h2></h2>}
+
+      <Header
+        currentEmployee={currentEmployee}
+        isAuthenticated={isAuthenticated}
+      />
+
       <Login
         onLogin={setCurrentEmployee}
       />
+
       <br /> 
         <Link to="/signup">Not registered? Click here to create a new user!</Link>
       <br />  
-      <Button variant="contained" onClick={handleLogout}>Logout</Button>
+      {/* <Link to="/parts">Parts</Link> |{" "}
+      <Link to="/employees">Employees</Link> */}
     </div>
   );
 }

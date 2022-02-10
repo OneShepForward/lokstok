@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+.Signup {
+  text-align: center;
+}
+
+.error {
+  color: red;
+  margin-top: 0px;
+}
+
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
