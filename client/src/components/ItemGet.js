@@ -2,12 +2,19 @@ import '../style/App.css';
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Header from './Header';
+import Footer from './Footer';
+
+
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
 
 function ItemGet({}) {
   // imports currentEmployee state from HomePage
@@ -40,7 +47,7 @@ function ItemGet({}) {
       });
     }, []);
 
-  // Dropdown Job menu
+      // JOB MENU
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -52,7 +59,14 @@ function ItemGet({}) {
     choice.id ? setJob(choice) : setJob(null)
   };
   
-  // Dropdown Item menu
+    const jobMenu = jobList.map((job) => {
+      return <MenuItem 
+      onClick={() => handleSelectJob(job)}
+      key = {job.id}
+      >Job {job.id}: {job.name}</MenuItem>
+    })
+  
+     // ITEM MENU
   const [anchorItemEl, setAnchorItemEl] = useState(null);
   const itemOpen = Boolean(anchorItemEl);
   const handleItemClick = (event) => {
@@ -63,9 +77,17 @@ function ItemGet({}) {
     // Prevents clicking outside menu from updating state
     choice.id ? setItem(choice) : setItem(null)
   };
+  
+    const itemMenu = itemList.map((item) => {
+      return <MenuItem 
+      onClick={() => handleSelectItem(item)}
+      key = {item.id}
+      >Part {item.id}: {item.name}</MenuItem>
+    })
 
   console.log("Item Cart ", itemCart)
 
+      // ITEM CART
   const handleAddItemToCart = () => {
     let cartArray = [...itemCart]
     setItemCart([
@@ -74,22 +96,46 @@ function ItemGet({}) {
       job_id: currentJob.id}
     ]);
     setItem(null);
-    setJob(null);
+    // setJob(null);
   }
 
-  const jobMenu = jobList.map((job) => {
-    return <MenuItem 
-    onClick={() => handleSelectJob(job)}
-    key = {job.id}
-    >Job {job.id}: {job.name}</MenuItem>
+
+
+
+  // const card = (
+  //   <>
+  //     <CardContent>
+  //       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+  //         Item
+  //       </Typography>
+  //       <Typography variant="h5" component="div">
+  //         Item
+  //       </Typography>
+
+  //     </CardContent>
+  //     <CardActions>
+  //       <Button size="small">Learn More</Button>
+  //     </CardActions>
+  //   </>
+  // );
+
+  const displayCart = itemCart.map((item) => {
+    return (
+    <>
+    <li className='cart-item'
+        key={item.item_id}
+    >· Item: {item.item_id} 
+    {/* Add a way to remove item from the cart */}
+    </li>
+    <br/>
+    </>)
   })
 
-  const itemMenu = itemList.map((item) => {
-    return <MenuItem 
-    onClick={() => handleSelectItem(item)}
-    key = {item.id}
-    >Part {item.id}: {item.name}</MenuItem>
-  })
+  const handleAssignItems = () => {
+    console.log("send", itemCart, "to post")
+  }
+
+  
   
   return (
     <div className="ItemGet">
@@ -159,22 +205,42 @@ function ItemGet({}) {
         <br/> }
 
       {itemCart.length ? 
+        <>
+        <ul id="item-cart"> 
+          {displayCart}
+        </ul> 
+        <br/>
+        <Button 
+        type="submit" 
+        variant="contained"
+        onClick={handleAssignItems}
+        >Assign items to job: {currentJob.name}</Button>        
+        </> :
+        <br/> }
+
+        {/* Need to make cards stay inside of box -- Float? */}
+        
+      {/* {itemCart.length ? 
+        <>
         <Box id="item-cart"
         sx={{
           marginLeft: 50,
           width: 900,
           height: 300,
+          border: 2,
           backgroundColor: 'primary.dark',
           '&:hover': {
             backgroundColor: 'primary.main',
             opacity: [0.9, 0.8, 0.7],
           },
-        }}
-        /> :
-        <br/> }
+        }}> {displayCart}
+        </Box> 
+        <br/>
+        </> :
+        <br/> } */}
 
       
-
+        <Footer />
     </div>
   );
 }

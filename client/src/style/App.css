@@ -27,7 +27,17 @@ a {
   align-items: center;
 }
 
+li.cart-item {
+  display: inline;
+  align-items: center;
+  margin-left: -40px;
+  max-width: 10%;
+  font-size: larger;
+}
 
+.Footer{
+  margin-top: 200px;
+}
 
 .error {
   color: red;
