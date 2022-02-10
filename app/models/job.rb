@@ -1,6 +1,7 @@
 class Job < ApplicationRecord
   belongs_to :client
-  belongs_to :employee
+  belongs_to :employee, optional: true
 
-  has_and_belongs_to_many :items
+  has_many :item_jobs
+  has_many :items, through: :item_jobs
 end

@@ -134,13 +134,13 @@ function ItemGet({}) {
     console.log("send", itemCart, "to post")
     itemCart.forEach((itemJob) => {
       console.log(itemJob)
-      fetch("/create_items_jobs", {
+      fetch("/create_item_job", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: itemJob.user_id,
+          item_id: itemJob.item_id,
           job_id: itemJob.job_id
         }),
       }).then((r) => {

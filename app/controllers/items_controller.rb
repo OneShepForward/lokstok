@@ -38,6 +38,12 @@ class ItemsController < ApplicationController
     @item.destroy
   end
 
+  def create_item_job
+    item = ItemJob.create!(item_id: params["item_id"], job_id: params["job_id"])
+    render json: item, status: :created
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

@@ -37,8 +37,8 @@ function Login({onLogin}) {
         if (r.ok) {
           r.json().then((employee) => {
             console.log(employee)
-            onLogin(employee);
             setErrorState(null);
+            onLogin(employee);
             setFormData({
               name: "",
               password: "",
