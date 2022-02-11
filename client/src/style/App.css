@@ -11,8 +11,30 @@
 }
 
 .hp-columns {
-  column-count: 3;
+  display: grid;
+  /* grid-template-columns: 33.3% 33.3% 33.3%; */
+  grid-template-columns: repeat(3, 1fr);
+
+  /* column-count: 3;
   column-rule-style: solid;
+  column-gap: 1em;
+  height: 20em */
+}
+
+.column-1 {
+  padding: 2em;
+  text-align: center;
+  background-color: beige;
+}
+
+.column-2 {
+  padding: 2em;
+  background-color: bisque;
+}
+
+.column-3 {
+  padding: 2em;
+  background-color: blanchedalmond;
 }
 
 .ItemGet {
