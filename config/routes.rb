@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
   post "/create_item_job", to: "items#create_item_job"
+  get "/active_jobs", to: "jobs#active_jobs"
 
   get "*path",
     to: "fallback#index",

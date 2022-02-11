@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Login from "./components/Login";
 import Employees from "./components/Employees";
 import Header from './components/Header';
+import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 
 
@@ -68,6 +69,7 @@ function App() {
       </div>   
       )
     }
+    <Footer />
     </div>
   );
 }
