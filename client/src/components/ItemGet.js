@@ -28,7 +28,16 @@ function ItemGet({}) {
   const [currentJob, setJob] = useState(null);
 
   const [itemCart, setItemCart] = useState([]);
+
+  const [assignedComplete, setAssignedComplete] = useState(false);
+
+  const [itemsAssigned, setItemsAssigned] = useState([]);
+
+  const [itemsFailed, setItemsFailed] = useState([]);
   
+
+      console.log(itemsAssigned)
+
     useEffect(() => {
       fetch("/jobs").then((res) => {
         if (res.ok) {
@@ -85,13 +94,15 @@ function ItemGet({}) {
       >Part {item.id}: {item.name}</MenuItem>
     })
 
-  console.log("Item Cart ", itemCart)
+  // console.log("Item Cart ", itemCart)
 
       // ITEM CART
   const handleAddItemToCart = () => {
-    let cartArray = [...itemCart]
+    setItemsAssigned([]);
+    setAssignedComplete(false);
+
     setItemCart([
-      ...cartArray,
+      ...itemCart,
       {item_id: currentItem.id,
       job_id: currentJob.id}
     ]);
@@ -99,25 +110,6 @@ function ItemGet({}) {
     // setJob(null);
   }
 
-
-
-
-  // const card = (
-  //   <>
-  //     <CardContent>
-  //       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-  //         Item
-  //       </Typography>
-  //       <Typography variant="h5" component="div">
-  //         Item
-  //       </Typography>
-
-  //     </CardContent>
-  //     <CardActions>
-  //       <Button size="small">Learn More</Button>
-  //     </CardActions>
-  //   </>
-  // );
 
   const displayCart = itemCart.map((item) => {
     return (
@@ -131,9 +123,8 @@ function ItemGet({}) {
 
   // we'll work on this some more after I get the db sorted.
   const handleAssignItems = () => {
-    console.log("send", itemCart, "to post")
+    console.log("send", itemCart, "to post");
     itemCart.forEach((itemJob) => {
-      console.log(itemJob)
       fetch("/create_item_job", {
         method: "POST",
         headers: {
@@ -141,20 +132,51 @@ function ItemGet({}) {
         },
         body: JSON.stringify({
           item_id: itemJob.item_id,
-          job_id: itemJob.job_id
+          job_id: itemJob.job_id,
+          employee_id: logged_in.id
         }),
       }).then((r) => {
         if (r.ok) {
           r.json().then((item) => {
             console.log("reached r.ok condition with", item)
+            // handleSuccessfulItem(item)
+            setItemsAssigned([
+              ...itemsAssigned, 
+              {item_id: item.item_id, 
+                job_id: item.job_id}
+              ]);
+              console.log(itemsAssigned);
           })
         } else {
+          r.json().then((item) => {
           console.log("Hit the r.not.ok else")
+          handleFailedItem(item)
+        })
         }
       }
     )
-  })
+  });
+  setAssignedComplete(true)
+  setItemCart([])
 }
+
+async function handleSuccessfulItem (item) {
+  console.log("Successful item: ", item.item_id, item.job_id)
+  let successArray = [...itemsAssigned, {item_id: item.item_id, job_id: item.job_id}]
+  console.log("success array:" , successArray)
+  setTimeout(() => {setItemsAssigned([...itemsAssigned, {item_id: item.item_id, job_id: item.job_id}])},2000);
+  console.log("items assigned array: ", itemsAssigned)
+  // response ? console.log("items assigned: ", itemsAssigned) : console.log("throw async error");
+
+}
+
+const handleFailedItem = (item) => {
+  console.log("Failed item: ", item)
+}
+
+const displaySuccess = itemsAssigned.map((item) => {
+  return <li key={item.item_id}>{item.item_id}<br/></li>
+})
   
   
   return (
@@ -223,7 +245,7 @@ function ItemGet({}) {
         type="submit" 
         variant="contained"
         onClick={handleAddItemToCart}
-        >Add parts to cart</Button> :
+        >Add part to cart</Button> :
         <br/> }
 
       {itemCart.length ? 
@@ -240,6 +262,10 @@ function ItemGet({}) {
         </> :
         <br/> }
 
+      {assignedComplete ?
+        (<><p>Items</p> <ul>{displaySuccess}</ul> <p>added successfully</p> </>) :
+        <h3>No items assigned yet</h3>
+      }
         {/* Need to make cards stay inside of box -- Float? */}
         
       {/* {itemCart.length ? 

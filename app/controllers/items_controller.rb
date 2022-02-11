@@ -39,8 +39,10 @@ class ItemsController < ApplicationController
   end
 
   def create_item_job
-    item = ItemJob.create!(item_id: params["item_id"], job_id: params["job_id"])
-    render json: item, status: :created
+    item_job = ItemJob.create!(item_id: params["item_id"], job_id: params["job_id"])
+    item = Item.find(params["item_id"])
+    item.update(employee_id: params["employee_id"])
+    render json: item_job, status: :created
 
   end
 

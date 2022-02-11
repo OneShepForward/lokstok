@@ -10,7 +10,7 @@
   text-align: center;
 }
 
-div.HomePage {
+.hp-columns {
   column-count: 3;
   column-rule-style: solid;
 }
