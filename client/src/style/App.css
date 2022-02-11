@@ -12,13 +12,7 @@
 
 .hp-columns {
   display: grid;
-  /* grid-template-columns: 33.3% 33.3% 33.3%; */
   grid-template-columns: repeat(3, 1fr);
-
-  /* column-count: 3;
-  column-rule-style: solid;
-  column-gap: 1em;
-  height: 20em */
 }
 
 .column-1 {
@@ -39,6 +33,10 @@
 
 .ItemGet {
   text-align: center;
+}
+
+.JobForm {
+  text-align: center;  
 }
 
 a {
