@@ -18,11 +18,13 @@ function HomePage({currentEmployee}) {
   }, []);
 
   const renderJobs = activeJobs.map((job => {
-    return (    <div className='active-job'
-                 key={job.id}
-                >· Job: <b>{job.name}</b>
-                <br/> 
-                </div>)
+    return (    
+    <div 
+      className='active-job'
+      key={job.id}
+    > · Job: <b>{job.name}</b>
+    <br/> 
+    </div>)
   }))
 
   console.log(renderJobs)
@@ -35,7 +37,9 @@ function HomePage({currentEmployee}) {
           {activeJobs ? <ul>{renderJobs}</ul> : <p>No jobs assigned.</p>}
         </div>
         <div className='column-2'>
-          <Button type="submit" variant="contained">Create Job</Button>
+          <Link to="/new_job"
+            state={{ logged_in: currentEmployee }}
+          >Create a New Job</Link>
         </div>
         <div className='column-3'>
           <Link to="/get_parts"

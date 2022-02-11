@@ -11,6 +11,7 @@ if (currentEmployee) {
 
     return (
     <div className="Header">
+      <br/>
       <img src={logo} alt="LokStok Logo"/>
       <h2 id="header"> Signed in as {currentEmployee.name} </h2>
       <nav

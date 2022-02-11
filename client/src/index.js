@@ -14,6 +14,8 @@ import Employees from './components/Employees';
 import Parts from './components/Parts';
 import Signup from './components/Signup';
 import ItemGet from './components/ItemGet';
+import JobForm from './components/JobForm';
+import JobPage from './components/JobPage';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,6 +27,8 @@ ReactDOM.render(
         <Route path="get_parts" element={<ItemGet />} />
         <Route path="employees" element={<Employees />} />
         <Route path="parts" element={<Parts />} />
+        <Route path="new_job" element={<JobForm />} />
+        <Route path="job/:id" element={<JobPage />} />
 
         <Route
           path="*"

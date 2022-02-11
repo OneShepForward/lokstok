@@ -2,7 +2,6 @@ import '../style/App.css';
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from './Header';
-import logo from "../image/lokstok_cover_photo.png";
 
 import Button from '@mui/material/Button';
 

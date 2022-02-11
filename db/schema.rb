@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2022_02_10_205045) do
   create_table "jobs", force: :cascade do |t|
     t.string "name"
     t.bigint "client_id", null: false
-    t.bigint "employee_id", null: false
+    t.bigint "employee_id"
     t.boolean "job_is_active"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
