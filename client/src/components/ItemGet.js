@@ -160,23 +160,26 @@ function ItemGet({}) {
   setItemCart([])
 }
 
-async function handleSuccessfulItem (item) {
-  console.log("Successful item: ", item.item_id, item.job_id)
-  let successArray = [...itemsAssigned, {item_id: item.item_id, job_id: item.job_id}]
-  console.log("success array:" , successArray)
-  setTimeout(() => {setItemsAssigned([...itemsAssigned, {item_id: item.item_id, job_id: item.job_id}])},2000);
-  console.log("items assigned array: ", itemsAssigned)
-  // response ? console.log("items assigned: ", itemsAssigned) : console.log("throw async error");
+// Setting the items to an "Items Assigned" success array proved problematic. 
+// I'll check out async or think of another way to tackle this issue later.
 
-}
+// function handleSuccessfulItem (item) {
+//   console.log("Successful item: ", item.item_id, item.job_id)
+//   let successArray = [...itemsAssigned, {item_id: item.item_id, job_id: item.job_id}]
+//   console.log("success array:" , successArray)
+//   setTimeout(() => {setItemsAssigned([...itemsAssigned, {item_id: item.item_id, job_id: item.job_id}])},2000);
+//   console.log("items assigned array: ", itemsAssigned)
+// }
 
 const handleFailedItem = (item) => {
   console.log("Failed item: ", item)
 }
 
-const displaySuccess = itemsAssigned.map((item) => {
-  return <li key={item.item_id}>{item.item_id}<br/></li>
-})
+// const displaySuccess = itemsAssigned.map((item) => {
+//   return <li key={item.item_id}>{item.item_id}<br/></li>
+// })
+
+const displaySuccess = "Assigned successfully"
   
   
   return (
@@ -261,11 +264,19 @@ const displaySuccess = itemsAssigned.map((item) => {
         >Assign items to job: {currentJob.name}</Button>        
         </> :
         <br/> }
-
+{/* 
       {assignedComplete ?
         (<><p>Items</p> <ul>{displaySuccess}</ul> <p>added successfully</p> </>) :
         <h3>No items assigned yet</h3>
+      } */}
+
+      {assignedComplete ?
+        (<><ul>{displaySuccess}</ul> </>) :
+        <h3>No items assigned yet</h3>
       }
+
+
+
         {/* Need to make cards stay inside of box -- Float? */}
         
       {/* {itemCart.length ? 
