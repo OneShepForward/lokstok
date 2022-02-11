@@ -38,6 +38,12 @@ class JobsController < ApplicationController
     @job.destroy
   end
 
+  
+  def active_jobs
+    employee_jobs = Job.all.where("employee_id = ?", current_employee.id)
+    render json: employee_jobs, status: :ok
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_job

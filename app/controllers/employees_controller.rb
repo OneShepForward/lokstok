@@ -24,12 +24,6 @@ class EmployeesController < ApplicationController
     render json: employee, status: :ok
   end
 
-  def create_admin
-    admin = Employee.create!(admin_params)
-    session[:employee_id] = admin.id
-    render json: admin, status: :ok
-  end
-
   # PATCH/PUT /employees/1
   def update
     if @employee.update(employee_params)

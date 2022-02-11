@@ -1,27 +1,38 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 
 function HomePage({currentEmployee}) {
+  const [activeJobs, setActiveJobs] = useState([]);
 
-  // useEffect(() => {
-  //   fetch("/me").then((res) => {
-  //     if (res.ok) {
-  //       res.json().then((employee) => {
-  //         setCurrentEmployee(employee);
-  //         setIsAuthenticated(true);
-  //       });
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    fetch("/active_jobs").then((res) => {
+      if (res.ok) {
+        res.json().then((jobs) => {
+            console.log(jobs);
+            setActiveJobs(jobs);
+        });
+      }
+    });
+  }, []);
 
+  const renderJobs = activeJobs.map((job => {
+    return (    <div className='active-job'
+                 key={job.id}
+                >· Job: <b>{job.name}</b>
+                <br/> 
+                </div>)
+  }))
+
+  console.log(renderJobs)
 
   return (
     <div className="HomePage">
       <div className='hp-columns'>
         <div className='column-1'>
-          <h2>Active Jobs</h2>
+          <h2 style={{marginTop: 0}}>Active Jobs</h2>
+          {activeJobs ? <ul>{renderJobs}</ul> : <p>No jobs assigned.</p>}
         </div>
         <div className='column-2'>
           <Button type="submit" variant="contained">Create Job</Button>
