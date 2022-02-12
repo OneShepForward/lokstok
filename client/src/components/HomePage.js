@@ -17,12 +17,25 @@ function HomePage({currentEmployee}) {
     });
   }, []);
 
+  // const renderJobs = activeJobs.map((job => {
+  //   return (    
+  //   <div 
+  //     className='active-job'
+  //     key={job.id}
+  //   > · Job: <b>{job.name}</b>
+  //   <br/> 
+  //   </div>)
+  // }))
+
   const renderJobs = activeJobs.map((job => {
     return (    
     <div 
       className='active-job'
       key={job.id}
-    > · Job: <b>{job.name}</b>
+    >
+      <Link to={`/jobs/${job.id}`}
+        state={{ logged_in: currentEmployee }}
+      >· Job: <b>{job.name}</b></Link>
     <br/> 
     </div>)
   }))

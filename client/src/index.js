@@ -28,7 +28,7 @@ ReactDOM.render(
         <Route path="employees" element={<Employees />} />
         <Route path="parts" element={<Parts />} />
         <Route path="new_job" element={<JobForm />} />
-        <Route path="job/:id" element={<JobPage />} />
+        <Route path="jobs/:jobId" element={<JobPage />} />
 
         <Route
           path="*"
