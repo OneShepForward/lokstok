@@ -10,26 +10,26 @@
   text-align: center;
 }
 
-.hp-columns {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
+  .hp-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-.column-1 {
-  padding: 2em;
-  text-align: center;
-  background-color: beige;
-}
+  .column-1 {
+    padding: 2em;
+    text-align: center;
+    background-color: beige;
+  }
 
-.column-2 {
-  padding: 2em;
-  background-color: bisque;
-}
+  .column-2 {
+    padding: 2em;
+    background-color: bisque;
+  }
 
-.column-3 {
-  padding: 2em;
-  background-color: blanchedalmond;
-}
+  .column-3 {
+    padding: 2em;
+    background-color: blanchedalmond;
+  }
 
 .ItemGet {
   text-align: center;
@@ -57,6 +57,10 @@ li.cart-item {
 
 .Footer{
   margin-top: 200px;
+}
+
+.JobPage {
+  align-items: center;
 }
 
 .error {
