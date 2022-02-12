@@ -13,11 +13,14 @@ function JobPage() {
   // useParams
   const params = useParams();
 
+  const [currentJob, setCurrentJob] = useState(null)
+
   useEffect(() => {
     fetch(`/jobs/${params.jobId}`).then((res) => {
       if (res.ok) {
-        res.json().then((jobs) => {
-          console(jobs)
+        res.json().then((job) => {
+          console.log(job)
+          setCurrentJob(job)
         });
       }
     });
@@ -29,14 +32,14 @@ function JobPage() {
     //     });
     //   }
     // });
-    
+
   }, []);
 
   
   return (
     <div className="JobPage">
       <Header currentEmployee={logged_in} />
-       <h2>The JobPage</h2>
+       {currentJob ? <h2>Job: {currentJob.name}</h2>: <p>Loading...</p>}
       <Footer />
     </div>
   );
