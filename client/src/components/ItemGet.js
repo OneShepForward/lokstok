@@ -107,7 +107,6 @@ function ItemGet({}) {
       job_id: currentJob.id}
     ]);
     setItem(null);
-    // setJob(null);
   }
 
 
