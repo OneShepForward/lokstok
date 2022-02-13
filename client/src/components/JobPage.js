@@ -14,14 +14,18 @@ function JobPage() {
   const params = useParams();
 
   const [currentJob, setCurrentJob] = useState(null)
+  const [currentItems, setCurrentItems] = useState([])
 
   useEffect(() => {
     fetch(`/jobs/${params.jobId}`).then((res) => {
       if (res.ok) {
         res.json().then((job) => {
-          console.log(job)
-          setCurrentJob(job)
-        });
+          console.log("The job is: ", job);
+          setCurrentJob(job);
+          setCurrentItems(job.items);
+          })
+        
+        
       }
     });
 
@@ -35,25 +39,11 @@ function JobPage() {
 
   }, []);
 
-  const renderItems = currentJob.items.map((item) => {
+  const renderItems = currentItems.map((item) => {
     return <p 
     key = {item.id}
-    >{item.id}</p>
+    >{item.part.description}, price: ${item.part.price}</p>
   })
-
-  // {id: 1, name: 'Fix the leak', job_is_active: true, client: {…}, employee: {…}, …}
-  // client: {id: 1, name: 'Archstone Apartments', phone: '281-555-4156'}
-  // employee: {id: 1, name: 'Kilgore Trout', position: 'plumber', admin: true}
-  // id: 1
-  // items: Array(3)
-  // 0: {id: 1, bin: '1', active: true}
-  // 1: {id: 2, bin: '9', active: true}
-  // 2: {id: 3, bin: '10', active: true}
-  // length: 3
-  // [[Prototype]]: Array(0)
-  // job_is_active: true
-  // name: "Fix the leak"
-  // [[Prototype]]: Object
 
   return (
     <div className="JobPage">
@@ -66,7 +56,7 @@ function JobPage() {
           <h2>Phone Number: {currentJob.client.phone}</h2> 
           <br/>
           <h2>Parts assigned to the job:</h2>
-          <ul>{renderItems}</ul>
+          {currentItems ? <ul>{renderItems}</ul> : <p>Loading...</p>}
 
           
         </div> 
