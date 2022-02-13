@@ -1,3 +1,7 @@
+* {
+  text-align: center;
+}
+
 .App {
   text-align: center;
 }
@@ -18,17 +22,14 @@
   .column-1 {
     padding: 2em;
     text-align: center;
-    background-color: beige;
   }
 
   .column-2 {
     padding: 2em;
-    background-color: bisque;
   }
 
   .column-3 {
     padding: 2em;
-    background-color: blanchedalmond;
   }
 
 .ItemGet {
@@ -60,7 +61,7 @@ li.cart-item {
 }
 
 .JobPage {
-  align-items: center;
+  text-align: center;
 }
 
 .error {
