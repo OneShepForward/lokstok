@@ -10,7 +10,7 @@ class JobsController < ApplicationController
 
   # GET /jobs/1
   def show
-    render json: @job
+    render json: @job, include: ["client", "items", "items.part"]
   end
 
   # POST /jobs
