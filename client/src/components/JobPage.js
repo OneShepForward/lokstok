@@ -23,19 +23,9 @@ function JobPage() {
           console.log("The job is: ", job);
           setCurrentJob(job);
           setCurrentItems(job.items);
-          })
-        
-        
+          })  
       }
     });
-
-    // fetch("/items").then((res) => {
-    //   if (res.ok) {
-    //     res.json().then((items) => {
-    //       setItemList(items)
-    //     });
-    //   }
-    // });
 
   }, []);
 
@@ -62,7 +52,9 @@ function JobPage() {
           <br/>
           <h2>Parts assigned to this job:</h2>
           {currentItems ? 
-            <div className='item-list'> <div>{renderItems}</div> <p><b> Total cost of items: <i>${totalPrice}</i></b></p></div>
+            <div className='item-list'> <div>{renderItems}</div> 
+            <p><b> Total cost of items: <i>${totalPrice}</i></b></p></div>
+            
             : <p>Loading...</p>}          
         </div> 
           : <p>Loading...</p>

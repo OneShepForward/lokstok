@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 
+import { v4 as uuidv4 } from 'uuid';
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -34,9 +35,9 @@ function ItemGet({}) {
   const [itemsAssigned, setItemsAssigned] = useState([]);
 
   const [itemsFailed, setItemsFailed] = useState([]);
+  const [errorItemFailed, setErrorItemFailed] = useState(false);
   
 
-      console.log(itemsAssigned)
 
     useEffect(() => {
       fetch("/jobs").then((res) => {
@@ -100,6 +101,8 @@ function ItemGet({}) {
   const handleAddItemToCart = () => {
     setItemsAssigned([]);
     setAssignedComplete(false);
+    setItemsFailed([]);
+    setErrorItemFailed(false);
 
     setItemCart([
       ...itemCart,
@@ -138,47 +141,56 @@ function ItemGet({}) {
         if (r.ok) {
           r.json().then((item) => {
             console.log("reached r.ok condition with", item)
-            // handleSuccessfulItem(item)
-            setItemsAssigned([
-              ...itemsAssigned, 
-              {item_id: item.item_id, 
-                job_id: item.job_id}
-              ]);
-              console.log(itemsAssigned);
           })
         } else {
           r.json().then((item) => {
-          console.log("Hit the r.not.ok else")
+          console.log("Hit the r.not.ok else", item)
           handleFailedItem(item)
         })
         }
       }
     )
   });
-  setAssignedComplete(true)
-  setItemCart([])
+  handleSuccess()
 }
 
-// Setting the items to an "Items Assigned" success array proved problematic. 
-// I'll check out async or think of another way to tackle this issue later.
+const handleSuccess = () => {
+  fetch(`/jobs/${currentJob.id}`)
+  .then((res) => res.json())
+  .then((job) => {
+        console.log("These items assigned to job: ", job.items);
+        setItemsAssigned(job.items);
+        setAssignedComplete(true);
+        })   
+  }
 
-// function handleSuccessfulItem (item) {
-//   console.log("Successful item: ", item.item_id, item.job_id)
-//   let successArray = [...itemsAssigned, {item_id: item.item_id, job_id: item.job_id}]
-//   console.log("success array:" , successArray)
-//   setTimeout(() => {setItemsAssigned([...itemsAssigned, {item_id: item.item_id, job_id: item.job_id}])},2000);
-//   console.log("items assigned array: ", itemsAssigned)
-// }
-
-const handleFailedItem = (item) => {
-  console.log("Failed item: ", item)
+const handleFailedItem = (error) => {
+  console.log("Failed item: ", error.error);
+  setErrorItemFailed(true);
+  setItemsFailed(error);
+  // setItemsFailed([
+  //   ...itemsFailed,
+  //   error
+  // ])
 }
 
-// const displaySuccess = itemsAssigned.map((item) => {
-//   return <li key={item.item_id}>{item.item_id}<br/></li>
+const displaySuccess = itemsAssigned.map((item) => {
+  return <p key={item.id}>{item.part.description} assigned to {currentJob.name}<br/></p>
+})
+
+// const renderFailedItems = itemsFailed.map((error) => {
+//   // return <p key={uuidv4()} className="error">{error.error}</p>
+//   console.log(error);
 // })
 
-const displaySuccess = "Assigned successfully"
+const renderFailedItems = <p>failure presenet</p>
+
+
+console.log("Assigned items: ", itemsAssigned)
+console.log("errorItemFailed: ", errorItemFailed)
+console.log("itemsFailed: ", itemsFailed)
+
+// const displaySuccess = "Assigned successfully"
   
   
   return (
@@ -273,6 +285,8 @@ const displaySuccess = "Assigned successfully"
         (<><ul>{displaySuccess}</ul> </>) :
         <h3>No items assigned yet</h3>
       }
+
+      {errorItemFailed && (itemsFailed.length > 0) ? {renderFailedItems} : <></>}
 
 
 
