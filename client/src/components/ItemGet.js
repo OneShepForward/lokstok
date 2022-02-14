@@ -39,120 +39,133 @@ function ItemGet({}) {
   
 
 
-    useEffect(() => {
-      fetch("/jobs").then((res) => {
-        if (res.ok) {
-          res.json().then((jobs) => {
-            setJobList(jobs)
-          });
-        }
-      });
-  
-      fetch("/items").then((res) => {
-        if (res.ok) {
-          res.json().then((items) => {
-            setItemList(items)
-          });
-        }
-      });
-    }, []);
-
-      // JOB MENU
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleSelectJob = (choice) => {
-    setAnchorEl(null);
-    // Prevents clicking outside menu from updating state
-    choice.id ? setJob(choice) : setJob(null)
-  };
-  
-    const jobMenu = jobList.map((job) => {
-      return <MenuItem 
-      onClick={() => handleSelectJob(job)}
-      key = {job.id}
-      >Job {job.id}: {job.name}</MenuItem>
-    })
-  
-     // ITEM MENU
-  const [anchorItemEl, setAnchorItemEl] = useState(null);
-  const itemOpen = Boolean(anchorItemEl);
-  const handleItemClick = (event) => {
-    setAnchorItemEl(event.currentTarget);
-  };
-  const handleSelectItem = (choice) => {
-    setAnchorItemEl(null);
-    // Prevents clicking outside menu from updating state
-    choice.id ? setItem(choice) : setItem(null)
-  };
-  
-    const itemMenu = itemList.map((item) => {
-      return <MenuItem 
-      onClick={() => handleSelectItem(item)}
-      key = {item.id}
-      >Part {item.id}: {item.name}</MenuItem>
-    })
-
-  // console.log("Item Cart ", itemCart)
-
-      // ITEM CART
-  const handleAddItemToCart = () => {
-    setItemsAssigned([]);
-    setAssignedComplete(false);
-    setItemsFailed([]);
-    setErrorItemFailed(false);
-
-    setItemCart([
-      ...itemCart,
-      {item_id: currentItem.id,
-      job_id: currentJob.id}
-    ]);
-    setItem(null);
-  }
-
-
-  const displayCart = itemCart.map((item) => {
-    return (
-    <li className='cart-item'
-        key={item.item_id}
-    >· Item: {item.item_id}
-    <br/> 
-    {/* Add a way to remove item from the cart */}
-    </li>)
-  })
-
-  // we'll work on this some more after I get the db sorted.
-  const handleAssignItems = () => {
-    console.log("send", itemCart, "to post");
-    itemCart.forEach((itemJob) => {
-      fetch("/create_item_job", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          item_id: itemJob.item_id,
-          job_id: itemJob.job_id,
-          employee_id: logged_in.id
-        }),
-      }).then((r) => {
-        if (r.ok) {
-          r.json().then((item) => {
-            console.log("reached r.ok condition with", item)
-          })
-        } else {
-          r.json().then((item) => {
-          console.log("Hit the r.not.ok else", item)
-          handleFailedItem(item)
-        })
-        }
+  useEffect(() => {
+    fetch("/jobs").then((res) => {
+      if (res.ok) {
+        res.json().then((jobs) => {
+          setJobList(jobs)
+        });
       }
-    )
-  });
-  handleSuccess()
-}
+    });
+
+    fetch("/items").then((res) => {
+      if (res.ok) {
+        res.json().then((items) => {
+          setItemList(items)
+        });
+      }
+    });
+  }, []);
+
+// -- JOB MENU
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleSelectJob = (choice) => {
+      setAnchorEl(null);
+      // Prevents clicking outside menu from updating state
+      choice.id ? setJob(choice) : setJob(null)
+    };
+    
+      const jobMenu = jobList.map((job) => {
+        return <MenuItem 
+        onClick={() => handleSelectJob(job)}
+        key = {job.id}
+        >Job {job.id}: {job.name}</MenuItem>
+      })
+// --
+    
+
+// -- ITEM MENU
+    const [anchorItemEl, setAnchorItemEl] = useState(null);
+    const itemOpen = Boolean(anchorItemEl);
+    const handleItemClick = (event) => {
+      setAnchorItemEl(event.currentTarget);
+    };
+
+    const setAndFilterItem = (item) => {
+      setItem(item)
+      setItemList([...itemList].filter((i) => i.id !== item.id))
+    }
+
+    const handleSelectItem = (choice) => {
+      setAnchorItemEl(null);
+
+      setItemsAssigned([]);
+      setAssignedComplete(false);
+      setItemsFailed([]);
+      setErrorItemFailed(false);
+
+      // Prevents clicking outside menu from updating state
+      choice.id ? setAndFilterItem(choice) : setItem(null)
+    };
+    
+      const itemMenu = itemList.map((item) => {
+        return <MenuItem 
+        onClick={() => handleSelectItem(item)}
+        key = {item.id}
+        >Item {item.id}: {item.part.description}</MenuItem>
+      })
+// --
+
+
+// -- ITEM CART
+    const handleAddItemToCart = (item, job) => {
+      setItemCart([
+        ...itemCart,
+        {...item,
+        ...job,
+        item_id: item.id,
+        job_id: job.id}
+      ]);
+      setItem(null);
+    }
+    console.log("itemCart: ", itemCart)
+
+    const displayCart = itemCart.map((item) => {
+      return (
+      <p className='cart-item'
+          key={item.item_id}
+      ><b>· Item {item.item_id}:</b> {item.part.description} 
+      <br/> 
+      {/* Add a way to remove item from the cart */}
+      </p>)
+    })
+// --
+
+// -- ASSIGN ITEMS TO JOB
+    const handleAssignItems = () => {
+      console.log("send", itemCart, "to post");
+      itemCart.forEach((itemJob) => {
+        fetch("/create_item_job", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            item_id: itemJob.item_id,
+            job_id: itemJob.job_id,
+            employee_id: logged_in.id
+          }),
+        }).then((r) => {
+          if (r.ok) {
+            r.json().then((item) => {
+              console.log("reached r.ok condition with", item)
+            })
+          } else {
+            r.json().then((item) => {
+            console.log("Hit the r.not.ok else", item)
+            handleFailedItem(item)
+            })
+            }
+          }
+        )
+      });
+      setItemCart([])
+      handleSuccess()
+    }
 
 const handleSuccess = () => {
   fetch(`/jobs/${currentJob.id}`)
@@ -167,7 +180,7 @@ const handleSuccess = () => {
 const handleFailedItem = (error) => {
   console.log("Failed item: ", error.error);
   setErrorItemFailed(true);
-  setItemsFailed(error);
+  setItemsFailed(error.error);
   // setItemsFailed([
   //   ...itemsFailed,
   //   error
@@ -175,23 +188,17 @@ const handleFailedItem = (error) => {
 }
 
 const displaySuccess = itemsAssigned.map((item) => {
-  return <p key={item.id}>{item.part.description} assigned to {currentJob.name}<br/></p>
+  return <p key={item.id}>{item.part.description}<br/></p>
 })
 
-// const renderFailedItems = itemsFailed.map((error) => {
-//   // return <p key={uuidv4()} className="error">{error.error}</p>
-//   console.log(error);
-// })
+const renderFailedItems = itemsFailed.map((error) => {
+  return <p key={uuidv4()} className="error">Error: {error}</p>
+})
 
-const renderFailedItems = <p>failure presenet</p>
+// console.log("Assigned items: ", itemsAssigned)
+// console.log("errorItemFailed: ", errorItemFailed)
+// console.log("itemsFailed: ", itemsFailed)
 
-
-console.log("Assigned items: ", itemsAssigned)
-console.log("errorItemFailed: ", errorItemFailed)
-console.log("itemsFailed: ", itemsFailed)
-
-// const displaySuccess = "Assigned successfully"
-  
   
   return (
     <div className="ItemGet">
@@ -258,11 +265,11 @@ console.log("itemsFailed: ", itemsFailed)
         <Button 
         type="submit" 
         variant="contained"
-        onClick={handleAddItemToCart}
+        onClick={() => handleAddItemToCart(currentItem, currentJob)}
         >Add part to cart</Button> :
         <br/> }
 
-      {itemCart.length ? 
+      {itemCart.length && currentJob ? 
         <>
         <ul id="item-cart"> 
           {displayCart}
@@ -275,18 +282,16 @@ console.log("itemsFailed: ", itemsFailed)
         >Assign items to job: {currentJob.name}</Button>        
         </> :
         <br/> }
-{/* 
-      {assignedComplete ?
-        (<><p>Items</p> <ul>{displaySuccess}</ul> <p>added successfully</p> </>) :
-        <h3>No items assigned yet</h3>
-      } */}
+
 
       {assignedComplete ?
-        (<><ul>{displaySuccess}</ul> </>) :
+        (<div className='assigned-items'> <br/> <b>Items assigned to <u>{currentJob.name}</u></b>: <br/>
+        <div>{displaySuccess}</div> </div>) :
         <h3>No items assigned yet</h3>
       }
 
-      {errorItemFailed && (itemsFailed.length > 0) ? {renderFailedItems} : <></>}
+      <br/>
+      {errorItemFailed ? <div>{renderFailedItems}</div> : <div className='failed-items'></div>}
 
 
 
