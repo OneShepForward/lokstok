@@ -10,7 +10,7 @@ function Footer() {
   
   return (
     <div className="Footer">
-      {/* <h2>The Footer</h2> */}
+      <h2>The Footer</h2>
     </div>
   );
 }

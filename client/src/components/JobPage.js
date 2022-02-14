@@ -39,11 +39,16 @@ function JobPage() {
 
   }, []);
 
+  let prices = []
+
   const renderItems = currentItems.map((item) => {
+    prices.push(item.part.price)
     return <p 
     key = {item.id}
     >{item.part.description}, price: ${item.part.price}</p>
   })
+
+  const totalPrice = prices.reduce((previousValue, currentValue) => previousValue + currentValue, 0).toFixed(2)
 
   return (
     <div className="JobPage">
@@ -53,12 +58,12 @@ function JobPage() {
           <h1> Job details </h1>
           <h2>{currentJob.name}</h2>
           <h2>Client: {currentJob.client.name}</h2> 
-          <h2>Phone Number: {currentJob.client.phone}</h2> 
+          <h3>Phone Number: {currentJob.client.phone}</h3> 
           <br/>
-          <h2>Parts assigned to the job:</h2>
-          {currentItems ? <ul>{renderItems}</ul> : <p>Loading...</p>}
-
-          
+          <h2>Parts assigned to this job:</h2>
+          {currentItems ? 
+            <div className='item-list'> <div>{renderItems}</div> <p><b> Total cost of items: <i>${totalPrice}</i></b></p></div>
+            : <p>Loading...</p>}          
         </div> 
           : <p>Loading...</p>
         }

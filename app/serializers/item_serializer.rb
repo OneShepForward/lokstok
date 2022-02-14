@@ -3,7 +3,4 @@ class ItemSerializer < ActiveModel::Serializer
   has_one :part
   has_one :employee
 
-  def part_info
-    object.part
-  end
 end

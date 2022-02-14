@@ -13,7 +13,7 @@ if (currentEmployee) {
     <div className="Header">
       <br/>
       <img src={logo} alt="LokStok Logo"/>
-      <h2 id="header"> Signed in as {currentEmployee.name} </h2>
+      <h2 id="header"> Signed in as <i>{currentEmployee.name}</i> </h2>
       <nav
         style={{
           borderBottom: "solid 1px",
