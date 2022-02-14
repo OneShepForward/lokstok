@@ -1,3 +1,12 @@
+* {
+  cursor: url('../image/cursor.png'), auto;
+}
+
+.Button {
+  cursor: url('../image/cursor.png'), auto;
+
+}
+
 .App {
   text-align: center;
   color: #1d2424;
@@ -5,6 +14,14 @@
   background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
   /* background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%); */
 }
+
+html, .cursor {
+  cursor: url('../image/cursor.png'), auto;
+  user-select: url('../image/cursor.png'), auto;
+  pointer-events: url('../image/cursor.png'), auto;
+  /* user-select: none; */
+}
+
 
 .JobPage {
   text-align: center;
