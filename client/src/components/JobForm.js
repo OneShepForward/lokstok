@@ -101,6 +101,7 @@ function JobForm() {
           employee_id: null,
           client_id: null,
         });
+        setEmployeeChecked(false)
         setClient(null)
         setErrorState(null);
       });
@@ -188,7 +189,7 @@ function JobForm() {
       </Menu>
       {currentClient ? 
         <h3> Client selected: {currentClient.name} </h3> :
-        <h3> Select a client</h3>}
+        <h3></h3>}
       <br/>
 
         <input
