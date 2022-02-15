@@ -48,6 +48,21 @@ html, .cursor {
   text-align: center;
 }
 
+.imgbox {
+  display: grid;
+  height: 100%;
+}
+
+.center-fit {
+  max-width: 90%;
+  max-height: 90vh;
+  margin: auto
+}
+
+.qr-scanner {
+  text-align: center;
+}
+
   .hp-columns {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -92,6 +107,11 @@ li.cart-item {
 
 .Footer{
   margin-top: 200px;
+}
+
+
+.selection-made {
+  color: #3d6a66
 }
 
 .error {
