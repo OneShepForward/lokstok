@@ -1,5 +1,5 @@
 import '../style/App.css';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
@@ -40,12 +40,18 @@ function ItemGet({}) {
 
   const [showQR, setShowQR] = useState(false);
 
+  const qrScannerRef = useRef(null)
+  const scrollToQrScanner = () => {
+    qrScannerRef.current?.scrollIntoView( { behavior: "smooth" })
+  }
+
 
 // -- QR READER -- //
     const [result, setResult] = useState('No result');
       
     const handleClickQR = () => {
       setShowQR(!showQR)
+      scrollToQrScanner();
     }
 
     function handleScan(data) {
@@ -151,15 +157,31 @@ function ItemGet({}) {
       setItem(null);
     }
     // console.log("itemCart: ", itemCart)
-
+    
+    
+        const handleRemoveFromCart = (e) => {
+          let itemIdToRemove = parseInt(e.target.value)
+          setItemCart(
+            [...itemCart].filter((i) => {
+              return i.item_id !== itemIdToRemove})
+            )
+        }
+    
     const displayCart = itemCart.map((item) => {
       return (
-      <p className='cart-item'
-          key={item.item_id}
-      ><b>· Item {item.item_id}:</b> {item.part.description} 
+        <div 
+        className={item.item_id}
+        key={item.item_id}
+        ><b>· Item {item.item_id}:</b> {item.part.description}
+      <Button 
+        value={item.item_id}
+        type="submit" 
+        variant="default"
+        onClick={handleRemoveFromCart}
+        >❌</Button> 
       <br/> 
       {/* Add a way to remove item from the cart */}
-      </p>)
+      </div>)
     })
 // --
 
@@ -228,69 +250,92 @@ const renderFailedItems = itemsFailed.map((error) => {
 // console.log("itemsFailed: ", itemsFailed)
 
 console.log(currentItem)
+console.log("item cart: ", itemCart)
 
   
   return (
     <div className="ItemGet">
       <Header currentEmployee={logged_in} />
       <h1>Add a part to a job</h1>
+  
+      {currentJob ? 
+        <h3 className='selection-made'> Job selected: {currentJob.name} </h3> :
+        <h3> Select a job to add parts to...</h3>}
+        <Button
+          id="basic-button"
+          variant="outlined"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          >
+          Select Job
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleSelectJob}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+          >
+          {jobMenu}
+        </Menu>
+        <br/>
+        <br/>
+        <br/>
+        {currentItem ? 
+          <h3 className='selection-made'> Part selected: {currentItem.id} </h3> :
+          <h3> Select a Part to add... </h3>}
+
+
       <Button 
         type="submit" 
-        variant="contained"
+        variant="outlined"
         onClick={handleClickQR}
-        >Use QR Scanner</Button><br/>  <br/>
+        >Use QR Scanner</Button>
+      <>&nbsp;&nbsp;&nbsp;&nbsp;</>
+      <Button
+        id="basic-button"
+        variant="outlined"
+        aria-controls={itemOpen ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={itemOpen ? 'true' : undefined}
+        onClick={handleItemClick}
+      >
+        Select Part Manually
+      </Button>
+      <br/><br/>
       
+  {/* QR Scanner displayed when the Use QR Scanner button clicked      */}
       {showQR? 
-      <div className='qr-scanner'>
+      <div 
+        className='qr-scanner'
+        >
       <QrReader
         delay={300}
         onError={(err) => handleError(err)}
         onScan={(data) => handleScan(data)}
         style={{ width: '100%' }}
       />
-      <p>Scan QR Code for part...</p>
-      {currentItem ? <p>{currentItem.part.description} selected</p> : <></>}
+      {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
       </div>
       :
       <></>
       }
 
-      <Button
-        id="basic-button"
-        variant="outlined"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        >
-        Select Job
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleSelectJob}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        >
-        {jobMenu}
-      </Menu>
-      {currentJob ? 
-        <h3> Job selected: {currentJob.name} </h3> :
-        <h3> Select a job to add parts to</h3>}
-      <br/>
 
-
-      {currentItem ? 
-        <h3> Part selected: {currentItem.id} </h3> :
-        <h3> Select a Part to add </h3>}
       {currentItem && currentJob ?
         <Button 
         type="submit" 
         variant="contained"
         onClick={() => handleAddItemToCart(currentItem, currentJob)}
         >Add part to cart</Button> :
+        <br/> }
+
+      {currentItem && !currentJob ?
+        <p className='error'>Select a job to add a part!</p> :
         <br/> }
 
       {itemCart.length && currentJob ? 
@@ -313,7 +358,7 @@ console.log(currentItem)
         <div>{displaySuccess}</div> </div>) :
         <p><i>No items assigned yet...</i></p>
       }
-
+      <div ref={qrScannerRef}></div>
       <br/>
       {errorItemFailed ? <div>{renderFailedItems}</div> : <div className='failed-items'></div>}
 
@@ -340,16 +385,6 @@ console.log(currentItem)
         </> :
       <br/> } */}
 
-      <Button
-        id="basic-button"
-        variant="outlined"
-        aria-controls={itemOpen ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={itemOpen ? 'true' : undefined}
-        onClick={handleItemClick}
-      >
-        Select Part Manually
-      </Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorItemEl}

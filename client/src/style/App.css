@@ -109,6 +109,11 @@ li.cart-item {
   margin-top: 200px;
 }
 
+
+.selection-made {
+  color: #3d6a66
+}
+
 .error {
   color: red;
   font-weight: bold;
