@@ -16,6 +16,7 @@ import Signup from './components/Signup';
 import ItemGet from './components/ItemGet';
 import JobForm from './components/JobForm';
 import JobPage from './components/JobPage';
+import Test from './components/Test';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -29,6 +30,7 @@ ReactDOM.render(
         <Route path="parts" element={<Parts />} />
         <Route path="new_job" element={<JobForm />} />
         <Route path="jobs/:jobId" element={<JobPage />} />
+        <Route path="test" element={<Test />} />
 
         <Route
           path="*"

@@ -12,7 +12,9 @@ if (currentEmployee) {
     return (
     <div className="Header">
       <br/>
-      <img src={logo} alt="LokStok Logo"/>
+      <div className="imgbox">
+        <img src={logo} alt="LokStok Logo" className="center-fit"/>
+      </div>
       <h2 id="header"> Signed in as <i>{currentEmployee.name}</i> </h2>
       <nav
         style={{
@@ -45,7 +47,9 @@ if (currentEmployee) {
 
   return (
     <div className="Header">
-      <img src={logo} alt="LokStok Logo"/>
+      <div className="imgbox">
+        <img src={logo} alt="LokStok Logo" className="center-fit"/>
+      </div>
       <h2 id="header"> Please sign in or register to continue </h2>
       <nav
         style={{

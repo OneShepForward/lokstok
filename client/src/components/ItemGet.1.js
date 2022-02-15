@@ -5,7 +5,6 @@ import Header from './Header';
 import Footer from './Footer';
 
 import { v4 as uuidv4 } from 'uuid';
-import QrReader from 'react-qr-reader'
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -37,33 +36,6 @@ function ItemGet({}) {
 
   const [itemsFailed, setItemsFailed] = useState([]);
   const [errorItemFailed, setErrorItemFailed] = useState(false);
-
-  const [showQR, setShowQR] = useState(false);
-
-
-// -- QR READER -- //
-    const [result, setResult] = useState('No result');
-      
-    const handleClickQR = () => {
-      setShowQR(!showQR)
-    }
-
-    function handleScan(data) {
-      if (data) {
-        setResult(data)
-        fetch(`${data}`).then((res) => {
-          if (res.ok) {
-            res.json().then((items) => {
-              setItem(items)
-            });
-          }
-        });
-      }
-    }
-    function handleError(err) {
-      console.error(err)
-    }
-// -- //
   
 
 
@@ -112,10 +84,15 @@ function ItemGet({}) {
     const handleItemClick = (event) => {
       setAnchorItemEl(event.currentTarget);
     };
-    
+
+    const setAndFilterItem = (item) => {
+      setItem(item)
+      setItemList([...itemList].filter((i) => i.id !== item.id))
+    }
+
     const handleSelectItem = (choice) => {
       setAnchorItemEl(null);
-      
+
       setItemsAssigned([]);
       setAssignedComplete(false);
       setItemsFailed([]);
@@ -124,11 +101,6 @@ function ItemGet({}) {
       // Prevents clicking outside menu from updating state
       choice.id ? setAndFilterItem(choice) : setItem(null)
     };
-
-    const setAndFilterItem = (item) => {
-      setItem(item)
-      setItemList([...itemList].filter((i) => i.id !== item.id))
-    }
     
       const itemMenu = itemList.map((item) => {
         return <MenuItem 
@@ -150,7 +122,7 @@ function ItemGet({}) {
       ]);
       setItem(null);
     }
-    // console.log("itemCart: ", itemCart)
+    console.log("itemCart: ", itemCart)
 
     const displayCart = itemCart.map((item) => {
       return (
@@ -227,34 +199,11 @@ const renderFailedItems = itemsFailed.map((error) => {
 // console.log("errorItemFailed: ", errorItemFailed)
 // console.log("itemsFailed: ", itemsFailed)
 
-console.log(currentItem)
-
   
   return (
     <div className="ItemGet">
       <Header currentEmployee={logged_in} />
       <h1>Add a part to a job</h1>
-      <Button 
-        type="submit" 
-        variant="contained"
-        onClick={handleClickQR}
-        >Use QR Scanner</Button><br/>  <br/>
-      
-      {showQR? 
-      <div className='qr-scanner'>
-      <QrReader
-        delay={300}
-        onError={(err) => handleError(err)}
-        onScan={(data) => handleScan(data)}
-        style={{ width: '100%' }}
-      />
-      <p>Scan QR Code for part...</p>
-      {currentItem ? <p>{currentItem.part.description} selected</p> : <></>}
-      </div>
-      :
-      <></>
-      }
-
       <Button
         id="basic-button"
         variant="outlined"
@@ -281,6 +230,33 @@ console.log(currentItem)
         <h3> Select a job to add parts to</h3>}
       <br/>
 
+      <Button
+        id="basic-button"
+        variant="outlined"
+        aria-controls={itemOpen ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={itemOpen ? 'true' : undefined}
+        onClick={handleItemClick}
+      >
+        Select Item
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorItemEl}
+        open={itemOpen}
+        onClose={handleSelectItem}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        PaperProps={{
+          style: {
+            maxHeight: '20ch',
+            width: '50ch',
+          },
+        }}
+      >
+        {itemMenu}
+      </Menu>
 
       {currentItem ? 
         <h3> Part selected: {currentItem.id} </h3> :
@@ -303,7 +279,7 @@ console.log(currentItem)
         type="submit" 
         variant="contained"
         onClick={handleAssignItems}
-        >Assign items to job: {currentJob.name}</Button>              
+        >Assign items to job: {currentJob.name}</Button>        
         </> :
         <br/> }
 
@@ -311,7 +287,7 @@ console.log(currentItem)
       {assignedComplete ?
         (<div className='assigned-items'> <br/> <b>Items assigned to <u>{currentJob.name}</u></b>: <br/>
         <div>{displaySuccess}</div> </div>) :
-        <p><i>No items assigned yet...</i></p>
+        <h3>No items assigned yet</h3>
       }
 
       <br/>
@@ -338,35 +314,8 @@ console.log(currentItem)
         </Box> 
         <br/>
         </> :
-      <br/> } */}
+        <br/> } */}
 
-      <Button
-        id="basic-button"
-        variant="outlined"
-        aria-controls={itemOpen ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={itemOpen ? 'true' : undefined}
-        onClick={handleItemClick}
-      >
-        Select Part Manually
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorItemEl}
-        open={itemOpen}
-        onClose={handleSelectItem}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        PaperProps={{
-          style: {
-            maxHeight: '20ch',
-            width: '50ch',
-          },
-        }}
-      >
-        {itemMenu}
-      </Menu>
       
         <Footer />
     </div>
