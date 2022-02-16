@@ -1,9 +1,10 @@
-![lokstok_cover_photo_cropped](https://user-images.githubusercontent.com/81888562/152437156-1e0956ea-2f6d-4127-83f5-2d30a42375af.png)
+![lokstok_cover_photo_360x820_C9D1B6](https://user-images.githubusercontent.com/81888562/154273177-fe2b9ac6-3774-4924-88fa-984286622a64.png)
 
 README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+
+
+This README would normally document whatever steps are necessary to get theapplication up and running.
 
 Things you may want to cover:
 
