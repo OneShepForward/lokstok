@@ -63,6 +63,14 @@ html, .cursor {
   color: #1d2424;
 }
 
+nav {
+  width: 100%;
+}
+
+.active-job {
+  padding: 1em
+}
+
 .imgbox {
   display: grid;
   height: 100%;
@@ -122,11 +130,11 @@ html, .cursor {
 }
 
 .grid-holder {
-  background-image: linear-gradient(315deg, #ffffff 0%, #d0c3bd 74%);
+  background-image: linear-gradient(315deg, #ffffff 0%, #d0c3bd 100%);
 }
 
-a {
-  padding: 5%
+.Header a {
+  padding: 3%
 }
 
 #item-cart {

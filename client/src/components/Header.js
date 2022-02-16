@@ -32,13 +32,13 @@ if (currentEmployee) {
           to="/inventory"
           state={{logged_in: currentEmployee}}
           // activeClassName="active"
-        >View Inventory</Link>
+        >Inventory</Link>
         
         <Link 
           to="/create_item"
           state={{logged_in: currentEmployee}}
           // activeClassName="active"
-        >Add Shipment</Link>
+        >Shipments</Link>
         
         {/* <Link 
           to="/settings"

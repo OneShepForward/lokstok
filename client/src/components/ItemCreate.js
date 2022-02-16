@@ -7,7 +7,8 @@ import ItemSticker from './ItemSticker';
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import MenuItem from '@mui/material/MenuItem'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import { CSVDownload } from "react-csv";
 
@@ -253,7 +254,7 @@ const checkDownload = (data) => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
         >
-        Select a Part
+        Select a Part<ArrowDropDownIcon/>
       </Button>
       <Menu
         id="basic-menu"
@@ -281,7 +282,7 @@ const checkDownload = (data) => {
         aria-expanded={quantityOpen ? 'true' : undefined}
         onClick={handleQuantityClick}
       >
-        Select Quantity
+        Select Quantity<ArrowDropDownIcon/>
       </Button>
       <Menu
         id="basic-menu"
@@ -314,7 +315,7 @@ const checkDownload = (data) => {
         aria-expanded={binOpen ? 'true' : undefined}
         onClick={handleBinClick}
       >
-        Select Bin
+        Select Bin<ArrowDropDownIcon/>
       </Button>
       <Menu
         id="basic-menu"

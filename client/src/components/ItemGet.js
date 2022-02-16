@@ -8,8 +8,10 @@ import { v4 as uuidv4 } from 'uuid';
 import QrReader from 'react-qr-reader'
 
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Card from '@mui/material/Card';
@@ -269,7 +271,7 @@ console.log("item cart: ", itemCart)
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
           >
-          Select Job
+          Select Job<ArrowDropDownIcon/>
         </Button>
         <Menu
           id="basic-menu"
@@ -304,7 +306,7 @@ console.log("item cart: ", itemCart)
         aria-expanded={itemOpen ? 'true' : undefined}
         onClick={handleItemClick}
       >
-        Select Part Manually
+        Select Part Manually<ArrowDropDownIcon/>
       </Button>
       <br/><br/>
       
