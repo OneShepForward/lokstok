@@ -13,10 +13,10 @@ import App from './App';
 import Employees from './components/Employees';
 import Parts from './components/Parts';
 import Signup from './components/Signup';
+import ItemCreate from './components/ItemCreate';
 import ItemGet from './components/ItemGet';
 import JobForm from './components/JobForm';
 import JobPage from './components/JobPage';
-import Test from './components/Test';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,12 +25,12 @@ ReactDOM.render(
         <Route path="/" element={<App />} />
         <Route path="home" element={<App />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="create_item" element={<ItemCreate />} />
         <Route path="get_parts" element={<ItemGet />} />
         <Route path="employees" element={<Employees />} />
         <Route path="parts" element={<Parts />} />
         <Route path="new_job" element={<JobForm />} />
         <Route path="jobs/:jobId" element={<JobPage />} />
-        <Route path="test" element={<Test />} />
 
         <Route
           path="*"

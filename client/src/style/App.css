@@ -37,6 +37,13 @@ html, .cursor {
   background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
 }
 
+.ItemCreate {
+  text-align: center;
+  color: #1d2424;
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
+}
+
 .ItemGet {
   text-align: center;
   color: #1d2424;
@@ -62,6 +69,23 @@ html, .cursor {
 
 .qr-scanner {
   text-align: center;
+}
+
+.sticker-container {
+  text-align: center;
+  border: grey solid 1px;
+  padding: 0.5rem;
+  width: 15rem;
+  height: 20rem;
+  display: inline-grid;
+  margin: 1rem 1rem;
+}
+
+.sticker-container div {
+  margin-top: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 90%
 }
 
   .hp-columns {
