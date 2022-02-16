@@ -8,12 +8,13 @@ import logo from "../image/lokstok_cover_photo.png";
 
 function ItemSticker({ item }) {
  
+const app_url = "lokstok.herokuapp.com"
 
   return (
     <div className="ItemSticker">
-      <div className="sticker-container">
+      <div className="sticker-container" id={`sticker-${item.id}`}>
         <div className='qr-code'>
-          <QRCode value={`lokstok.herokuapp.com/items/${item.id}`} />
+          <QRCode value={`${app_url}/items/${item.id}`} />
         </div>
         <div className='text'>
           <p>Item #: {item.id}</p>

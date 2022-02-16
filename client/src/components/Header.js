@@ -29,6 +29,12 @@ if (currentEmployee) {
         >Home</Link>
         
         <Link 
+          to="/inventory"
+          state={{logged_in: currentEmployee}}
+          // activeClassName="active"
+        >View Inventory</Link>
+        
+        <Link 
           to="/create_item"
           state={{logged_in: currentEmployee}}
           // activeClassName="active"

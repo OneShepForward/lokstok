@@ -9,8 +9,8 @@ function Footer() {
 
   
   return (
-    <div className="Footer">
-      <h2>The Footer</h2>
+    <div className="Footer" >
+      <h2 style={{marginBottom: 0}}>The Footer</h2>
     </div>
   );
 }
