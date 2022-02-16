@@ -52,9 +52,9 @@ function ItemInventory() {
   })
 
   const columns: GridColDef[] = [
-    { field: 'col1', headerName: 'Item ID', width: 150, flex: 0.3 },
+    { field: 'col1', headerName: 'Item ID', width: 150, flex: 0.3, hide: true },
     { field: 'col2', headerName: 'Description', width: 150, flex: 1 },
-    { field: 'col3', headerName: 'Manufacturer', width: 150, flex: 0.5},
+    { field: 'col3', headerName: 'Manufacturer', width: 150, flex: 0.5, hide: true},
     { field: 'col4', headerName: 'Part Number', width: 150, flex: 0.5 },
     { field: 'col5', headerName: 'Price', width: 150, flex: 0.5 },
     { field: 'col6', headerName: 'Bin', width: 150, flex: 0.5 },
@@ -70,7 +70,11 @@ if (isRendered) {
             rows={rows} 
             columns={columns} 
             disableSelectionOnClick
-            sx={{ borderRight: 0, borderTop: 0, borderBottom: 0}}
+            sx={{ 
+              borderRight: 0, 
+              borderTop: 0, 
+              borderBottom: 0,
+            }}
             />
         </div>
       </div>

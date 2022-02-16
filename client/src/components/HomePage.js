@@ -35,8 +35,7 @@ function HomePage({currentEmployee}) {
     >
       <Link to={`/jobs/${job.id}`}
         state={{ logged_in: currentEmployee }}
-      >· Job: <b>{job.name}</b></Link>
-    <br/> 
+      >·<b>{job.name}</b></Link>
     </div>)
   }))
 
@@ -46,19 +45,43 @@ function HomePage({currentEmployee}) {
     <div className="HomePage">
       <div className='hp-columns'>
         <div className='column-1'>
-          <h2 style={{marginTop: 0}}>Active Jobs</h2>
-          {activeJobs ? <ul>{renderJobs}</ul> : <p>No jobs assigned.</p>}
+          <h2 style={{ marginTop: 0 }}>Active Jobs</h2>
+          {activeJobs ? <div>{renderJobs}</div> : <p>No jobs assigned.</p>}
         </div>
         <div className='column-2'>
-          <Link to="/new_job"
+          <Button 
+            component={Link}
+            variant="outlined"
+            to="/new_job"
             state={{ logged_in: currentEmployee }}
-          >Create a New Job</Link>
-        </div>
-        <div className='column-3'>
-          <Link to="/get_parts"
+            style={{ 
+              width: "7em",
+              maxWidth: "100%",
+              fontSize: "x-large",
+              fontWeight: "bold",
+              lineHeight: "1",
+              marginBottom: "1em"
+          }}
+          >Create Job</Button>
+          <br/>          
+          <Button 
+            component={Link}
+            variant="outlined"
+            to="/get_parts"
             state={{ logged_in: currentEmployee }}
-          >Get Parts</Link>
+            style={{ 
+              width: "7em",
+              maxWidth: "100%",
+              fontSize: "x-large",
+              fontWeight: "bold",
+              lineHeight: "1",
+              marginBottom: "1em"
+          }}
+          >Get Parts</Button>
         </div>
+        {/* <div className='column-3'>
+
+        </div> */}
       </div>
     </div>
   );
