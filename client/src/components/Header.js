@@ -29,10 +29,17 @@ if (currentEmployee) {
         >Home</Link>
         
         <Link 
+          to="/create_item"
+          state={{logged_in: currentEmployee}}
+          // activeClassName="active"
+        >Add Shipment</Link>
+        
+        {/* <Link 
           to="/settings"
           // activeClassName="active"
         >Account Settings</Link>
-        
+         */}
+
         <Link 
           to="/"
           onClick={() => onLogout()}  

@@ -37,6 +37,13 @@ html, .cursor {
   background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
 }
 
+.ItemCreate {
+  text-align: center;
+  color: #1d2424;
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
+}
+
 .ItemGet {
   text-align: center;
   color: #1d2424;
