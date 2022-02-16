@@ -51,7 +51,14 @@ html, .cursor {
   background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
 }
 
-.Footer, .Header, .HomePage, .ItemGet, .JobForm, .JobPage, .Signup {
+.ItemInventory {
+  text-align: center;
+  color: #1d2424;
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
+}
+
+.Footer, .Header, .HomePage, .ItemGet, .JobForm, .JobPage, .Signup, .ItemInventory {
   text-align: center;
   color: #1d2424;
 }
@@ -112,6 +119,10 @@ html, .cursor {
 
 .JobForm {
   text-align: center;  
+}
+
+.grid-holder {
+  background-image: linear-gradient(315deg, #ffffff 0%, #d0c3bd 74%);
 }
 
 a {
