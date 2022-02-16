@@ -22,32 +22,35 @@ function ItemGet({}) {
   // imports currentEmployee state from HomePage
   const location = useLocation();
   const { logged_in } = location.state;
-
-  const [itemList, setItemList] = useState([]);
-  const [currentItem, setItem] = useState(null);
-
+  // list of jobs and items
   const [jobList, setJobList] = useState([]);
+  const [itemList, setItemList] = useState([]);
+  // selected job and selected item
   const [currentJob, setJob] = useState(null);
-
+  const [currentItem, setItem] = useState(null);
+  // Item cart
   const [itemCart, setItemCart] = useState([]);
-
+  // state when assignment has been completed
   const [assignedComplete, setAssignedComplete] = useState(false);
-
+  // items that have been assigned to a job
   const [itemsAssigned, setItemsAssigned] = useState([]);
-
-  const [itemsFailed, setItemsFailed] = useState([]);
+  // state if items have failed and which ones
   const [errorItemFailed, setErrorItemFailed] = useState(false);
-
+  const [errorList, setErrors] = useState([]);
+  // state whether scanner is displayed
   const [showQR, setShowQR] = useState(false);
+  // the QR scanner stores what it scans as result
+  const [result, setResult] = useState('No result');
 
+  
+  
+  // -- QR READER -- //
+  // This portion scrolls the view window down when scanner selected
   const qrScannerRef = useRef(null)
   const scrollToQrScanner = () => {
     qrScannerRef.current?.scrollIntoView( { behavior: "smooth" })
   }
 
-
-// -- QR READER -- //
-    const [result, setResult] = useState('No result');
       
     const handleClickQR = () => {
       setShowQR(!showQR)
@@ -72,7 +75,7 @@ function ItemGet({}) {
 // -- //
   
 
-
+// -- FETCH
   useEffect(() => {
     fetch("/jobs").then((res) => {
       if (res.ok) {
@@ -90,8 +93,9 @@ function ItemGet({}) {
       }
     });
   }, []);
+// -- //
 
-// -- JOB MENU
+// -- DROPDOWN JOB MENU
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -112,7 +116,7 @@ function ItemGet({}) {
 // --
     
 
-// -- ITEM MENU
+// -- DROPDOWN ITEM MENU
     const [anchorItemEl, setAnchorItemEl] = useState(null);
     const itemOpen = Boolean(anchorItemEl);
     const handleItemClick = (event) => {
@@ -124,7 +128,7 @@ function ItemGet({}) {
       
       setItemsAssigned([]);
       setAssignedComplete(false);
-      setItemsFailed([]);
+      setErrors([]);
       setErrorItemFailed(false);
 
       // Prevents clicking outside menu from updating state
@@ -230,24 +234,20 @@ const handleSuccess = () => {
 const handleFailedItem = (error) => {
   console.log("Failed item: ", error.error);
   setErrorItemFailed(true);
-  setItemsFailed(error.error);
-  // setItemsFailed([
-  //   ...itemsFailed,
-  //   error
-  // ])
+  setErrors(error.error);
 }
 
 const displaySuccess = itemsAssigned.map((item) => {
   return <p key={item.id}>{item.part.description}<br/></p>
 })
 
-const renderFailedItems = itemsFailed.map((error) => {
+const renderFailedItems = errorList.map((error) => {
   return <p key={uuidv4()} className="error">Error: {error}</p>
 })
 
 // console.log("Assigned items: ", itemsAssigned)
 // console.log("errorItemFailed: ", errorItemFailed)
-// console.log("itemsFailed: ", itemsFailed)
+// console.log("errorList: ", errorList)
 
 console.log(currentItem)
 console.log("item cart: ", itemCart)

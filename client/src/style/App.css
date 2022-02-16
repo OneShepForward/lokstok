@@ -46,6 +46,7 @@ html, .cursor {
 
 .Footer, .Header, .HomePage, .ItemGet, .JobForm, .JobPage, .Signup {
   text-align: center;
+  color: #1d2424;
 }
 
 .imgbox {
