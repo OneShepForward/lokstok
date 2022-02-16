@@ -23,18 +23,18 @@ function ItemInventory() {
 
   }, []);
 
-  const renderItems = currentItems.map((item) => {
-    prices.push(item.part.price)
-    return <p 
-    key = {item.id}
-    >{item.part.description}, price: ${item.part.price}</p>
-  })
+  // const renderItems = currentItems.map((item) => {
+  //   prices.push(item.part.price)
+  //   return <p 
+  //   key = {item.id}
+  //   >{item.part.description}, price: ${item.part.price}</p>
+  // })
 
 
   return (
     <div className="ItemInventory">
       <Header currentEmployee={logged_in} />
-       {currentJob ? 
+       {/* {currentJob ? 
         <div className="job-details">
           <h1> Job details </h1>
           <h2>{currentJob.name}</h2>
@@ -49,7 +49,7 @@ function ItemInventory() {
             : <p>Loading...</p>}          
         </div> 
           : <p>Loading...</p>
-        }
+        } */}
       <Footer />
     </div>
   );

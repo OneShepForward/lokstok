@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import { CSVDownload } from "react-csv";
+
 
 
 function ItemCreate({  }) {
@@ -30,6 +32,8 @@ function ItemCreate({  }) {
   const [currentBin, setBin] = useState(null);
 
   const [itemsCreated, setItemsCreated] = useState([]);
+
+  const [download, setDownload] = useState(false);
 
   const [formData, setFormData] = useState({
     quantity: "",
@@ -204,8 +208,37 @@ const renderSticker = itemsCreated.map((item) => {
   />
 })
 
+const app_url = "lokstok.herokuapp.com"
 
+const [csvData, setCsvData] = useState([
+  ["url", "item_id", "part_id", "part_description"]
+])
 
+const handleDownload = () => {
+  let innerCSV = csvData 
+  let data = []
+  itemsCreated.map((item) => {
+    data = [`${app_url}/items/${item.id}`, `${item.id}`, `${item.part.id}`, `${item.part.description}`]
+    innerCSV.push(data)
+  })
+  console.log(innerCSV)
+  setCsvData(innerCSV)
+  checkDownload(innerCSV);
+}
+
+let i = 0
+const checkDownload = (data) => {
+  if (data.length > 1 && data.length > itemsCreated.length) {
+    console.log("data.length: ", data.length, i)
+    setDownload(true)
+  } else if (i > 20) {
+    console.error("Download failed")
+  } else {
+    ++i
+    checkDownload(data);
+  }
+
+}
   return (
     <div className="ItemCreate">
       <Header currentEmployee={logged_in}/>
@@ -309,7 +342,14 @@ const renderSticker = itemsCreated.map((item) => {
 
       {/* If items have been created, generate stickers with QR Code */}
       {itemsCreated.length > 0 ? 
-        <div className='render-sticker'>{renderSticker}</div> :
+        <div className='render-sticker'>
+          {renderSticker}
+          <Button 
+            type="submit" 
+            variant="contained"
+            onClick={handleDownload}
+            >Export to CSV</Button>
+        </div> :
         // <p>itemsCreated is true</p>:
         <>{currentBin && currentQuantity && currentPart ? 
           <Button 
@@ -319,6 +359,8 @@ const renderSticker = itemsCreated.map((item) => {
             >Add Shipment</Button> :
         <p><i>Select part, quantity, and bin to add shipment...</i></p>}
         </>}
+
+        {download ? <CSVDownload data={csvData} target="_blank" /> : <></>}
         
       
       <Footer />
