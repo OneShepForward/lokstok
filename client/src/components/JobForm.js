@@ -69,15 +69,6 @@ function JobForm() {
     }
 }
 
-  // This won't navigate... why?
-  const goHome = () => {
-    console.log("Headed home")
-    navigate(`/home`);
-  }
-
-
-  console.log(formData)
-
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -188,7 +179,7 @@ function JobForm() {
         {clientMenu}
       </Menu>
       {currentClient ? 
-        <h3> Client selected: {currentClient.name} </h3> :
+        <h3 className='selection-made'> Client selected: {currentClient.name} </h3> :
         <h3></h3>}
       <br/>
 
