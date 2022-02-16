@@ -11,8 +11,7 @@
   text-align: center;
   color: #1d2424;
   background-color: #ffffff;
-  background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
-  /* background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%); */
+  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
 
 html, .cursor {
@@ -27,35 +26,35 @@ html, .cursor {
   text-align: center;
   color: #1d2424;
   background-color: #ffffff;
-  background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
+  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
 
 .JobForm {
   text-align: center;
   color: #1d2424;
   background-color: #ffffff;
-  background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
+  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
 
 .ItemCreate {
   text-align: center;
   color: #1d2424;
   background-color: #ffffff;
-  background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
+  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
 
 .ItemGet {
   text-align: center;
   color: #1d2424;
   background-color: #ffffff;
-  background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
+  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
 
 .ItemInventory {
   text-align: center;
   color: #1d2424;
   background-color: #ffffff;
-  background-image: linear-gradient(315deg, #ffffff 0%, #dcdcdd 74%);
+  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
 
 .Footer, .Header, .HomePage, .ItemGet, .JobForm, .JobPage, .Signup, .ItemInventory {
@@ -105,7 +104,7 @@ nav {
 
   .hp-columns {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 50% 50%;
   }
 
   .column-1 {
@@ -115,11 +114,12 @@ nav {
 
   .column-2 {
     padding: 2em;
+    align-items: center;
   }
 
-  .column-3 {
+  /* .column-3 {
     padding: 2em;
-  }
+  } */
 
 .ItemGet {
   text-align: center;
@@ -134,7 +134,8 @@ nav {
 }
 
 .Header a {
-  padding: 3%
+  margin: 2em;
+  width: 10em
 }
 
 #item-cart {
