@@ -11,7 +11,7 @@ function ItemSticker({ item }) {
 
   return (
     <div className="ItemSticker">
-      <div className="sticker-container">
+      <div className="sticker-container" id={`sticker-${item.id}`}>
         <div className='qr-code'>
           <QRCode value={`lokstok.herokuapp.com/items/${item.id}`} />
         </div>

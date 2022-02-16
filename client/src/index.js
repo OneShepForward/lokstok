@@ -15,6 +15,7 @@ import Parts from './components/Parts';
 import Signup from './components/Signup';
 import ItemCreate from './components/ItemCreate';
 import ItemGet from './components/ItemGet';
+import ItemInventory from './components/ItemInventory';
 import JobForm from './components/JobForm';
 import JobPage from './components/JobPage';
 
@@ -27,6 +28,7 @@ ReactDOM.render(
         <Route path="signup" element={<Signup />} />
         <Route path="create_item" element={<ItemCreate />} />
         <Route path="get_parts" element={<ItemGet />} />
+        <Route path="inventory" element={<ItemInventory />} />
         <Route path="employees" element={<Employees />} />
         <Route path="parts" element={<Parts />} />
         <Route path="new_job" element={<JobForm />} />
