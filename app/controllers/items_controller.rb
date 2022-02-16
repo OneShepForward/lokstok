@@ -43,7 +43,15 @@ class ItemsController < ApplicationController
     item = Item.find(params["item_id"])
     item.update(employee_id: params["employee_id"])
     render json: item_job, status: :created
+  end
 
+  def add_shipment
+    quantity = params["quantity"]
+    items = []
+    quantity.times do 
+      items << Item.create!(shipment_params)
+    end
+    render json: items, status: :created
   end
 
   private
@@ -55,5 +63,9 @@ class ItemsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def item_params
       params.require(:item).permit(:bin, :active, :part_id, :employee_id)
+    end
+
+    def shipment_params
+      params.permit(:bin, :active, :part_id)
     end
 end

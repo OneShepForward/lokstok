@@ -71,6 +71,23 @@ html, .cursor {
   text-align: center;
 }
 
+.sticker-container {
+  text-align: center;
+  border: grey solid 1px;
+  padding: 0.5rem;
+  width: 15rem;
+  height: 20rem;
+  display: inline-grid;
+  margin: 1rem 1rem;
+}
+
+.sticker-container div {
+  margin-top: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 90%
+}
+
   .hp-columns {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

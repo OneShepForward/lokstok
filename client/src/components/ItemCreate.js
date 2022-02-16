@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
+import ItemSticker from './ItemSticker';
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import QRCode from 'qrcode.react';
 
 
 function ItemCreate({  }) {
@@ -28,6 +28,8 @@ function ItemCreate({  }) {
 
   const binList = [1,2,3,4,5,6,7,8,9,10,11,12]
   const [currentBin, setBin] = useState(null);
+
+  const [itemsCreated, setItemsCreated] = useState([]);
 
   const [formData, setFormData] = useState({
     quantity: "",
@@ -56,7 +58,7 @@ function ItemCreate({  }) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    fetch("/jobs", {
+    fetch("/add_shipment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,18 +67,21 @@ function ItemCreate({  }) {
         quantity: formData.quantity,
         bin: formData.bin,
         part_id: formData.part_id,
-        job_is_active: true,
+        active: true,
       }),
     }).then((r) => {
       if (r.ok) {
-      r.json().then((job) => {
-        console.log("job created: ", job);
+      r.json().then((items) => {
+        console.log("items created: ", items);
+        setItemsCreated(items)
         setFormData({
-          quantity: 0,
-          bin: null,
+          quantity: "",
+          bin: "",
           part_id: null,
         });
         setPart(null)
+        setBin("")
+        setQuantity("")
         setErrorState(null);
       });
     } else {
@@ -84,13 +89,20 @@ function ItemCreate({  }) {
         console.log(errors);
         setErrorState(errors);
         setFormData({
-          quantity: 0,
-          bin: null,
+          quantity: "",
+          bin: "",
           part_id: null,
         });
+        setPart(null)
+        setBin("")
+        setQuantity("")
       });
     }
   })
+}
+
+if (itemsCreated) {
+  console.log("Items created: " , itemsCreated)
 }
 
 // -- PART MENU
@@ -184,7 +196,15 @@ const handleBinChange = (bin) => {
   })
 // --
 
-console.log(formData)
+const renderSticker = itemsCreated.map((item) => {
+  console.log("item: ", item)
+  return <ItemSticker
+    key={item.id}
+    item={item}
+  />
+})
+
+
 
   return (
     <div className="ItemCreate">
@@ -283,24 +303,24 @@ console.log(formData)
       {currentBin ? 
         <h3 className='selection-made'> Bin selected: {currentBin}</h3> :
         <h3></h3>}
-{/*       
-        <label>Quantity: </label>
-        <input
-        id="quantity-itemform-input"
-        type="text"
-        placeholder='Quantity...'
-        name="quantity"
-        value={formData.quantity}
-        onChange={handleChange}
-        />
-        <br />
-      <br /> */}
 
-              
+      {/* If error is present, display error               */}
       {errorState ? <p className="error">{errorState.error}</p> : <br />}
+
+      {/* If items have been created, generate stickers with QR Code */}
+      {itemsCreated.length > 0 ? 
+        <div className='render-sticker'>{renderSticker}</div> :
+        // <p>itemsCreated is true</p>:
+        <>{currentBin && currentQuantity && currentPart ? 
+          <Button 
+            type="submit" 
+            variant="contained"
+            onClick={handleSubmit}
+            >Add Shipment</Button> :
+        <p><i>Select part, quantity, and bin to add shipment...</i></p>}
+        </>}
         
-      {currentBin && currentQuantity && currentPart ? <Button type="submit" variant="contained">Add Shipment</Button> :
-      <p><i>Select part, quantity, and bin to add shipment...</i></p>}
+      
       <Footer />
     </div>
   );
