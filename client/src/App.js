@@ -42,34 +42,39 @@ function App() {
   
   return (
     <div className="App">
+      <div id="main">
+        <div id="top-to-footer">
+          <Header
+            currentEmployee={currentEmployee}
+            isAuthenticated={isAuthenticated}
+            onLogout={handleLogout}
+          />
 
-      <Header
-        currentEmployee={currentEmployee}
-        isAuthenticated={isAuthenticated}
-        onLogout={handleLogout}
-      />
-
-    { 
-    isAuthenticated ? 
-      (
-        <HomePage
-          currentEmployee={currentEmployee}
-          isAuthenticated={isAuthenticated}
-        />
-      )
-      :
-      (
-      <div className='login-required'>  
-        <Login
-          onLogin={handleLogin}
-        />
-        <br /> 
-        <Link to="/signup">Not registered? Click here to create a new user!</Link>
-        <br /> 
-      </div>   
-      )
-    }
-    <Footer />
+          { 
+          isAuthenticated ? 
+            (
+              <HomePage
+                currentEmployee={currentEmployee}
+                isAuthenticated={isAuthenticated}
+              />
+            )
+            :
+            (
+            <div className='login-required'>  
+              <Login
+                onLogin={handleLogin}
+              />
+              <br /> 
+              <Link to="/signup">Not registered? Click here to create a new user!</Link>
+              <br /> 
+            </div>   
+            )
+            }
+        </div>
+        <div id="the-footer"  >
+           <Footer />
+        </div>
+      </div>
     </div>
   );
 }

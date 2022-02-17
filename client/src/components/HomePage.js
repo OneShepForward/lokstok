@@ -33,9 +33,15 @@ function HomePage({currentEmployee}) {
       className='active-job'
       key={job.id}
     >
-      <Link to={`/jobs/${job.id}`}
+      <Button 
+        component={Link}
+        variant="outlined"
+        style={{
+          lineHeight: "1",
+        }}
+        to={`/jobs/${job.id}`}
         state={{ logged_in: currentEmployee }}
-      >·<b>{job.name}</b></Link>
+      >·<b>{job.name}</b></Button>
     </div>)
   }))
 
@@ -45,10 +51,11 @@ function HomePage({currentEmployee}) {
     <div className="HomePage">
       <div className='hp-columns'>
         <div className='column-1'>
-          <h2 style={{ marginTop: 0 }}>Active Jobs</h2>
+          <h2 style={{ marginTop: 0 }}><u>Active Jobs</u></h2>
           {activeJobs ? <div>{renderJobs}</div> : <p>No jobs assigned.</p>}
         </div>
         <div className='column-2'>
+        <h2 style={{ marginTop: 0 }}><u>Job Ops</u></h2>
           <Button 
             component={Link}
             variant="outlined"
@@ -59,6 +66,7 @@ function HomePage({currentEmployee}) {
               maxWidth: "100%",
               fontSize: "x-large",
               fontWeight: "bold",
+              fontStyle: "italic",
               lineHeight: "1",
               marginBottom: "1em"
           }}
@@ -74,14 +82,12 @@ function HomePage({currentEmployee}) {
               maxWidth: "100%",
               fontSize: "x-large",
               fontWeight: "bold",
+              fontStyle: "italic",
               lineHeight: "1",
               marginBottom: "1em"
           }}
           >Get Parts</Button>
         </div>
-        {/* <div className='column-3'>
-
-        </div> */}
       </div>
     </div>
   );
