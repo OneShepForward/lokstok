@@ -12,7 +12,7 @@ function Footer() {
 
   
   return (
-    <div className="Footer" >
+    <div className="Footer" id="the-footer" >
       <div className='footer-icons' style={{borderTop: "solid 1px", borderColor: "#1d2424" }}>
         <p><i><b>Created by Nick Shephard</b></i></p>
         <a href='https://github.com/OneShepForward/'><img className='icon' alt='icon' src={github} /></a>

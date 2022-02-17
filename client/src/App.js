@@ -71,7 +71,7 @@ function App() {
             )
             }
         </div>
-        <div id="the-footer"  >
+        <div >
            <Footer />
         </div>
       </div>

@@ -63,29 +63,33 @@ function ItemInventory() {
 if (isRendered) {
   return (
     <div className="ItemInventory">
-      <Header currentEmployee={logged_in} />
-      <div style-={{ display: 'flex', height: '100%' }}>
-        <div className='grid-holder' style={{ flexGrow: 1, height: 400, width: '85%', marginTop: 25, marginLeft: "auto", marginRight: "auto", borderRadius: "25px", borderStyle: "hidden" }}>
-          <DataGrid 
-            rows={rows} 
-            columns={columns} 
-            disableSelectionOnClick
-            sx={{ 
-              borderRight: 0, 
-              borderTop: 0, 
-              borderBottom: 0,
-            }}
-            />
+      <div id="top-to-footer">
+        <Header currentEmployee={logged_in} />
+        <div style-={{ display: 'flex', height: '100%' }}>
+          <div className='grid-holder' style={{ flexGrow: 1, height: 400, width: '85%', marginTop: 25, marginLeft: "auto", marginRight: "auto", borderRadius: "25px", borderStyle: "hidden" }}>
+            <DataGrid 
+              rows={rows} 
+              columns={columns} 
+              disableSelectionOnClick
+              sx={{ 
+                borderRight: 0, 
+                borderTop: 0, 
+                borderBottom: 0,
+              }}
+              />
+          </div>
         </div>
       </div>
-      <Footer />
+        <Footer />
     </div>
   );
   } else {
     return (
       <div className="ItemInventory">
+        <div id="top-to-footer">
         <Header currentEmployee={logged_in} />
           <p>Loading...</p>
+        </div>
         <Footer />
       </div>
     );

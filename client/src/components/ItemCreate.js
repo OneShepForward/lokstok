@@ -242,128 +242,129 @@ const checkDownload = (data) => {
 }
   return (
     <div className="ItemCreate">
-      <Header currentEmployee={logged_in}/>
-      <h2>Add Items to Inventory</h2>
+      <div id="top-to-footer">
+        <Header currentEmployee={logged_in}/>
+        <h2>Add Items to Inventory</h2>
 
-      {/* Parts dropdown menu */}
-      <Button
-        id="basic-button"
-        variant="outlined"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
+        {/* Parts dropdown menu */}
+        <Button
+          id="basic-button"
+          variant="outlined"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          >
+          Select a Part<ArrowDropDownIcon/>
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleSelectPart}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+          >
+          {partMenu}
+        </Menu>
+        {currentPart ? 
+          <h3 className='selection-made'> Part selected: {currentPart.description},<>&nbsp;</> 
+          {currentPart.manufacturer} </h3> :
+          <h3></h3>}
+        <br/>
+
+        <Button
+          id="basic-button"
+          variant="outlined"
+          name="quantity"
+          aria-controls={quantityOpen ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={quantityOpen ? 'true' : undefined}
+          onClick={handleQuantityClick}
         >
-        Select a Part<ArrowDropDownIcon/>
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleSelectPart}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
+          Select Quantity<ArrowDropDownIcon/>
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorQuantityEl}
+          open={quantityOpen}
+          onClose={handleSelectQuantity}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+          PaperProps={{
+            style: {
+              maxHeight: '20ch',
+              width: '50ch',
+            },
+          }}
         >
-        {partMenu}
-      </Menu>
-      {currentPart ? 
-        <h3 className='selection-made'> Part selected: {currentPart.description},<>&nbsp;</> 
-        {currentPart.manufacturer} </h3> :
-        <h3></h3>}
-      <br/>
+          {quantityMenu}
+        </Menu>
+        {currentQuantity ? 
+          <h3 className='selection-made'> Quantity selected: {currentQuantity}</h3> :
+          <h3></h3>}
+        <br/>
 
-      <Button
-        id="basic-button"
-        variant="outlined"
-        name="quantity"
-        aria-controls={quantityOpen ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={quantityOpen ? 'true' : undefined}
-        onClick={handleQuantityClick}
-      >
-        Select Quantity<ArrowDropDownIcon/>
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorQuantityEl}
-        open={quantityOpen}
-        onClose={handleSelectQuantity}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        PaperProps={{
-          style: {
-            maxHeight: '20ch',
-            width: '50ch',
-          },
-        }}
-      >
-        {quantityMenu}
-      </Menu>
-      {currentQuantity ? 
-        <h3 className='selection-made'> Quantity selected: {currentQuantity}</h3> :
-        <h3></h3>}
-      <br/>
+        <Button
+          id="basic-button"
+          variant="outlined"
+          name="bin"
+          aria-controls={binOpen ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={binOpen ? 'true' : undefined}
+          onClick={handleBinClick}
+        >
+          Select Bin<ArrowDropDownIcon/>
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorBinEl}
+          open={binOpen}
+          onClose={handleSelectBin}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+          PaperProps={{
+            style: {
+              maxHeight: '20ch',
+              width: '50ch',
+            },
+          }}
+        >
+          {binMenu}
+        </Menu>
+        {currentBin ? 
+          <h3 className='selection-made'> Bin selected: {currentBin}</h3> :
+          <h3></h3>}
 
-      <Button
-        id="basic-button"
-        variant="outlined"
-        name="bin"
-        aria-controls={binOpen ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={binOpen ? 'true' : undefined}
-        onClick={handleBinClick}
-      >
-        Select Bin<ArrowDropDownIcon/>
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorBinEl}
-        open={binOpen}
-        onClose={handleSelectBin}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        PaperProps={{
-          style: {
-            maxHeight: '20ch',
-            width: '50ch',
-          },
-        }}
-      >
-        {binMenu}
-      </Menu>
-      {currentBin ? 
-        <h3 className='selection-made'> Bin selected: {currentBin}</h3> :
-        <h3></h3>}
+        {/* If error is present, display error               */}
+        {errorState ? <p className="error">{errorState.error}</p> : <br />}
 
-      {/* If error is present, display error               */}
-      {errorState ? <p className="error">{errorState.error}</p> : <br />}
+        {/* If items have been created, generate stickers with QR Code */}
+        {itemsCreated.length > 0 ? 
+          <div className='render-sticker'>
+            {renderSticker}
+            <Button 
+              type="submit" 
+              variant="contained"
+              onClick={handleDownload}
+              >Export to CSV</Button>
+          </div> :
+          // <p>itemsCreated is true</p>:
+          <>{currentBin && currentQuantity && currentPart ? 
+            <Button 
+              type="submit" 
+              variant="contained"
+              onClick={handleSubmit}
+              >Add Shipment</Button> :
+          <p><i>Select part, quantity, and bin to add shipment...</i></p>}
+          </>}
 
-      {/* If items have been created, generate stickers with QR Code */}
-      {itemsCreated.length > 0 ? 
-        <div className='render-sticker'>
-          {renderSticker}
-          <Button 
-            type="submit" 
-            variant="contained"
-            onClick={handleDownload}
-            >Export to CSV</Button>
-        </div> :
-        // <p>itemsCreated is true</p>:
-        <>{currentBin && currentQuantity && currentPart ? 
-          <Button 
-            type="submit" 
-            variant="contained"
-            onClick={handleSubmit}
-            >Add Shipment</Button> :
-        <p><i>Select part, quantity, and bin to add shipment...</i></p>}
-        </>}
-
-        {download ? <CSVDownload data={csvData} target="_blank" /> : <></>}
-        
-      
+          {download ? <CSVDownload data={csvData} target="_blank" /> : <></>}
+          
+      </div>  
       <Footer />
     </div>
   );
