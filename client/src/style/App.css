@@ -32,7 +32,7 @@ a:hover {
 
 #top-to-footer {
   height: 90vh;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 #the-footer {
