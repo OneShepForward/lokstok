@@ -2,6 +2,7 @@ import '../style/App.css';
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from './Header';
+import Footer from './Footer';
 
 import Button from '@mui/material/Button';
 
@@ -87,51 +88,55 @@ function Signup() {
 
   return (
   <div className='Signup'>
-    <Header />
-      <h1>Signup Here!</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          id="name-signup-input"
-          type="text"
-          placeholder='Username...'
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
+    <div id="top-to-footer">
+      <Header />
+        <h1>Signup Here!</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            id="name-signup-input"
+            type="text"
+            placeholder='Username...'
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            />
+          <br />
+          <input
+            id="position-signup-input"
+            type="text"
+            placeholder='Position...'
+            name="position"
+            value={formData.position}
+            onChange={handleChange}
+            />
+          <br />
+          <input
+            id="password-signup-input"
+            type="password"
+            placeholder='Password...'
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
           />
-        <br />
-        <input
-          id="position-signup-input"
-          type="text"
-          placeholder='Position...'
-          name="position"
-          value={formData.position}
-          onChange={handleChange}
+          <br />
+          <input
+            id="password-confirmation-signup-input"
+            type="password"
+            placeholder='Confirm Password...'
+            name="passwordConfirmation"
+            value={formData.passwordConfirmation}
+            onChange={handleChange}
           />
-        <br />
-        <input
-          id="password-signup-input"
-          type="password"
-          placeholder='Password...'
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <br />
-        <input
-          id="password-confirmation-signup-input"
-          type="password"
-          placeholder='Confirm Password...'
-          name="passwordConfirmation"
-          value={formData.passwordConfirmation}
-          onChange={handleChange}
-        />
-        <br /><br />
-      {errorState ? <p className="error">{errorState.error}</p> : <br />}
-        <Button type="submit" variant="contained">Sign up</Button>
-      </form>
-      <Link to="/home" replace>
-        Have an account already? Log in!
-      </Link>
+          <br />
+        {errorState ? <p className="error">{errorState.error}</p> : <br />}
+          <Button type="submit" variant="contained">Sign up</Button>
+        </form>
+        <br/>
+        <Link to="/home" replace>
+          Have an account already? Log in!
+        </Link>
+      </div>
+        <Footer />
     </div>
   );
 };

@@ -26,6 +26,14 @@ a:hover {
   min-height: 100%
 }
 
+.Signup {
+  text-align: center;
+  color: #1d2424;
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
+  min-height: 100%
+}
+
 .Header {
   min-height: 20vh;
 }
@@ -35,11 +43,17 @@ a:hover {
   overflow-y: scroll;
 }
 
+#banner {
+  background-color: #d0c3bd;
+  border-top: 1px solid;
+}
+
 #the-footer {
   overflow: hidden;
   background-color: #d0c3bd;
   height: 15vh;
-  /* margin-bottom: 100vh; */
+  border-top: 1px solid;
+  padding-top: 0.5em;
 }
 
 .Footer p {
@@ -112,6 +126,7 @@ nav {
 .imgbox {
   display: grid;
   height: 100%;
+  margin-bottom: 0.5em;
 }
 
 .center-fit {

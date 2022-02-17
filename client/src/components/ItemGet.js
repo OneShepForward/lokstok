@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
 import QrReader from 'react-qr-reader'
 
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
