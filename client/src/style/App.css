@@ -161,7 +161,7 @@ li.cart-item {
 }
 
 .error {
-  color: red;
+  color: firebrick;
   font-weight: bold;
   margin-top: 0px;
 }
