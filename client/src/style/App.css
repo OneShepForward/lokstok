@@ -31,19 +31,21 @@ a:hover {
 }
 
 #top-to-footer {
-  height: 90vh;
+  height: 85vh;
   overflow-y: scroll;
 }
 
 #the-footer {
   overflow: hidden;
   background-color: #d0c3bd;
-  height: 10vh;
+  height: 15vh;
   /* margin-bottom: 100vh; */
 }
 
 .Footer p {
   margin-top: 1%;
+  font-style: italic;
+  font-size: large;
 }
 
 .Footer a {

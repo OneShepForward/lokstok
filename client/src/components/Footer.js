@@ -14,11 +14,10 @@ function Footer() {
   return (
     <div className="Footer" id="the-footer" >
       <div className='footer-icons' style={{borderTop: "solid 1px", borderColor: "#1d2424" }}>
-        <p><i><b>Created by Nick Shephard</b></i></p>
         <a href='https://github.com/OneShepForward/'><img className='icon' alt='icon' src={github} /></a>
         <a href='https://www.linkedin.com/in/shephardn/'><img className='icon' alt='icon' style={{height: "2em", width: "2em"}} src={linkedin} /></a>
         <a href='https://medium.com/@oneshepforward'><img className='icon' alt='icon' style={{height: "2em", width: "2em"}} src={medium} /></a>
-        {/* <div  style={{marginBottom: "300px"}}></div> */}
+        <p>Created by Nick Shephard</p>
       </div>
     </div>
   );
