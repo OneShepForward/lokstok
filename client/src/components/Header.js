@@ -21,7 +21,8 @@ if (currentEmployee) {
       <nav
         style={{
           borderBottom: "solid 1px",
-          paddingBottom: "1rem"
+          paddingBottom: "1rem",
+          borderColor: "#1d2424"
         }}
       >
         <Button 
@@ -29,12 +30,13 @@ if (currentEmployee) {
           variant= "outlined"
           style={({ isActive }) => {
             return {
-              fontWeight: isActive ? "bold" : "",
+              fontWeight: "bold",
+              // fontWeight: isActive ? "bold" : "",
               color: isActive ? "#3d6a66" : "",
               backgroundImage: isActive ? "linear-gradient(315deg, #ffffff 0%, #d0c3bd 100%)" : ""
             };
           }}
-          to="/"
+          to="/home"
           // activeClassName="active"
           // react-dom.development.js:67 Warning: React does not recognize the `activeClassName` prop on a DOM element...
         >Home</Button>
@@ -46,7 +48,8 @@ if (currentEmployee) {
           state={{logged_in: currentEmployee}}
           style={({ isActive }) => {
             return {
-              fontWeight: isActive ? "bold" : "",
+              fontWeight: "bold",
+              // fontWeight: isActive ? "bold" : "",
               color: isActive ? "#3d6a66" : "",
               // backgroundColor: isActive ? "#d0c3bd" : ""
               backgroundImage: isActive ? "linear-gradient(315deg, #ffffff 0%, #d0c3bd 100%)" : ""
@@ -62,7 +65,8 @@ if (currentEmployee) {
           state={{logged_in: currentEmployee}}
           style={({ isActive }) => {
             return {
-              fontWeight: isActive ? "bold" : "",
+              fontWeight: "bold",
+              // fontWeight: isActive ? "bold" : "",
               color: isActive ? "#3d6a66" : "",
               backgroundImage: isActive ? "linear-gradient(315deg, #ffffff 0%, #d0c3bd 100%)" : ""
             };
@@ -79,6 +83,7 @@ if (currentEmployee) {
         <Button 
           component={NavLink}
           variant="outlined"
+          style={{fontWeight: "bold"}}
           to="/"
           onClick={() => onLogout()}  
         >Logout</Button>
