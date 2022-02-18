@@ -52,7 +52,7 @@ function HomePage({currentEmployee}) {
       <div className='hp-columns'>
         <div className='column-1'>
           <h2 style={{ marginTop: 0 }}><u>Active Jobs</u></h2>
-          {activeJobs ? <div>{renderJobs}</div> : <p>No jobs assigned.</p>}
+          {activeJobs.length > 0 ? <div>{renderJobs}</div> : <p>No jobs assigned.</p>}
         </div>
         <div className='column-2'>
         <h2 style={{ marginTop: 0 }}><u>Job Ops</u></h2>
