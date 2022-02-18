@@ -1,6 +1,6 @@
 import '../style/App.css';
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 
@@ -11,15 +11,17 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+
+// I plan to use these components to make ItemCards instead of a list of items
+// import Box from '@mui/material/Box';
+// import TextField from '@mui/material/TextField';
+// import Card from '@mui/material/Card';
+// import CardActions from '@mui/material/CardActions';
+// import CardContent from '@mui/material/CardContent';
+// import Typography from '@mui/material/Typography';
 
 
-function ItemGet({}) {
+function ItemGet() {
   // imports currentEmployee state from HomePage
   const location = useLocation();
   const { logged_in } = location.state;
@@ -41,7 +43,6 @@ function ItemGet({}) {
   // state whether scanner is displayed
   const [showQR, setShowQR] = useState(false);
   // the QR scanner stores what it scans as result
-  const [result, setResult] = useState('No result');
 const [data, setData] = useState('No result');
   
 
@@ -58,26 +59,8 @@ const [data, setData] = useState('No result');
       scrollToQrScanner();
     }
 
-    // function handleScan(data) {
-    //   if (data) {
-    //     setResult(data)
-    //     fetch(`${data}`).then((res) => {
-    //       if (res.ok) {
-    //         res.json().then((items) => {
-    //           setItem(items)
-    //         });
-    //       }
-    //     });
-    //   }
-    // }
-    // function handleError(err) {
-    //   console.error(err)
-    // }
-
     function handleScan(code) {
       if (code) {
-        // setResult(code)
-        // fetch(`/lokstok.herokuapp.com/items/3`).then((res) => {
         fetch(`${code}`).then((res) => {
           if (res.ok) {
             res.json().then((items) => {
@@ -92,9 +75,6 @@ const [data, setData] = useState('No result');
       }
     }
 
-    function handleError(err) {
-      console.error(err)
-    }
 // -- //
   
 
@@ -274,6 +254,7 @@ const renderFailedItems = errorList.map((error) => {
 
 console.log(currentItem)
 console.log("item cart: ", itemCart)
+console.log("QR Reading: ", data)
 
   
   return (
@@ -338,7 +319,7 @@ console.log("item cart: ", itemCart)
           className='qr-scanner'
           >
         <QrReader
-          facingMode="environment"
+          capture="environment"
           onResult={(result, error) => {
             if (!!result) {
               setData(result?.text);
@@ -351,7 +332,6 @@ console.log("item cart: ", itemCart)
           }}
           style={{ width: '100%' }}
         />
-        <p>{data}</p>
         {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
         </div>
         :

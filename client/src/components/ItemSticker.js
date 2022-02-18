@@ -1,6 +1,4 @@
 import '../style/App.css';
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import QRCode from 'qrcode.react';
 
@@ -8,13 +6,16 @@ import logo from "../image/lokstok_cover_photo.png";
 
 function ItemSticker({ item }) {
  
-const app_url = "lokstok.herokuapp.com"
+// const app_url = "lokstok.herokuapp.com"
 
   return (
     <div className="ItemSticker">
       <div className="sticker-container" id={`sticker-${item.id}`}>
         <div className='qr-code'>
-          <QRCode value={`${app_url}/items/${item.id}`} />
+          <QRCode value={`items/${item.id}`} />
+          {/* This is the code I was using to generate the QR code until I hit a 
+          proxy issue. */}
+          {/* <QRCode value={`${app_url}/items/${item.id}`} /> */}
         </div>
         <div className='text'>
           <p>Item #: {item.id}</p>

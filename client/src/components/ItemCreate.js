@@ -1,6 +1,6 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 import ItemSticker from './ItemSticker';
@@ -14,12 +14,11 @@ import { CSVDownload } from "react-csv";
 
 
 
-function ItemCreate({  }) {
+function ItemCreate() {
   
   // imports currentEmployee state from Header
   let location = useLocation();
   const { logged_in } = location.state; 
-  let navigate = useNavigate();
 
   const [partList, setPartList] = useState([]);
   const [currentPart, setPart] = useState(null);
@@ -271,7 +270,7 @@ const checkDownload = (data) => {
         {currentPart ? 
           <h3 className='selection-made'> Part selected: {currentPart.description},<>&nbsp;</> 
           {currentPart.manufacturer} </h3> :
-          <h3></h3>}
+          <p></p>}
 
         <Button
           id="basic-button"
@@ -303,7 +302,7 @@ const checkDownload = (data) => {
         </Menu>
         {currentQuantity ? 
           <h3 className='selection-made'> Quantity selected: {currentQuantity}</h3> :
-          <h3></h3>}
+          <p></p>}
 
         <Button
           id="basic-button"
@@ -335,7 +334,7 @@ const checkDownload = (data) => {
         </Menu>
         {currentBin ? 
           <h3 className='selection-made'> Bin selected: {currentBin}</h3> :
-          <h3></h3>}
+          <p></p>}
 
         {/* If error is present, display error               */}
         {errorState ? <p className="error">{errorState.error}</p> : <br />}

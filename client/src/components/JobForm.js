@@ -1,6 +1,6 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 
@@ -13,7 +13,6 @@ import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 function JobForm() {
   // imports currentEmployee state from HomePage
   let location = useLocation();
-  let navigate = useNavigate();
   const { logged_in } = location.state; 
 
   const [clientList, setClientList] = useState([]);
@@ -187,7 +186,7 @@ function JobForm() {
         </Menu>
         {currentClient ? 
           <h3 className='selection-made'> Client selected: {currentClient.name} </h3> :
-          <h3></h3>}
+          <p></p>}
         <br/>
 
           <input

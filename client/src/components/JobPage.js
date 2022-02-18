@@ -1,6 +1,6 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 
