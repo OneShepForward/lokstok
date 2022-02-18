@@ -208,7 +208,9 @@ const renderSticker = itemsCreated.map((item) => {
   />
 })
 
-const app_url = "lokstok.herokuapp.com"
+// I was using this for my url below until I ran into a proxy issue.
+// const app_url = "lokstok.herokuapp.com"
+// data = [`${app_url}/items/${item.id}`, `${item.id}`, `${item.part.id}`, `${item.part.description}`]
 
 const [csvData, setCsvData] = useState([
   ["url", "item_id", "part_id", "part_description"]
@@ -218,7 +220,7 @@ const handleDownload = () => {
   let innerCSV = csvData 
   let data = []
   itemsCreated.map((item) => {
-    data = [`${app_url}/items/${item.id}`, `${item.id}`, `${item.part.id}`, `${item.part.description}`]
+    data = [`/items/${item.id}`, `${item.id}`, `${item.part.id}`, `${item.part.description}`]
     innerCSV.push(data)
   })
   console.log(innerCSV)
