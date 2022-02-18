@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 import { v4 as uuidv4 } from 'uuid';
-import QrReader from 'react-qr-reader'
+import { QrReader } from 'react-qr-reader';
 
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -42,9 +42,9 @@ function ItemGet({}) {
   const [showQR, setShowQR] = useState(false);
   // the QR scanner stores what it scans as result
   const [result, setResult] = useState('No result');
+const [data, setData] = useState('No result');
+  
 
-  
-  
   // -- QR READER -- //
   // This portion scrolls the view window down when scanner selected
   const qrScannerRef = useRef(null)
@@ -58,18 +58,40 @@ function ItemGet({}) {
       scrollToQrScanner();
     }
 
-    function handleScan(data) {
-      if (data) {
-        setResult(data)
-        fetch(`${data}`).then((res) => {
+    // function handleScan(data) {
+    //   if (data) {
+    //     setResult(data)
+    //     fetch(`${data}`).then((res) => {
+    //       if (res.ok) {
+    //         res.json().then((items) => {
+    //           setItem(items)
+    //         });
+    //       }
+    //     });
+    //   }
+    // }
+    // function handleError(err) {
+    //   console.error(err)
+    // }
+
+    function handleScan(code) {
+      if (code) {
+        // setResult(code)
+        // fetch(`/lokstok.herokuapp.com/items/3`).then((res) => {
+        fetch(`${code}`).then((res) => {
           if (res.ok) {
             res.json().then((items) => {
               setItem(items)
+            });
+          } else {
+            res.json().then((err) => {
+              setErrors([err])
             });
           }
         });
       }
     }
+
     function handleError(err) {
       console.error(err)
     }
@@ -256,154 +278,165 @@ console.log("item cart: ", itemCart)
   
   return (
     <div className="ItemGet">
-      <Header currentEmployee={logged_in} />
-      <h1>Add a part to a job</h1>
-  
-      {currentJob ? 
-        <h3 className='selection-made'> Job selected: {currentJob.name} </h3> :
-        <h3> Select a job to add parts to...</h3>}
+      <div id="top-to-footer">
+        <Header currentEmployee={logged_in} />
+        <h1>Add a part to a job</h1>
+    
+        {currentJob ? 
+          <h3 className='selection-made'> Job selected: {currentJob.name} </h3> :
+          <h3> Select a job to add parts to...</h3>}
+          <Button
+            id="basic-button"
+            variant="outlined"
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+            >
+            Select Job<ArrowDropDownIcon/>
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleSelectJob}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+            >
+            {jobMenu}
+          </Menu>
+          <br/>
+          <br/>
+          <br/>
+          {currentItem ? 
+            <h3 className='selection-made'> Part selected: {currentItem.id} </h3> :
+            <h3> Select a Part to add... </h3>}
+
+
+        <Button 
+          type="submit" 
+          variant="outlined"
+          onClick={handleClickQR}
+          >Use QR Scanner</Button>
+        <>&nbsp;&nbsp;&nbsp;&nbsp;</>
         <Button
           id="basic-button"
           variant="outlined"
-          aria-controls={open ? 'basic-menu' : undefined}
+          aria-controls={itemOpen ? 'basic-menu' : undefined}
           aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
-          >
-          Select Job<ArrowDropDownIcon/>
+          aria-expanded={itemOpen ? 'true' : undefined}
+          onClick={handleItemClick}
+        >
+          Select Part Manually<ArrowDropDownIcon/>
         </Button>
+        <br/><br/>
+        
+    {/* QR Scanner displayed when the Use QR Scanner button clicked      */}
+        {showQR? 
+        <div 
+          className='qr-scanner'
+          >
+        <QrReader
+          facingMode="environment"
+          onResult={(result, error) => {
+            if (!!result) {
+              setData(result?.text);
+              handleScan(result?.text);
+            }
+  
+            if (!!error) {
+              console.info(error);
+            }
+          }}
+          style={{ width: '100%' }}
+        />
+        <p>{data}</p>
+        {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
+        </div>
+        :
+        <></>
+        }
+
+
+        {currentItem && currentJob ?
+          <Button 
+          type="submit" 
+          variant="contained"
+          onClick={() => handleAddItemToCart(currentItem, currentJob)}
+          >Add part to cart</Button> :
+          <br/> }
+
+        {currentItem && !currentJob ?
+          <p className='error'>Select a job to add a part!</p> :
+          <br/> }
+
+        {itemCart.length && currentJob ? 
+          <>
+          <ul id="item-cart"> 
+            {displayCart}
+          </ul> 
+          <br/>
+          <Button 
+          type="submit" 
+          variant="contained"
+          onClick={handleAssignItems}
+          >Assign items to job: {currentJob.name}</Button>              
+          </> :
+          <br/> }
+
+
+        {assignedComplete ?
+          (<div className='assigned-items'> <br/> <b>Items assigned to <u>{currentJob.name}</u></b>: <br/>
+          <div>{displaySuccess}</div> </div>) :
+          <p><i>No items assigned yet...</i></p>
+        }
+        
+        <br/>
+        {errorItemFailed ? <div>{renderFailedItems}</div> : <div className='failed-items'></div>}
+
+
+
+          {/* Need to make cards stay inside of box -- Float? */}
+          
+        {/* {itemCart.length ? 
+          <>
+          <Box id="item-cart"
+          sx={{
+            marginLeft: 50,
+            width: 900,
+            height: 300,
+            border: 2,
+            backgroundColor: 'primary.dark',
+            '&:hover': {
+              backgroundColor: 'primary.main',
+              opacity: [0.9, 0.8, 0.7],
+            },
+          }}> {displayCart}
+          </Box> 
+          <br/>
+          </> :
+        <br/> } */}
+
         <Menu
           id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleSelectJob}
+          anchorEl={anchorItemEl}
+          open={itemOpen}
+          onClose={handleSelectItem}
           MenuListProps={{
             'aria-labelledby': 'basic-button',
           }}
-          >
-          {jobMenu}
-        </Menu>
-        <br/>
-        <br/>
-        <br/>
-        {currentItem ? 
-          <h3 className='selection-made'> Part selected: {currentItem.id} </h3> :
-          <h3> Select a Part to add... </h3>}
-
-
-      <Button 
-        type="submit" 
-        variant="outlined"
-        onClick={handleClickQR}
-        >Use QR Scanner</Button>
-      <>&nbsp;&nbsp;&nbsp;&nbsp;</>
-      <Button
-        id="basic-button"
-        variant="outlined"
-        aria-controls={itemOpen ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={itemOpen ? 'true' : undefined}
-        onClick={handleItemClick}
-      >
-        Select Part Manually<ArrowDropDownIcon/>
-      </Button>
-      <br/><br/>
-      
-  {/* QR Scanner displayed when the Use QR Scanner button clicked      */}
-      {showQR? 
-      <div 
-        className='qr-scanner'
+          PaperProps={{
+            style: {
+              maxHeight: '20ch',
+              width: '50ch',
+            },
+          }}
         >
-      <QrReader
-        delay={300}
-        onError={(err) => handleError(err)}
-        onScan={(data) => handleScan(data)}
-        style={{ width: '100%' }}
-      />
-      {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
-      </div>
-      :
-      <></>
-      }
-
-
-      {currentItem && currentJob ?
-        <Button 
-        type="submit" 
-        variant="contained"
-        onClick={() => handleAddItemToCart(currentItem, currentJob)}
-        >Add part to cart</Button> :
-        <br/> }
-
-      {currentItem && !currentJob ?
-        <p className='error'>Select a job to add a part!</p> :
-        <br/> }
-
-      {itemCart.length && currentJob ? 
-        <>
-        <ul id="item-cart"> 
-          {displayCart}
-        </ul> 
-        <br/>
-        <Button 
-        type="submit" 
-        variant="contained"
-        onClick={handleAssignItems}
-        >Assign items to job: {currentJob.name}</Button>              
-        </> :
-        <br/> }
-
-
-      {assignedComplete ?
-        (<div className='assigned-items'> <br/> <b>Items assigned to <u>{currentJob.name}</u></b>: <br/>
-        <div>{displaySuccess}</div> </div>) :
-        <p><i>No items assigned yet...</i></p>
-      }
-      <div ref={qrScannerRef}></div>
-      <br/>
-      {errorItemFailed ? <div>{renderFailedItems}</div> : <div className='failed-items'></div>}
-
-
-
-        {/* Need to make cards stay inside of box -- Float? */}
-        
-      {/* {itemCart.length ? 
-        <>
-        <Box id="item-cart"
-        sx={{
-          marginLeft: 50,
-          width: 900,
-          height: 300,
-          border: 2,
-          backgroundColor: 'primary.dark',
-          '&:hover': {
-            backgroundColor: 'primary.main',
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}> {displayCart}
-        </Box> 
-        <br/>
-        </> :
-      <br/> } */}
-
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorItemEl}
-        open={itemOpen}
-        onClose={handleSelectItem}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        PaperProps={{
-          style: {
-            maxHeight: '20ch',
-            width: '50ch',
-          },
-        }}
-      >
-        {itemMenu}
-      </Menu>
-      
+          {itemMenu}
+        </Menu>
+        <div ref={qrScannerRef}></div>
+      </div>  
         <Footer />
     </div>
   );
