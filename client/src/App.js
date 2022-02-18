@@ -80,6 +80,3 @@ function App() {
 }
 
 export default App;
-
-{/* <Link to="/parts">Parts</Link> |{" "}
-<Link to="/employees">Employees</Link> */}
