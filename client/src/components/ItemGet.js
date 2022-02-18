@@ -241,7 +241,7 @@ const handleFailedItem = (error) => {
 }
 
 const displaySuccess = itemsAssigned.map((item) => {
-  return <p key={item.id}>{item.part.description}<br/></p>
+  return <p key={item.id} className="selection-made">{item.part.description}<br/></p>
 })
 
 const renderFailedItems = errorList.map((error) => {
