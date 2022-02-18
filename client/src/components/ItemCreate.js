@@ -272,7 +272,6 @@ const checkDownload = (data) => {
           <h3 className='selection-made'> Part selected: {currentPart.description},<>&nbsp;</> 
           {currentPart.manufacturer} </h3> :
           <h3></h3>}
-        <br/>
 
         <Button
           id="basic-button"
@@ -305,7 +304,6 @@ const checkDownload = (data) => {
         {currentQuantity ? 
           <h3 className='selection-made'> Quantity selected: {currentQuantity}</h3> :
           <h3></h3>}
-        <br/>
 
         <Button
           id="basic-button"
@@ -351,6 +349,7 @@ const checkDownload = (data) => {
               variant="contained"
               onClick={handleDownload}
               >Export to CSV</Button>
+              <br/><br/>
           </div> :
           // <p>itemsCreated is true</p>:
           <>{currentBin && currentQuantity && currentPart ? 
