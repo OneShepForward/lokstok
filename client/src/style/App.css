@@ -39,7 +39,7 @@ a:hover {
 }
 
 #top-to-footer {
-  height: 85vh;
+  height: 84vh;
   overflow-y: scroll;
 }
 
@@ -49,7 +49,6 @@ a:hover {
 }
 
 #the-footer {
-  overflow: hidden;
   background-color: #d0c3bd;
   height: 15vh;
   border-top: 1px solid;
@@ -206,7 +205,8 @@ li.cart-item {
 }
 
 .selection-made {
-  color: #3d6a66
+  color: #3d6a66;
+  font-weight: bold;
 }
 
 .error {

@@ -42,23 +42,25 @@ function JobPage() {
 
   return (
     <div className="JobPage">
-      <Header currentEmployee={logged_in} />
-       {currentJob ? 
-        <div className="job-details">
-          <h1> Job details </h1>
-          <h2>{currentJob.name}</h2>
-          <h2>Client: {currentJob.client.name}</h2> 
-          <h3>Phone Number: {currentJob.client.phone}</h3> 
-          <br/>
-          <h2>Parts assigned to this job:</h2>
-          {currentItems ? 
-            <div className='item-list'> <div>{renderItems}</div> 
-            <p><b> Total cost of items: <i>${totalPrice}</i></b></p></div>
-            
-            : <p>Loading...</p>}          
-        </div> 
-          : <p>Loading...</p>
-        }
+      <div id="top-to-footer">
+        <Header currentEmployee={logged_in} />
+        {currentJob ? 
+          <div className="job-details">
+            <h1> Job details </h1>
+            <h2>{currentJob.name}</h2>
+            <h2>Client: {currentJob.client.name}</h2> 
+            <h3>Phone Number: {currentJob.client.phone}</h3> 
+            <br/>
+            <h2>Parts assigned to this job:</h2>
+            {currentItems ? 
+              <div className='item-list'> <div>{renderItems}</div> 
+              {currentItems.length > 0 ? <p><b> Total cost of items: <i>${totalPrice}</i></b></p> : <p><b>No items currently assigned</b></p>}</div>
+              
+              : <p>Loading...</p>}          
+          </div> 
+            : <p>Loading...</p>
+          }
+        </div>
       <Footer />
     </div>
   );

@@ -7,6 +7,7 @@ import Footer from './Footer';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 
 
 function JobForm() {
@@ -17,6 +18,9 @@ function JobForm() {
 
   const [clientList, setClientList] = useState([]);
   const [currentClient, setClient] = useState(null);
+
+  const [newJob, setNewJob] = useState([]);
+  const [jobCreated, setJobCreated] = useState(false);
 
   const [errorState, setErrorState] = useState(null);
 
@@ -95,6 +99,8 @@ function JobForm() {
         setEmployeeChecked(false)
         setClient(null)
         setErrorState(null);
+        setJobCreated(true);
+        setNewJob(job);
       });
     } else {
       r.json().then((errors) => {
@@ -143,58 +149,65 @@ function JobForm() {
 
   return (
     <div className="JobForm">
-      <Header currentEmployee={logged_in}/>
-      <h2>Create a New Job</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          id="name-jobform-input"
-          type="text"
-          placeholder='Job Name...'
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          />
-        <br />
-        <br />
+      <div id="top-to-footer">
+        <Header currentEmployee={logged_in}/>
+        <h2>Create a New Job</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            id="name-jobform-input"
+            type="text"
+            placeholder='Job Name...'
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            />
+          <br />
+          <br />
 
-      <Button
-        id="basic-button"
-        variant="outlined"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        >
-        Select a Client
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleSelectClient}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-        >
-        {clientMenu}
-      </Menu>
-      {currentClient ? 
-        <h3 className='selection-made'> Client selected: {currentClient.name} </h3> :
-        <h3></h3>}
-      <br/>
+        <Button
+          id="basic-button"
+          variant="outlined"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          >
+          Select a Client<ArrowDropDown/>
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleSelectClient}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+          >
+          {clientMenu}
+        </Menu>
+        {currentClient ? 
+          <h3 className='selection-made'> Client selected: {currentClient.name} </h3> :
+          <h3></h3>}
+        <br/>
 
-        <input
-          id="employee-jobform-input"
-          type="checkbox"
-          name="employee"
-          checked={employeeChecked}
-          onChange={handleCheck}
-          />
-        <label htmlFor="employee-jobform-input">Assign to you?</label>
-        <br /><br />
-      {errorState ? <p className="error">{errorState.error}</p> : <br />}
-        <Button type="submit" variant="contained">Create Job</Button>
-      </form>
+          <input
+            id="employee-jobform-input"
+            type="checkbox"
+            name="employee"
+            checked={employeeChecked}
+            onChange={handleCheck}
+            />
+          <label htmlFor="employee-jobform-input">Assign to you?</label>
+          <br /><br />
+        {errorState ? <p className="error">{errorState.error}</p> : <br />}
+          <Button 
+            type="submit" 
+            variant="contained"
+            >Create Job </Button>
+          <br/>
+          {jobCreated ? <h3 className="selection-made">Job "{newJob.name}" created</h3> : <></>}
+        </form>
+      </div>
       <Footer />
     </div>
   );
