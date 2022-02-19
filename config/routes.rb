@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post "/create_item_job", to: "items#create_item_job"
   post "/add_shipment", to: "items#add_shipment"
   get "/active_jobs", to: "jobs#active_jobs"
+  get "/active_items", to: "items#active_items"
 
 
   get "*path",

@@ -54,6 +54,11 @@ class ItemsController < ApplicationController
     render json: items, status: :created
   end
 
+  def active_items
+    items = Item.all.where(active: true)
+    render json: items, status: :created
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

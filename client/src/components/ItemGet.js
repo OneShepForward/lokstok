@@ -204,7 +204,8 @@ const [data, setData] = useState('No result');
           body: JSON.stringify({
             item_id: itemJob.item_id,
             job_id: itemJob.job_id,
-            employee_id: logged_in.id
+            employee_id: logged_in.id,
+            active: false
           }),
         }).then((r) => {
           if (r.ok) {
