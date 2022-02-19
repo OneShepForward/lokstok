@@ -9,7 +9,6 @@ Thank you to:
  <li> https://github.com/react-qr-reader/react-qr-reader
  <li> https://github.com/mui/material-ui
 </ul>
-README
 
 
 
