@@ -3,10 +3,12 @@
 This is my capstone project for my Software Engineering Course at Flatiron School. LokStok is an inventory system that would allow a company to track their warehouse inventory using QR Codes and assign them to specific jobs.
 
 Thank you to: 
-https://github.com/react-csv/react-csv
-https://github.com/zpao/qrcode.react
-https://github.com/react-qr-reader/react-qr-reader
-https://github.com/mui/material-ui
+<ul>
+ <li> https://github.com/react-csv/react-csv
+ <li> https://github.com/zpao/qrcode.react
+ <li> https://github.com/react-qr-reader/react-qr-reader
+ <li> https://github.com/mui/material-ui
+</ul>
 README
 
 
