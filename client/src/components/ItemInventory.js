@@ -17,7 +17,7 @@ function ItemInventory() {
   const [isRendered, setRendered] = useState(false);
 
   useEffect(() => {
-    fetch(`/items`).then((res) => {
+    fetch(`/active_items`).then((res) => {
       if (res.ok) {
         res.json().then((items) => {
           setCurrentItems(items)
