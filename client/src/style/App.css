@@ -38,6 +38,14 @@ a:hover {
   min-height: 20vh;
 }
 
+html::-webkit-scrollbar {
+  display: none;
+}
+
+#top-to-footer::-webkit-scrollbar {
+  display: none;
+}
+
 #top-to-footer {
   height: 84vh;
   overflow-y: scroll;
