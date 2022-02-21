@@ -68,6 +68,7 @@ return (
         name="name"
         value={formData.name}
         onChange={handleChange}
+        autoFocus
         />
       <br />
       {/* <label htmlFor="position">Position: </label>

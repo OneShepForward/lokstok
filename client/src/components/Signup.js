@@ -74,18 +74,6 @@ function Signup() {
   })
 }
 
-  //     .then((r) => r.json())
-  //     .then((employee) => {
-  //       console.log(employee);
-  //       setFormData({
-  //         name: "",
-  //         password: "",
-  //         position: "",
-  //         passwordConfirmation: "",
-  //       });
-  //     });
-  // }
-
   return (
   <div className='Signup'>
     <div id="top-to-footer">
@@ -99,6 +87,7 @@ function Signup() {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            autoFocus
             />
           <br />
           <input
