@@ -22,7 +22,7 @@ function ItemSticker({ item }) {
           <p>Part #{item.part.id}: {item.part.description} </p>
         </div> 
         <div className='sticker-imgbox'>
-          <img src={logo} alt="LokStok logo" className='center-fit' />
+          <img src={logo} alt="LokStok logo" className='sticker-img' />
         </div>
       </div>
     </div>

@@ -259,7 +259,7 @@ console.log("QR Reading: ", data)
 
   
   return (
-    <div className="ItemGet">
+    <div className="itemGet">
       <div id="top-to-footer">
         <Header currentEmployee={logged_in} />
         <h1>Add a part to a job</h1>
@@ -300,6 +300,7 @@ console.log("QR Reading: ", data)
           type="submit" 
           variant="outlined"
           onClick={handleClickQR}
+          style={{marginBottom: "0.5em"}}
           >Use QR Scanner</Button>
         <>&nbsp;&nbsp;&nbsp;&nbsp;</>
         <Button

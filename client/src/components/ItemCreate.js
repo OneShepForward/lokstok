@@ -242,7 +242,7 @@ const checkDownload = (data) => {
 
 }
   return (
-    <div className="ItemCreate">
+    <div className="itemCreate">
       <div id="top-to-footer">
         <Header currentEmployee={logged_in}/>
         <h2>Add Items to Inventory</h2>
@@ -358,6 +358,7 @@ const checkDownload = (data) => {
               type="submit" 
               variant="contained"
               onClick={handleSubmit}
+              id="submit-button"
               >Add Shipment</Button> :
           <p><i>Select part, quantity, and bin to add shipment...</i></p>}
           </>}

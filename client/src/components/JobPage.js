@@ -41,13 +41,13 @@ function JobPage() {
   const totalPrice = prices.reduce((previousValue, currentValue) => previousValue + currentValue, 0).toFixed(2)
 
   return (
-    <div className="JobPage">
+    <div className="jobPage">
       <div id="top-to-footer">
         <Header currentEmployee={logged_in} />
         {currentJob ? 
           <div className="job-details">
             <h1> Job details </h1>
-            <h2>{currentJob.name}</h2>
+            <h2><u><i>{currentJob.name}</i></u></h2>
             <h2>Client: {currentJob.client.name}</h2> 
             <h3>Phone Number: {currentJob.client.phone}</h3> 
             <br/>

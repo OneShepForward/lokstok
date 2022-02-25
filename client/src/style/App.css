@@ -17,7 +17,7 @@ a:hover {
   cursor: url('../image/cursor.png'), auto;
 }
 
-.App {
+.App, .itemInventory, .itemCreate, .jobForm, .itemGet, .jobPage {
   text-align: center;
   color: #1d2424;
   background-color: #69849b;
@@ -82,6 +82,18 @@ input {
   margin-bottom: 0.25em;
 }
 
+/* .checkbox {
+  width: 1em;
+  height: 1em;
+  margin-bottom: 3px;
+}
+
+.checkbox-container label {
+  height: 10em;
+  width: 10em;
+  justify-content: space-between;
+} */
+
 html, .cursor {
   cursor: url('../image/cursor.png'), auto;
   user-select: url('../image/cursor.png'), auto;
@@ -97,7 +109,7 @@ html, .cursor {
   background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
 
-.JobForm {
+.jobForm {
   text-align: center;
   color: #1d2424;
   background-color: #ffffff;
@@ -111,24 +123,15 @@ html, .cursor {
   background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
 
-.ItemGet {
+
+
+.itemInventory {
   text-align: center;
   color: #1d2424;
   background-color: #ffffff;
   background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
-
-.ItemInventory {
-  text-align: center;
-  color: #1d2424;
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
-}
-
-.Footer, .header, .HomePage, .ItemGet, .JobForm, .JobPage, .Signup, .ItemInventory {
-  text-align: center;
-  color: #1d2424;
-} */
+*/
 
 nav {
   width: 100%;
@@ -149,6 +152,17 @@ nav {
   max-height: 90vh;
   margin: auto;
   margin-top: 2%;
+}
+
+.sticker-img {
+  max-width: 90%;
+  max-height: 90vh;
+  margin: auto;
+  margin-top: 2%;
+}
+
+#submit-button {
+  margin-bottom: 0.5em;
 }
 
 .qr-scanner {
@@ -180,6 +194,7 @@ nav {
     padding: 2em;
     text-align: center;
   }
+
   .column-2 {
     padding: 2em;
     align-items: center;
@@ -189,9 +204,7 @@ nav {
     padding: 2em;
   } */
 
-.ItemGet {
-  text-align: center;
-}
+
 
 .JobForm {
   text-align: center;  
@@ -202,12 +215,22 @@ nav {
 }
 
 .header a {
-  margin-left: 2em;
-  margin-right: 2em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   width: 10em
 }
+
+/* @media (max-width: 400) {
+  .header a {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  max-width: 10em
+  }
+} */
 
 #item-cart {
   align-items: center;
@@ -229,7 +252,7 @@ li.cart-item {
 .error {
   color: firebrick;
   font-weight: bold;
-  margin-top: 0px;
+  margin-top: 0.5em;
 }
 
 
