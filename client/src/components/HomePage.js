@@ -55,7 +55,7 @@ function HomePage({currentEmployee}) {
           {activeJobs.length > 0 ? <div>{renderJobs}</div> : <p>No jobs assigned.</p>}
         </div>
         <div className='column-2'>
-        <h2 style={{ marginTop: 0 }}><u>Job Ops</u></h2>
+        <h2 style={{ marginTop: 0 }}><u>Job Operations</u></h2>
           <Button 
             component={Link}
             variant="outlined"

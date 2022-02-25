@@ -147,7 +147,7 @@ function JobForm() {
 
 
   return (
-    <div className="JobForm">
+    <div className="jobForm">
       <div id="top-to-footer">
         <Header currentEmployee={logged_in}/>
         <h2>Create a New Job</h2>
@@ -188,20 +188,23 @@ function JobForm() {
           <h3 className='selection-made'> Client selected: {currentClient.name} </h3> :
           <p></p>}
         <br/>
-
-          <input
-            id="employee-jobform-input"
-            type="checkbox"
-            name="employee"
-            checked={employeeChecked}
-            onChange={handleCheck}
-            />
-          <label htmlFor="employee-jobform-input">Assign to you?</label>
-          <br /><br />
+          <div className="checkbox-container">
+            <input
+              id="employee-jobform-input"
+              type="checkbox"
+              name="employee"
+              className='checkbox'
+              checked={employeeChecked}
+              onChange={handleCheck}
+              />
+            <label htmlFor="employee-jobform-input">Assign to you?</label>
+          </div>
+          <br />
         {errorState ? <p className="error">{errorState.error}</p> : <br />}
           <Button 
             type="submit" 
             variant="contained"
+            id="submit-button"
             >Create Job </Button>
           <br/>
           {jobCreated ? <h3 className="selection-made">Job "{newJob.name}" created</h3> : <></>}

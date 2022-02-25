@@ -62,7 +62,7 @@ function ItemInventory() {
 
 if (isRendered) {
   return (
-    <div className="ItemInventory">
+    <div className="itemInventory">
       <div id="top-to-footer">
         <Header currentEmployee={logged_in} />
         <div style-={{ display: 'flex', height: '100%' }}>
@@ -85,7 +85,7 @@ if (isRendered) {
   );
   } else {
     return (
-      <div className="ItemInventory">
+      <div className="itemInventory">
         <div id="top-to-footer">
         <Header currentEmployee={logged_in} />
           <p>Loading...</p>

@@ -17,12 +17,11 @@ a:hover {
   cursor: url('../image/cursor.png'), auto;
 }
 
-.App {
+.App, .itemInventory, .itemCreate, .jobForm, .itemGet, .jobPage {
   text-align: center;
   color: #1d2424;
   background-color: #69849b;
   background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
-  border: #1d241d;
   min-height: 100%
 }
 
@@ -34,8 +33,11 @@ a:hover {
   min-height: 100%
 }
 
-.Header {
+.header {
   min-height: 20vh;
+  background-color: #d0c3bd;
+  border-bottom: solid 1px #1d2424;
+  padding-bottom: 0.5em;
 }
 
 html::-webkit-scrollbar {
@@ -47,14 +49,10 @@ html::-webkit-scrollbar {
 }
 
 #top-to-footer {
-  height: 84vh;
+  height: 85vh;
   overflow-y: scroll;
 }
 
-#banner {
-  background-color: #d0c3bd;
-  border-top: 1px solid;
-}
 
 #the-footer {
   background-color: #d0c3bd;
@@ -74,52 +72,15 @@ html::-webkit-scrollbar {
   padding-bottom: 2em;
 }
 
+input {
+  font-size: large;
+  margin-bottom: 0.25em;
+}
+
 html, .cursor {
   cursor: url('../image/cursor.png'), auto;
   user-select: url('../image/cursor.png'), auto;
   pointer-events: url('../image/cursor.png'), auto;
-  /* user-select: none; */
-}
-
-
-.JobPage {
-  text-align: center;
-  color: #1d2424;
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
-}
-
-.JobForm {
-  text-align: center;
-  color: #1d2424;
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
-}
-
-.ItemCreate {
-  text-align: center;
-  color: #1d2424;
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
-}
-
-.ItemGet {
-  text-align: center;
-  color: #1d2424;
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
-}
-
-.ItemInventory {
-  text-align: center;
-  color: #1d2424;
-  background-color: #ffffff;
-  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
-}
-
-.Footer, .Header, .HomePage, .ItemGet, .JobForm, .JobPage, .Signup, .ItemInventory {
-  text-align: center;
-  color: #1d2424;
 }
 
 nav {
@@ -137,10 +98,21 @@ nav {
 }
 
 .center-fit {
+  max-width: 30%;
+  max-height: 90vh;
+  margin: auto;
+  margin-top: 2%;
+}
+
+.sticker-img {
   max-width: 90%;
   max-height: 90vh;
   margin: auto;
-  margin-top: 5%;
+  margin-top: 2%;
+}
+
+#submit-button {
+  margin-bottom: 0.5em;
 }
 
 .qr-scanner {
@@ -172,18 +144,11 @@ nav {
     padding: 2em;
     text-align: center;
   }
+
   .column-2 {
     padding: 2em;
     align-items: center;
   }
-
-  /* .column-3 {
-    padding: 2em;
-  } */
-
-.ItemGet {
-  text-align: center;
-}
 
 .JobForm {
   text-align: center;  
@@ -193,10 +158,11 @@ nav {
   background-image: linear-gradient(315deg, #ffffff 0%, #d0c3bd 100%);
 }
 
-.Header a {
-  margin-left: 2em;
-  margin-right: 2em;
-  margin-top: 1em;
+.header a {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   width: 10em
 }
 
@@ -220,43 +186,5 @@ li.cart-item {
 .error {
   color: firebrick;
   font-weight: bold;
-  margin-top: 0px;
+  margin-top: 0.5em;
 }
-
-
-
-/* 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

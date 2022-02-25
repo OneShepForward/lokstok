@@ -117,7 +117,7 @@ function Signup() {
             onChange={handleChange}
           />
           <br />
-        {errorState ? <p className="error">{errorState.error}</p> : <br />}
+        {errorState ? (<p className="error">{errorState.error}</p>) : <br />}
           <Button type="submit" variant="contained">Sign up</Button>
         </form>
         <br/>
