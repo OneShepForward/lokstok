@@ -22,7 +22,7 @@ a:hover {
   color: #1d2424;
   background-color: #69849b;
   background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
-  border: #1d241d;
+  /* border: #1d241d; */
   min-height: 100%
 }
 
@@ -34,8 +34,11 @@ a:hover {
   min-height: 100%
 }
 
-.Header {
+.header {
   min-height: 20vh;
+  background-color: #d0c3bd;
+  border-bottom: solid 1px #1d2424;
+  padding-bottom: 0.5em;
 }
 
 html::-webkit-scrollbar {
@@ -50,11 +53,11 @@ html::-webkit-scrollbar {
   height: 84vh;
   overflow-y: scroll;
 }
-
+/* 
 #banner {
   background-color: #d0c3bd;
-  border-top: 1px solid;
-}
+  /* border-top: 1px solid; 
+} */
 
 #the-footer {
   background-color: #d0c3bd;
@@ -74,13 +77,18 @@ html::-webkit-scrollbar {
   padding-bottom: 2em;
 }
 
+input {
+  font-size: large;
+  margin-bottom: 0.25em;
+}
+
 html, .cursor {
   cursor: url('../image/cursor.png'), auto;
   user-select: url('../image/cursor.png'), auto;
   pointer-events: url('../image/cursor.png'), auto;
   /* user-select: none; */
 }
-
+/* 
 
 .JobPage {
   text-align: center;
@@ -117,10 +125,10 @@ html, .cursor {
   background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
 }
 
-.Footer, .Header, .HomePage, .ItemGet, .JobForm, .JobPage, .Signup, .ItemInventory {
+.Footer, .header, .HomePage, .ItemGet, .JobForm, .JobPage, .Signup, .ItemInventory {
   text-align: center;
   color: #1d2424;
-}
+} */
 
 nav {
   width: 100%;
@@ -137,10 +145,10 @@ nav {
 }
 
 .center-fit {
-  max-width: 90%;
+  max-width: 30%;
   max-height: 90vh;
   margin: auto;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 .qr-scanner {
@@ -193,10 +201,11 @@ nav {
   background-image: linear-gradient(315deg, #ffffff 0%, #d0c3bd 100%);
 }
 
-.Header a {
+.header a {
   margin-left: 2em;
   margin-right: 2em;
-  margin-top: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   width: 10em
 }
 

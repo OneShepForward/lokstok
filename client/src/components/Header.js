@@ -13,20 +13,14 @@ function Header({ currentEmployee, isAuthenticated, onLogout }) {
 if (currentEmployee) { 
 
     return (
-    <div className="Header">
+    <div className="header">
       <br/>
       <div className="imgbox">
         <img src={logo} alt="LokStok Logo" className="center-fit"/>
       </div>
       <div id="banner">
         <h2 id="header"> Signed in as <i>{currentEmployee.name}</i> </h2>
-        <nav
-          style={{
-            borderBottom: "solid 1px",
-            paddingBottom: "1rem",
-            borderColor: "#1d2424"
-          }}
-        >
+        <nav>
           <Button 
             component={NavLink}
             variant= "outlined"
@@ -104,17 +98,12 @@ if (currentEmployee) {
   } else {
 
   return (
-    <div className="Header">
+    <div className="header">
       <div className="imgbox">
         <img src={logo} alt="LokStok Logo" className="center-fit"/>
       </div>
       <h2 id="header"> Please sign in or register to continue </h2>
-      <nav
-        style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem"
-        }}
-      >
+      <nav>
       </nav>
     </div>
   );
