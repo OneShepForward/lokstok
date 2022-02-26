@@ -10,7 +10,7 @@ function Employees() {
  
 
   return (
-    <div className="Employees">
+    <div className="employees">
       <h2>The Employees Page</h2>
     </div>
   );
