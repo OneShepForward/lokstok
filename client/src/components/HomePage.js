@@ -1,6 +1,6 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 
 function HomePage({currentEmployee}) {
@@ -10,22 +10,11 @@ function HomePage({currentEmployee}) {
     fetch("/active_jobs").then((res) => {
       if (res.ok) {
         res.json().then((jobs) => {
-            console.log(jobs);
             setActiveJobs(jobs);
         });
       }
     });
   }, []);
-
-  // const renderJobs = activeJobs.map((job => {
-  //   return (    
-  //   <div 
-  //     className='active-job'
-  //     key={job.id}
-  //   > · Job: <b>{job.name}</b>
-  //   <br/> 
-  //   </div>)
-  // }))
 
   const renderJobs = activeJobs.map((job => {
     return (    
@@ -45,10 +34,8 @@ function HomePage({currentEmployee}) {
     </div>)
   }))
 
-  console.log(renderJobs)
-
   return (
-    <div className="HomePage">
+    <div className="homePage">
       <div className='hp-columns'>
         <div className='column-1'>
           <h2 style={{ marginTop: 0 }}><u>Active Jobs</u></h2>

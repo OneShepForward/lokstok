@@ -163,7 +163,6 @@ const [data, setData] = useState('No result');
       ]);
       setItem(null);
     }
-    // console.log("itemCart: ", itemCart)
     
     
         const handleRemoveFromCart = (e) => {
@@ -194,7 +193,6 @@ const [data, setData] = useState('No result');
 
 // -- ASSIGN ITEMS TO JOB
     const handleAssignItems = () => {
-      console.log("send", itemCart, "to post");
       itemCart.forEach((itemJob) => {
         fetch("/create_item_job", {
           method: "POST",
@@ -209,12 +207,10 @@ const [data, setData] = useState('No result');
           }),
         }).then((r) => {
           if (r.ok) {
-            r.json().then((item) => {
-              console.log("reached r.ok condition with", item)
+            r.json().then(() => {
             })
           } else {
             r.json().then((item) => {
-            console.log("Hit the r.not.ok else", item)
             handleFailedItem(item)
             })
             }
@@ -229,14 +225,12 @@ const handleSuccess = () => {
   fetch(`/jobs/${currentJob.id}`)
   .then((res) => res.json())
   .then((job) => {
-        console.log("These items assigned to job: ", job.items);
         setItemsAssigned(job.items);
         setAssignedComplete(true);
         })   
   }
 
 const handleFailedItem = (error) => {
-  console.log("Failed item: ", error.error);
   setErrorItemFailed(true);
   setErrors(error.error);
 }
@@ -248,15 +242,6 @@ const displaySuccess = itemsAssigned.map((item) => {
 const renderFailedItems = errorList.map((error) => {
   return <p key={uuidv4()} className="error">Error: {error}</p>
 })
-
-// console.log("Assigned items: ", itemsAssigned)
-// console.log("errorItemFailed: ", errorItemFailed)
-// console.log("errorList: ", errorList)
-
-console.log(currentItem)
-console.log("item cart: ", itemCart)
-console.log("QR Reading: ", data)
-
   
   return (
     <div className="itemGet">
@@ -376,10 +361,6 @@ console.log("QR Reading: ", data)
         
         <br/>
         {errorItemFailed ? <div>{renderFailedItems}</div> : <div className='failed-items'></div>}
-
-
-
-          {/* Need to make cards stay inside of box -- Float? */}
           
         {/* {itemCart.length ? 
           <>

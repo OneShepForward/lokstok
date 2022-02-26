@@ -12,8 +12,6 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
 import { CSVDownload } from "react-csv";
 
-
-
 function ItemCreate() {
   
   // imports currentEmployee state from Header
@@ -52,13 +50,6 @@ function ItemCreate() {
 
   }, []);
 
-  // const handleChange = (e) => {
-  //     setFormData({
-  //       ...formData,
-  //       [e.target.name]: e.target.value,
-  //     });
-  // };
-
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -76,7 +67,6 @@ function ItemCreate() {
     }).then((r) => {
       if (r.ok) {
       r.json().then((items) => {
-        console.log("items created: ", items);
         setItemsCreated(items)
         setFormData({
           quantity: "",
@@ -90,7 +80,6 @@ function ItemCreate() {
       });
     } else {
       r.json().then((errors) => {
-        console.log(errors);
         setErrorState(errors);
         setFormData({
           quantity: "",
@@ -105,99 +94,95 @@ function ItemCreate() {
   })
 }
 
-if (itemsCreated) {
-  console.log("Items created: " , itemsCreated)
-}
-
 // -- PART MENU
-const [anchorEl, setAnchorEl] = useState(null);
-const open = Boolean(anchorEl);
-const handleClick = (event) => {
-  setAnchorEl(event.currentTarget);
-};
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
 
-const handleSelectPart = (choice) => {
-  setAnchorEl(null);
-  // Prevents clicking outside menu from updating state
-  choice.id ? handlePartChange(choice) : setPart(null)
-};
+    const handleSelectPart = (choice) => {
+      setAnchorEl(null);
+      // Prevents clicking outside menu from updating state
+      choice.id ? handlePartChange(choice) : setPart(null)
+    };
 
-const partMenu = partList.map((part) => {
-  return <MenuItem 
-  onClick={() => handleSelectPart(part)}
-  key = {part.id}
-  >Part #{part.id} -<>&nbsp;</> <b>{part.description}</b><>&nbsp;</> - <>&nbsp;</>{part.manufacturer}</MenuItem>
-})
-
-  const handlePartChange = (part) => {
-    setPart(part);
-    setFormData({
-      ...formData,
-      part_id: part.id
+    const partMenu = partList.map((part) => {
+      return <MenuItem 
+      onClick={() => handleSelectPart(part)}
+      key = {part.id}
+      >Part #{part.id} -<>&nbsp;</> <b>{part.description}</b><>&nbsp;</> - <>&nbsp;</>{part.manufacturer}</MenuItem>
     })
-  }
+
+      const handlePartChange = (part) => {
+        setPart(part);
+        setFormData({
+          ...formData,
+          part_id: part.id
+        })
+      }
 // --
 
 // -- DROPDOWN QUANTITY MENU
-const [anchorQuantityEl, setAnchorQuantityEl] = useState(null);
-const quantityOpen = Boolean(anchorQuantityEl);
+    const [anchorQuantityEl, setAnchorQuantityEl] = useState(null);
+    const quantityOpen = Boolean(anchorQuantityEl);
 
-const handleQuantityClick = (event) => {
-  setAnchorQuantityEl(event.currentTarget);
-};
+    const handleQuantityClick = (event) => {
+      setAnchorQuantityEl(event.currentTarget);
+    };
 
-const handleSelectQuantity = (choice) => {
-  setAnchorQuantityEl(null);
-  
-  // Prevents clicking outside menu from updating state
-  Number.isInteger(choice) ? handleQuantityChange(choice) : setQuantity(null)
-};
+    const handleSelectQuantity = (choice) => {
+      setAnchorQuantityEl(null);
+      
+      // Prevents clicking outside menu from updating state
+      Number.isInteger(choice) ? handleQuantityChange(choice) : setQuantity(null)
+    };
 
-const handleQuantityChange = (quantity) => {
-  setQuantity(quantity);
-  setFormData({
-    ...formData,
-    quantity: quantity
-  })
-}
+    const handleQuantityChange = (quantity) => {
+      setQuantity(quantity);
+      setFormData({
+        ...formData,
+        quantity: quantity
+      })
+    }
 
-  const quantityMenu = quantityList.map((quantity) => {
-    return <MenuItem 
-    onClick={() => handleSelectQuantity(quantity)}
-    key = {quantity}
-    >{quantity}</MenuItem>
-  })
+      const quantityMenu = quantityList.map((quantity) => {
+        return <MenuItem 
+        onClick={() => handleSelectQuantity(quantity)}
+        key = {quantity}
+        >{quantity}</MenuItem>
+      })
 // --
 
 // -- DROPDOWN BIN MENU
-const [anchorBinEl, setAnchorBinEl] = useState(null);
-const binOpen = Boolean(anchorBinEl);
+    const [anchorBinEl, setAnchorBinEl] = useState(null);
+    const binOpen = Boolean(anchorBinEl);
 
-const handleBinClick = (event) => {
-  setAnchorBinEl(event.currentTarget);
-};
+    const handleBinClick = (event) => {
+      setAnchorBinEl(event.currentTarget);
+    };
 
-const handleSelectBin = (choice) => {
-  setAnchorBinEl(null);
-  
-  // Prevents clicking outside menu from updating state
-  Number.isInteger(choice) ? handleBinChange(choice) : setBin(null)
-};
+    const handleSelectBin = (choice) => {
+      setAnchorBinEl(null);
+      
+      // Prevents clicking outside menu from updating state
+      Number.isInteger(choice) ? handleBinChange(choice) : setBin(null)
+    };
 
-const handleBinChange = (bin) => {
-  setBin(bin);
-  setFormData({
-    ...formData,
-    bin: bin
-  })
-}
+    const handleBinChange = (bin) => {
+      setBin(bin);
+      setFormData({
+        ...formData,
+        bin: bin
+      })
+    }
 
-  const binMenu = binList.map((bin) => {
-    return <MenuItem 
-    onClick={() => handleSelectBin(bin)}
-    key = {bin}
-    >{bin}</MenuItem>
-  })
+      const binMenu = binList.map((bin) => {
+        return <MenuItem 
+        onClick={() => handleSelectBin(bin)}
+        key = {bin}
+        >{bin}</MenuItem>
+      })
 // --
 
 const renderSticker = itemsCreated.map((item) => {
@@ -207,10 +192,6 @@ const renderSticker = itemsCreated.map((item) => {
     item={item}
   />
 })
-
-// I was using this for my url below until I ran into a proxy issue.
-// const app_url = "lokstok.herokuapp.com"
-// data = [`${app_url}/items/${item.id}`, `${item.id}`, `${item.part.id}`, `${item.part.description}`]
 
 const [csvData, setCsvData] = useState([
   ["url", "item_id", "part_id", "part_description"]
@@ -231,7 +212,6 @@ const handleDownload = () => {
 let i = 0
 const checkDownload = (data) => {
   if (data.length > 1 && data.length > itemsCreated.length) {
-    console.log("data.length: ", data.length, i)
     setDownload(true)
   } else if (i > 20) {
     console.error("Download failed")

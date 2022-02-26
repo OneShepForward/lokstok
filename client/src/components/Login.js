@@ -36,12 +36,12 @@ function Login({ onLogin }) {
       }).then((r) => {
         if (r.ok) {
           r.json().then((employee) => {
-            setErrorState(null);
-            onLogin(employee);
             setFormData({
               name: "",
               password: "",
             });
+            setErrorState(null);
+            onLogin(employee);
             navigate(`/home`);
           });
         }
