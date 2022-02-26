@@ -1,5 +1,5 @@
 import '../style/App.css';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 
 function Signup() {
   let navigate = useNavigate();
+
   const [errorState, setErrorState] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -16,7 +17,6 @@ function Signup() {
     password: "",
     passwordConfirmation: "",
   });
-  let passwordConfirmation
 
   const handleChange = (e) => {
       setFormData({
@@ -25,9 +25,7 @@ function Signup() {
       });
   };
 
-  // This won't navigate... why?
   const goHome = () => {
-    console.log("Headed home")
     navigate(`/home`);
   }
 
@@ -47,8 +45,7 @@ function Signup() {
       }),
     }).then((r) => {
       if (r.ok) {
-      r.json().then((employee) => {
-        console.log(employee, "signed up!");
+      r.json().then(() => {
         setFormData({
           name: "",
           position: "",
@@ -61,7 +58,6 @@ function Signup() {
       });
     } else {
       r.json().then((errors) => {
-        console.log(errors);
         setErrorState(errors);
         setFormData({
           name: "",
@@ -75,7 +71,7 @@ function Signup() {
 }
 
   return (
-  <div className='Signup'>
+  <div className='signup'>
     <div id="top-to-footer">
       <Header />
         <h1>Signup Here!</h1>

@@ -1,6 +1,4 @@
 import '../style/App.css';
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import github from "../image/icons8-github-30.png";
 import linkedin from "../image/icons8-linkedin-50.png";
@@ -11,7 +9,7 @@ function Footer() {
 
   
   return (
-    <div className="Footer" id="the-footer" >
+    <div className="footer" id="the-footer" >
       <div className='footer-icons'>
         <a href='https://github.com/OneShepForward/'><img className='icon' alt='icon' src={github} /></a>
         <a href='https://www.linkedin.com/in/shephardn/'><img className='icon' alt='icon' style={{height: "2em", width: "2em"}} src={linkedin} /></a>

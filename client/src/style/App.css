@@ -17,18 +17,10 @@ a:hover {
   cursor: url('../image/cursor.png'), auto;
 }
 
-.App, .itemInventory, .itemCreate, .jobForm, .itemGet, .jobPage {
+.App, .itemInventory, .itemCreate, .jobForm, .itemGet, .jobPage, .signup {
   text-align: center;
   color: #1d2424;
   background-color: #69849b;
-  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
-  min-height: 100%
-}
-
-.Signup {
-  text-align: center;
-  color: #1d2424;
-  background-color: #ffffff;
   background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
   min-height: 100%
 }
@@ -61,13 +53,13 @@ html::-webkit-scrollbar {
   padding-top: 0.5em;
 }
 
-.Footer p {
+.footer p {
   margin-top: 1%;
   font-style: italic;
   font-size: large;
 }
 
-.Footer a {
+.footer a {
   padding: 1em;
   padding-bottom: 2em;
 }
