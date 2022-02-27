@@ -1,6 +1,6 @@
 import '../style/App.css';
 import { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 
@@ -22,19 +22,11 @@ function ItemInventory() {
         res.json().then((items) => {
           setCurrentItems(items)
           setRendered(true)
-          console.log(items);
           })  
       }
     });
 
   }, []);
-
-  // const renderItems = currentItems.map((item) => {
-  //   prices.push(item.part.price)
-  //   return <p 
-  //   key = {item.id}
-  //   >{item.part.description}, price: ${item.part.price}</p>
-  // })
 
 
   const rows: GridRowsProp =   currentItems.map((item) => {

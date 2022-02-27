@@ -1,11 +1,11 @@
 import '../style/App.css';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 
 
 
-function Login({onLogin}) {
+function Login({ onLogin }) {
 
   let navigate = useNavigate();
  
@@ -36,19 +36,17 @@ function Login({onLogin}) {
       }).then((r) => {
         if (r.ok) {
           r.json().then((employee) => {
-            console.log(employee)
-            setErrorState(null);
-            onLogin(employee);
             setFormData({
               name: "",
               password: "",
             });
+            setErrorState(null);
+            onLogin(employee);
             navigate(`/home`);
           });
         }
         else {
           r.json().then((errors) => {
-            console.log(errors);
             setErrorState(errors);
           });
         }
@@ -57,10 +55,9 @@ function Login({onLogin}) {
 
 
 return (
-  <div className='Login'>
+  <div className='login'>
     <h1>Login</h1>
     <form onSubmit={handleSubmit}>
-      {/* <label htmlFor="name">name: </label> */}
       <input
         id="username-signup-input"
         type="text"
