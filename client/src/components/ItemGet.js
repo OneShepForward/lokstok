@@ -297,7 +297,7 @@ const renderItemSelection = () => {
               // console.info(error);
             }
           }}
-          videoContainerStyle={{width: "50%", padding: "25%", marginLeft: "auto", marginRight: "auto"}}
+          videoContainerStyle={{width: "10%", padding: "35%", marginLeft: "auto", marginRight: "auto"}}
           videoStyle={{ width: '100%'}}
         />
         {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
