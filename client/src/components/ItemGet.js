@@ -286,7 +286,7 @@ const renderItemSelection = () => {
         {selectPartManuallyButton()}
         <QrReader
           constraints={{ facingMode: "environment" }}
-          scanDelay="3000"
+          scanDelay="500"
           onResult={(result, error) => {
             if (!!result) {
               // setData(result?.text);
