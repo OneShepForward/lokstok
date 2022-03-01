@@ -45,8 +45,7 @@ function ItemGet() {
   // state whether scanner is displayed
   const [showQR, setShowQR] = useState(false);
   // the QR scanner stores what it scans as result
-const [data, setData] = useState('No result');
-  
+  // const [data, setData] = useState('No result');
 
   // -- QR READER -- //
   // This portion scrolls the view window down when scanner selected
@@ -57,7 +56,7 @@ const [data, setData] = useState('No result');
 
       
     const handleClickQR = () => {
-      setShowQR(!showQR)
+      setShowQR(!showQR);
       scrollToQrScanner();
     }
 
@@ -66,7 +65,7 @@ const [data, setData] = useState('No result');
         fetch(`${code}`).then((res) => {
           if (res.ok) {
             res.json().then((items) => {
-              setItem(items)
+              setItem(items);
               new Audio(success).play();
             });
           } else {
@@ -77,8 +76,6 @@ const [data, setData] = useState('No result');
         });
       }
     }
-
-
 // -- //
   
 
@@ -246,7 +243,68 @@ const displaySuccess = itemsAssigned.map((item) => {
 const renderFailedItems = errorList.map((error) => {
   return <p key={uuidv4()} className="error">Error: {error}</p>
 })
+
+const qrScannerButton = (text) => {
+    return <Button 
+    type="submit" 
+    variant="outlined"
+    onClick={handleClickQR}
+    style={{marginBottom: "0.5em", marginLeft: "0.5em", marginRight:"0.5em" }}
+    >{text}</Button>
+  }
+
+const selectPartManuallyButton = () => {
+    return <Button
+    id="basic-button"
+    variant="outlined"
+    aria-controls={itemOpen ? 'basic-menu' : undefined}
+    aria-haspopup="true"
+    aria-expanded={itemOpen ? 'true' : undefined}
+    onClick={handleItemClick}
+    style={{marginBottom: "0.5em", marginLeft: "0.5em", marginRight:"0.5em" }}
+  >
+    Select Part Manually<ArrowDropDownIcon/>
+  </Button>
+}
+
+const renderItemSelection = () => {
+  if (!showQR && !currentItem) {
+    return <div id="item-selection">
+    {qrScannerButton("Use QR Scanner")}
+    {selectPartManuallyButton()}
+    </div>
+  } else if (showQR && currentItem) {
+    return <div id="item-selection">
+    {qrScannerButton("Rescan")}
+    {selectPartManuallyButton()}
+    </div>
+  } else {
+    return <div 
+          className='qr-scanner'
+          >
+        {qrScannerButton("Turn off scanner")}
+        {selectPartManuallyButton()}
+        <QrReader
+          constraints={{ facingMode: "environment" }}
+          scanDelay="3000"
+          onResult={(result, error) => {
+            if (!!result) {
+              // setData(result?.text);
+              handleScan(result?.text);
+            }
   
+            if (!!error) {
+              // console.info(error);
+            }
+          }}
+          videoContainerStyle={{width: "50%", padding: "25%", marginLeft: "auto", marginRight: "auto"}}
+          videoStyle={{ width: '100%'}}
+        />
+        {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
+        </div>
+  }
+}
+
   return (
     <div className="itemGet">
       <div id="top-to-footer">
@@ -281,53 +339,17 @@ const renderFailedItems = errorList.map((error) => {
           <br/>
           <br/>
           {currentItem ? 
-            <h3 className='selection-made'> Part selected: {currentItem.id} </h3> :
+            <h3 className='selection-made'> Part selected: #{currentItem.id} - {currentItem.part.description} </h3> :
             <h3> Select a Part to add... </h3>}
 
+{/* Item Selection Rendering */}
+      {renderItemSelection()}
 
-        <Button 
-          type="submit" 
-          variant="outlined"
-          onClick={handleClickQR}
-          style={{marginBottom: "0.5em"}}
-          >Use QR Scanner</Button>
-        <>&nbsp;&nbsp;&nbsp;&nbsp;</>
-        <Button
-          id="basic-button"
-          variant="outlined"
-          aria-controls={itemOpen ? 'basic-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={itemOpen ? 'true' : undefined}
-          onClick={handleItemClick}
-        >
-          Select Part Manually<ArrowDropDownIcon/>
-        </Button>
+      
         <br/><br/>
         
-    {/* QR Scanner displayed when the Use QR Scanner button clicked      */}
-        {showQR? 
-        <div 
-          className='qr-scanner'
-          >
-        <QrReader
-          capture="environment"
-          onResult={(result, error) => {
-            if (!!result) {
-              setData(result?.text);
-              handleScan(result?.text);
-            }
-  
-            if (!!error) {
-              console.info(error);
-            }
-          }}
-          style={{ width: '100%' }}
-        />
-        {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
-        </div>
-        :
-        <></>
-        }
+
+        
 
 
         {currentItem && currentJob ?
@@ -335,7 +357,7 @@ const renderFailedItems = errorList.map((error) => {
           type="submit" 
           variant="contained"
           onClick={() => handleAddItemToCart(currentItem, currentJob)}
-          >Add part to cart</Button> :
+          >Add &nbsp;<b><i> {currentItem.part.description} &nbsp; </i></b> to cart</Button> :
           <br/> }
 
         {currentItem && !currentJob ?
