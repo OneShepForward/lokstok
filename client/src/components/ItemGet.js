@@ -12,6 +12,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
+import success from '../audio/success.mp3';
+
 // I plan to use these components to make ItemCards instead of a list of items
 // import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
@@ -65,6 +67,7 @@ const [data, setData] = useState('No result');
           if (res.ok) {
             res.json().then((items) => {
               setItem(items)
+              new Audio(success).play();
             });
           } else {
             res.json().then((err) => {
@@ -74,6 +77,7 @@ const [data, setData] = useState('No result');
         });
       }
     }
+
 
 // -- //
   
