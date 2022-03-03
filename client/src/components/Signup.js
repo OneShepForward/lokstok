@@ -60,8 +60,6 @@ function Signup() {
       r.json().then((errors) => {
         setErrorState(errors);
         setFormData({
-          name: "",
-          position: "",
           password: "",
           passwordConfirmation: "",
         });
@@ -69,6 +67,16 @@ function Signup() {
     }
   })
 }
+
+const renderErrors = () => {
+  return errorState.error.map((error) => {
+    return <>
+      <p className='error' key={Math.random()}>{error}</p>
+    </>
+  })
+}
+
+console.log("errorState: ", errorState)
 
   return (
   <div className='signup'>
@@ -113,7 +121,7 @@ function Signup() {
             onChange={handleChange}
           />
           <br />
-        {errorState ? (<p className="error">{errorState.error}</p>) : <br />}
+        {errorState ? renderErrors() : <br />}
           <Button type="submit" variant="contained">Sign up</Button>
         </form>
         <br/>
