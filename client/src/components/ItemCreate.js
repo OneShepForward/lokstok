@@ -51,48 +51,48 @@ function ItemCreate() {
   }, []);
 
   function handleSubmit(e) {
-    e.preventDefault();
+      e.preventDefault();
 
-    fetch("/add_shipment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        quantity: formData.quantity,
-        bin: formData.bin,
-        part_id: formData.part_id,
-        active: true,
-      }),
-    }).then((r) => {
-      if (r.ok) {
-      r.json().then((items) => {
-        setItemsCreated(items)
-        setFormData({
-          quantity: "",
-          bin: "",
-          part_id: null,
+      fetch("/add_shipment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          quantity: formData.quantity,
+          bin: formData.bin,
+          part_id: formData.part_id,
+          active: true,
+        }),
+      }).then((r) => {
+        if (r.ok) {
+        r.json().then((items) => {
+          setItemsCreated(items)
+          setFormData({
+            quantity: "",
+            bin: "",
+            part_id: null,
+          });
+          setPart(null)
+          setBin("")
+          setQuantity("")
+          setErrorState(null);
         });
-        setPart(null)
-        setBin("")
-        setQuantity("")
-        setErrorState(null);
-      });
-    } else {
-      r.json().then((errors) => {
-        setErrorState(errors);
-        setFormData({
-          quantity: "",
-          bin: "",
-          part_id: null,
+      } else {
+        r.json().then((errors) => {
+          setErrorState(errors);
+          setFormData({
+            quantity: "",
+            bin: "",
+            part_id: null,
+          });
+          setPart(null)
+          setBin("")
+          setQuantity("")
         });
-        setPart(null)
-        setBin("")
-        setQuantity("")
-      });
-    }
-  })
-}
+      }
+    })
+  }
 
 // -- PART MENU
     const [anchorEl, setAnchorEl] = useState(null);
@@ -185,42 +185,58 @@ function ItemCreate() {
       })
 // --
 
-const renderSticker = itemsCreated.map((item) => {
-  console.log("item: ", item)
-  return <ItemSticker
-    key={item.id}
-    item={item}
-  />
-})
-
-const [csvData, setCsvData] = useState([
-  ["url", "item_id", "part_id", "part_description"]
-])
-
-const handleDownload = () => {
-  let innerCSV = csvData 
-  let data = []
-  itemsCreated.map((item) => {
-    data = [`/items/${item.id}`, `${item.id}`, `${item.part.id}`, `${item.part.description}`]
-    innerCSV.push(data)
+  // Render a sticker for each of the items created
+  const renderSticker = itemsCreated.map((item) => {
+    return <ItemSticker
+      key={item.id}
+      item={item}
+    />
   })
-  console.log(innerCSV)
-  setCsvData(innerCSV)
-  checkDownload(innerCSV);
-}
 
-let i = 0
-const checkDownload = (data) => {
-  if (data.length > 1 && data.length > itemsCreated.length) {
-    setDownload(true)
-  } else if (i > 20) {
-    console.error("Download failed")
-  } else {
-    ++i
-    checkDownload(data);
+  // -- CREATE CSV FILE
+
+  // set headers for CSV
+  const [csvData, setCsvData] = useState([
+    ["url", "item_id", "part_id", "part_description"]
+  ])
+
+  const handleDownload = () => {
+    let innerCSV = csvData 
+    let data = []
+    // each item is pushed into the csv file
+    itemsCreated.map((item) => {
+      data = [`/items/${item.id}`, `${item.id}`, `${item.part.id}`, `${item.part.description}`]
+      innerCSV.push(data)
+    })
+    // CSV Data is updated to be used in the CSVDownload component
+    setCsvData(innerCSV);
+    checkDownload(innerCSV);
   }
 
-}
+  // check the data is good before allowing for download
+  let checkDownloadCounter = 0
+  const checkDownload = (data) => {
+    // check that all of the item data made it into the CSV
+    if (data.length > 1 && data.length > itemsCreated.length) {
+      // if so, render CSVDownload component
+      setDownload(true)
+      setTimeout(() => {
+        // Allow csv to be downloaded again after 3 seconds
+        setCsvData([["url", "item_id", "part_id", "part_description"]])
+        setDownload(false)
+      }, 3000)
+      // try 21 times
+    } else if (checkDownloadCounter > 20) {
+      console.error("Download failed")
+    } else {
+      // loop if the download didn't work
+      ++checkDownloadCounter
+      checkDownload(data);
+    }
+  }
+
+// -- 
+
   return (
     <div className="itemCreate">
       <div id="top-to-footer">
@@ -318,7 +334,7 @@ const checkDownload = (data) => {
           <h3 className='selection-made'> Bin selected: {currentBin}</h3> :
           <p></p>}
 
-        {/* If error is present, display error               */}
+        {/* If error is present, display error */}
         {errorState ? <p className="error">{errorState.error}</p> : <br />}
 
         {/* If items have been created, generate stickers with QR Code */}
@@ -332,7 +348,6 @@ const checkDownload = (data) => {
               >Export to CSV</Button>
               <br/><br/>
           </div> :
-          // <p>itemsCreated is true</p>:
           <>{currentBin && currentQuantity && currentPart ? 
             <Button 
               type="submit" 
@@ -343,7 +358,9 @@ const checkDownload = (data) => {
           <p><i>Select part, quantity, and bin to add shipment...</i></p>}
           </>}
 
-          {download ? <CSVDownload data={csvData} target="_blank" /> : <></>}
+          {/* Once checkDownload has passed, the CSV Download component will render
+          and initiate the download. */}
+          {download ? <CSVDownload data={csvData} filename="shipment_info.csv" target="_blank" /> : <></>}
           
       </div>  
       <Footer />
