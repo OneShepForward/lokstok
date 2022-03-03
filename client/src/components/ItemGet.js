@@ -51,7 +51,9 @@ function ItemGet() {
   // This portion scrolls the view window down when scanner selected
   const qrScannerRef = useRef(null)
   const scrollToQrScanner = () => {
+    setTimeout(() => {
     qrScannerRef.current?.scrollIntoView( { behavior: "smooth" })
+}, 500)
   }
 
       
@@ -66,6 +68,7 @@ function ItemGet() {
           if (res.ok) {
             res.json().then((items) => {
               setItem(items);
+              setShowQR(false);
               new Audio(success).play();
             });
           } else {
@@ -163,6 +166,7 @@ function ItemGet() {
         job_id: job.id}
       ]);
       setItem(null);
+      setShowQR(false);
     }
     
     
@@ -194,6 +198,7 @@ function ItemGet() {
 
 // -- ASSIGN ITEMS TO JOB
     const handleAssignItems = () => {
+      // Assign each item in the cart to the job
       itemCart.forEach((itemJob) => {
         fetch("/create_item_job", {
           method: "POST",
@@ -201,23 +206,30 @@ function ItemGet() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            // Add the instance to the itemJob join table
             item_id: itemJob.item_id,
             job_id: itemJob.job_id,
+            // Assign the item to the employee checking out the items
             employee_id: logged_in.id,
+            // Set active to false to remove the item from the active inventory
             active: false
           }),
         }).then((r) => {
           if (r.ok) {
             r.json().then(() => {
+              // Reserved for future actions
             })
           } else {
             r.json().then((item) => {
+              // Handle the failure of each item
             handleFailedItem(item)
             })
             }
           }
         )
       });
+      // When fetch is complete, list all items successfully assigned to that job
+      // and reset item cart
       setItemCart([])
       handleSuccess()
     }
@@ -267,42 +279,88 @@ const selectPartManuallyButton = () => {
   </Button>
 }
 
+console.log("show QR: ", showQR,  currentItem)
+
 const renderItemSelection = () => {
-  if (!showQR && !currentItem) {
-    return <div id="item-selection">
-    {qrScannerButton("Use QR Scanner")}
-    {selectPartManuallyButton()}
-    </div>
-  } else if (showQR && currentItem) {
-    return <div id="item-selection">
-    {qrScannerButton("Rescan")}
-    {selectPartManuallyButton()}
-    </div>
-  } else {
-    return <div 
-          className='qr-scanner'
-          >
+  return showQR ? 
+    <div id="item-selection">
+      <div 
+        className='qr-scanner'
+        ref={qrScannerRef}
+      >
         {qrScannerButton("Turn off scanner")}
         {selectPartManuallyButton()}
         <QrReader
+          
           constraints={{ facingMode: "environment" }}
           scanDelay="500"
           onResult={(result, error) => {
             if (!!result) {
-              // setData(result?.text);
+              console.info("Scan result: ", result?.text)
               handleScan(result?.text);
             }
   
             if (!!error) {
-              // console.info(error);
+              console.info(error);
             }
           }}
           videoContainerStyle={{width: "10%", padding: "35%", marginLeft: "auto", marginRight: "auto"}}
           videoStyle={{ width: '100%'}}
         />
         {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
-        </div>
-  }
+      </div>
+    </div>
+          :
+    <div id="item-selection">
+      {qrScannerButton("Use QR Scanner")}
+      {selectPartManuallyButton()}
+    </div>
+    
+
+
+
+  // if (!showQR && !currentItem) {
+  //   return <div id="item-selection">
+  //     {qrScannerButton("Use QR Scanner")}
+  //     {selectPartManuallyButton()}
+  //     </div>
+  // } else if (showQR && currentItem) {
+  //     return <div id="item-selection">
+  //       {qrScannerButton("Rescan")}
+  //       {selectPartManuallyButton()}
+  //       </div>
+  // } else if (!showQR && currentItem) {
+  //     return <div id="item-selection">
+  //       {qrScannerButton("Use QR Scanner")}
+  //       {selectPartManuallyButton()}
+  //       </div>    
+  // } else {
+  //     return <div 
+  //         className='qr-scanner'
+  //         ref={qrScannerRef}
+  //         >
+  //         {qrScannerButton("Turn off scanner")}
+  //         {selectPartManuallyButton()}
+  //         <QrReader
+            
+  //           constraints={{ facingMode: "environment" }}
+  //           scanDelay="500"
+  //           onResult={(result, error) => {
+  //             if (!!result) {
+  //               // setData(result?.text);
+  //               handleScan(result?.text);
+  //             }
+    
+  //             if (!!error) {
+  //               // console.info(error);
+  //             }
+  //           }}
+  //           videoContainerStyle={{width: "10%", padding: "35%", marginLeft: "auto", marginRight: "auto"}}
+  //           videoStyle={{ width: '100%'}}
+  //         />
+  //         {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
+  //       </div>
+  // }
 }
 
   return (
@@ -424,7 +482,7 @@ const renderItemSelection = () => {
         >
           {itemMenu}
         </Menu>
-        <div ref={qrScannerRef}></div>
+        {/* <div ref={qrScannerRef}></div> */}
       </div>  
         <Footer />
     </div>
