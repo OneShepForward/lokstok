@@ -197,7 +197,7 @@ function ItemCreate() {
 
   // set headers for CSV
   const [csvData, setCsvData] = useState([
-    ["url", "item_id", "part_id", "part_description"]
+    ["url", "part_description", "item_id", "part_id"]
   ])
 
   const handleDownload = () => {
@@ -205,7 +205,7 @@ function ItemCreate() {
     let data = []
     // each item is pushed into the csv file
     itemsCreated.map((item) => {
-      data = [`/items/${item.id}`, `${item.id}`, `${item.part.id}`, `${item.part.description}`]
+      data = [`/items/${item.id}`, `${item.part.description} `, `${item.id}`, `${item.part.id}`]
       innerCSV.push(data)
     })
     // CSV Data is updated to be used in the CSVDownload component
