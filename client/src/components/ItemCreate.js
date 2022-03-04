@@ -205,6 +205,7 @@ function ItemCreate() {
     let data = []
     // each item is pushed into the csv file
     itemsCreated.map((item) => {
+      // these values correspond to the headers above
       data = [`/items/${item.id}`, `${item.part.description} `, `${item.id}`, `${item.part.id}`]
       innerCSV.push(data)
     })
@@ -270,6 +271,7 @@ function ItemCreate() {
           {currentPart.manufacturer} </h3> :
           <p></p>}
 
+          {/* Quantity dropdown menu */}
         <Button
           id="basic-button"
           variant="outlined"
@@ -302,6 +304,7 @@ function ItemCreate() {
           <h3 className='selection-made'> Quantity selected: {currentQuantity}</h3> :
           <p></p>}
 
+          {/* Bin dropdown menu */}
         <Button
           id="basic-button"
           variant="outlined"
