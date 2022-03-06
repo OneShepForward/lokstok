@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 function Header({ currentEmployee, isAuthenticated, onLogout }) {
 
-  
+// if logged in, display a different nav  
 if (currentEmployee) { 
 
     return (
@@ -103,7 +103,34 @@ if (currentEmployee) {
         <img src={logo} alt="LokStok Logo" className="center-fit"/>
       </div>
       <h2 id="header"> Please sign in or register to continue </h2>
+      
       <nav>
+          <Button 
+            component={NavLink}
+            variant= "outlined"
+            style={({ isActive }) => {
+              return {
+                fontWeight: "bold",
+                color: "#1d2424",
+                backgroundImage: isActive ? "linear-gradient(315deg, #ffffff 0%, #69849b 100%)" : ""
+              };
+            }}
+            to="/"
+          >Login</Button>
+          
+          <Button 
+            component={NavLink}
+            variant= "outlined"
+            to="/signup"
+            state={{logged_in: currentEmployee}}
+            style={({ isActive }) => {
+              return {
+                fontWeight: "bold",
+                color: "#1d2424",
+                backgroundImage: isActive ? "linear-gradient(315deg, #ffffff 0%, #69849b 100%)" : ""
+              };
+            }}
+          >Signup</Button>
       </nav>
     </div>
   );

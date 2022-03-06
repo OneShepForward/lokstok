@@ -76,8 +76,6 @@ const renderErrors = () => {
   })
 }
 
-console.log("errorState: ", errorState)
-
   return (
   <div className='signup'>
     <div id="top-to-footer">
