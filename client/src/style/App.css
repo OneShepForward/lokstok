@@ -175,3 +175,25 @@ li.cart-item {
   font-weight: bold;
   margin-top: 0.5em;
 }
+
+#load-page {
+  display: grid;
+  height: 100vh;
+  background-image: linear-gradient(315deg, #69849b 0%, #dcdcdd 74%);
+}
+
+.load-logo {
+  max-width: 85%;
+  margin: auto;
+  animation-delay: 0.2s;
+  animation: fade-in 1 1.5s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}

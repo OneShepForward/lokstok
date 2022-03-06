@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 
+import logo from "./image/lokstok_cover_photo.png";
 
 
 function App() {
@@ -20,10 +21,25 @@ function App() {
         res.json().then((employee) => {
           setCurrentEmployee(employee);
           setIsAuthenticated(true);
-          setLoaded(true);
         });
       }
     });
+          // setLoaded(true)
+    
+          // -- To prevent coded in load time, comment out this block of code
+          // !!! But don't forget to comment in the setLoaded(true) above!!!
+          const timer = setTimeout(() => {
+            setLoaded(true);
+        }, 1800);
+
+        //cleanup function 
+        return function cleanup() {
+            console.log("Running cleanup");
+            // ✅ clear the interval so state is no longer updated
+            clearInterval(timer);
+            };
+        // -- ^^ To prevent coded in load time, comment out this block of code ^^
+
   }, []);
 
   const handleLogout = () => {
@@ -81,8 +97,8 @@ function App() {
     );
     } else {
       return (
-        <div>
-
+        <div id="load-page">
+          <img src={logo} alt="LokStok Logo" className="load-logo"/>
         </div>
       );
     }
