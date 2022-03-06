@@ -12,12 +12,15 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState(null);
 
+  const [isLoaded, setLoaded] = useState(false)
+
   useEffect(() => {
     fetch("/me").then((res) => {
       if (res.ok) {
         res.json().then((employee) => {
           setCurrentEmployee(employee);
           setIsAuthenticated(true);
+          setLoaded(true);
         });
       }
     });
@@ -38,43 +41,51 @@ function App() {
     setIsAuthenticated(true);
   }
   
-  return (
-    <div className="App">
-      <div id="main">
-        <div id="top-to-footer">
-          <Header
-            currentEmployee={currentEmployee}
-            isAuthenticated={isAuthenticated}
-            onLogout={handleLogout}
-          />
+  if (isLoaded) {
+    return (
+      <div className="app">
+        <div id="main">
+          <div id="top-to-footer">
+            <Header
+              currentEmployee={currentEmployee}
+              isAuthenticated={isAuthenticated}
+              onLogout={handleLogout}
+            />
 
-          { 
-          isAuthenticated ? 
-            (
-              <HomePage
-                currentEmployee={currentEmployee}
-                isAuthenticated={isAuthenticated}
-              />
-            )
-            :
-            (
-            <div className='login-required'>  
-              <Login
-                onLogin={handleLogin}
-              />
-              <br /> 
-              <Link to="/signup">Not registered? Click here to create a new user!</Link>
-              <br /> 
-            </div>   
-            )
-            }
-        </div>
-        <div >
-           <Footer />
+            { 
+            isAuthenticated ? 
+              (
+                <HomePage
+                  currentEmployee={currentEmployee}
+                  isAuthenticated={isAuthenticated}
+                />
+              )
+              :
+              (
+              <div className='login-required'>  
+                <Login
+                  onLogin={handleLogin}
+                />
+                <br /> 
+                <Link to="/signup">Not registered? Click here to create a new user!</Link>
+                <br /> 
+              </div>   
+              )
+              }
+          </div>
+          <div >
+            <Footer />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+    } else {
+      return (
+        <div>
+
+        </div>
+      );
+    }
 }
 
 export default App;

@@ -17,7 +17,7 @@ a:hover {
   cursor: url('../image/cursor.png'), auto;
 }
 
-.App, .itemInventory, .itemCreate, .jobForm, .itemGet, .jobPage, .signup {
+.app, .itemInventory, .itemCreate, .jobForm, .itemGet, .jobPage, .signup {
   text-align: center;
   color: #1d2424;
   background-color: #69849b;

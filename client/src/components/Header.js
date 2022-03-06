@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 function Header({ currentEmployee, isAuthenticated, onLogout }) {
 
-  
+// if logged in, display a different nav  
 if (currentEmployee) { 
 
     return (
