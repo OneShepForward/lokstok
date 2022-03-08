@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 
 import loadingGif from "../image/lokstok_loading.gif";
 

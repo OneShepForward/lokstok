@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 
-function HomePage({currentEmployee}) {
+function HomePage({ currentEmployee }) {
   const [activeJobs, setActiveJobs] = useState([]);
 
   useEffect(() => {
