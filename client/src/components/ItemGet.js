@@ -279,8 +279,6 @@ const selectPartManuallyButton = () => {
   </Button>
 }
 
-console.log("show QR: ", showQR,  currentItem)
-
 const renderItemSelection = () => {
   return showQR ? 
     <div id="item-selection">
@@ -315,52 +313,7 @@ const renderItemSelection = () => {
       {qrScannerButton("Use QR Scanner")}
       {selectPartManuallyButton()}
     </div>
-    
 
-
-
-  // if (!showQR && !currentItem) {
-  //   return <div id="item-selection">
-  //     {qrScannerButton("Use QR Scanner")}
-  //     {selectPartManuallyButton()}
-  //     </div>
-  // } else if (showQR && currentItem) {
-  //     return <div id="item-selection">
-  //       {qrScannerButton("Rescan")}
-  //       {selectPartManuallyButton()}
-  //       </div>
-  // } else if (!showQR && currentItem) {
-  //     return <div id="item-selection">
-  //       {qrScannerButton("Use QR Scanner")}
-  //       {selectPartManuallyButton()}
-  //       </div>    
-  // } else {
-  //     return <div 
-  //         className='qr-scanner'
-  //         ref={qrScannerRef}
-  //         >
-  //         {qrScannerButton("Turn off scanner")}
-  //         {selectPartManuallyButton()}
-  //         <QrReader
-            
-  //           constraints={{ facingMode: "environment" }}
-  //           scanDelay="500"
-  //           onResult={(result, error) => {
-  //             if (!!result) {
-  //               // setData(result?.text);
-  //               handleScan(result?.text);
-  //             }
-    
-  //             if (!!error) {
-  //               // console.info(error);
-  //             }
-  //           }}
-  //           videoContainerStyle={{width: "10%", padding: "35%", marginLeft: "auto", marginRight: "auto"}}
-  //           videoStyle={{ width: '100%'}}
-  //         />
-  //         {currentItem ? <p>{currentItem.part.description} selected</p> : <p>Scan QR Code for the part...</p>}
-  //       </div>
-  // }
 }
 
   return (

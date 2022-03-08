@@ -1,10 +1,9 @@
 import '../style/App.css';
-import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
-
-import logo from "../image/lokstok_cover_photo.png";
+import { NavLink } from "react-router-dom";
 
 import Button from '@mui/material/Button';
+
+import logo from "../image/lokstok_cover_photo.png";
 
 
 function Header({ currentEmployee, onLogout }) {
