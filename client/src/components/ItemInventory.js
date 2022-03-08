@@ -29,8 +29,8 @@ function ItemInventory() {
 
   }, []);
 
-
-  const rows: GridRowsProp =   currentItems.map((item) => {
+  // removed : GridRowsProp and : GridColDef[] due to type annotation errors
+  const rows = currentItems.map((item) => {
     return Object.assign({}, item, 
       {
         id: item.id, 
@@ -44,7 +44,7 @@ function ItemInventory() {
     )
   })
 
-  const columns: GridColDef[] = [
+  const columns = [
     { field: 'col1', headerName: 'Item ID', width: 150, flex: 0.3, hide: true },
     { field: 'col2', headerName: 'Description', width: 150, flex: 1 },
     { field: 'col3', headerName: 'Manufacturer', width: 150, flex: 0.5, hide: true},
