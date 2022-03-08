@@ -18,12 +18,13 @@ import ItemGet from './components/ItemGet';
 import ItemInventory from './components/ItemInventory';
 import JobForm from './components/JobForm';
 import JobPage from './components/JobPage';
+import LoadScreen from './components/LoadScreen';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<LoadScreen />} />
         <Route path="home" element={<App />} />
         <Route path="signup" element={<Signup />} />
         <Route path="create_item" element={<ItemCreate />} />

@@ -6,6 +6,7 @@ import Footer from './Footer';
 
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 
+import loadingGif from "../image/lokstok_loading.gif";
 
 function ItemInventory() {
   // imports currentEmployee state from HomePage
@@ -14,15 +15,15 @@ function ItemInventory() {
 
   const [currentItems, setCurrentItems] = useState([]);
 
-  const [isRendered, setRendered] = useState(false);
+  const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => {
     fetch(`/active_items`).then((res) => {
       if (res.ok) {
         res.json().then((items) => {
           setCurrentItems(items)
-          setRendered(true)
-          })  
+          setLoaded(true)
+        })  
       }
     });
 
@@ -52,7 +53,7 @@ function ItemInventory() {
     { field: 'col6', headerName: 'Bin', width: 150, flex: 0.5 },
   ];
 
-if (isRendered) {
+if (isLoaded) {
   return (
     <div className="itemInventory">
       <div id="top-to-footer">
@@ -79,8 +80,10 @@ if (isRendered) {
     return (
       <div className="itemInventory">
         <div id="top-to-footer">
-        <Header currentEmployee={logged_in} />
-          <p>Loading...</p>
+          <Header currentEmployee={logged_in} />
+          <div className='loading-gif'>
+            <img src={loadingGif} alt="Loading animation" id="loading"/>
+          </div>
         </div>
         <Footer />
       </div>

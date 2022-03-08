@@ -6,13 +6,14 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 
-import logo from "./image/lokstok_cover_photo.png";
+import loadingGif from "./image/lokstok_loading.gif";
 
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState(null);
 
+  // const [isLoaded, setLoaded] = useState(false)
   const [isLoaded, setLoaded] = useState(false)
 
   useEffect(() => {
@@ -26,11 +27,11 @@ function App() {
     });
           // setLoaded(true)
     
-          // -- To prevent coded in load time, comment out this block of code
-          // !!! But don't forget to comment in the setLoaded(true) above!!!
+        // -- To prevent coded in load time, comment out this block of code
+        // !!! But don't forget to comment in the setLoaded(true) above!!!
           const timer = setTimeout(() => {
             setLoaded(true);
-        }, 1800);
+        }, 1500);
 
         //cleanup function 
         return function cleanup() {
@@ -57,7 +58,32 @@ function App() {
     setIsAuthenticated(true);
   }
   
-  if (isLoaded) {
+  const renderHomePage = () => {
+    // renders the loading animation if the /me fetch hasn't completed yet
+    if (isLoaded) {
+      if (isAuthenticated) {
+        return <HomePage
+                  currentEmployee={currentEmployee}
+                  isAuthenticated={isAuthenticated}
+                />
+      } else {
+        return  <div className='login-required'>  
+                  <Login
+                    onLogin={handleLogin}
+                  />
+                  <br /> 
+                  <Link to="/signup">Not registered? Click here to create a new user!</Link>
+                  <br /> 
+                </div>  
+      }
+    } else {
+        return  <div className='loading-gif'>
+                  <img src={loadingGif} alt="Loading animation" id="loading"/>
+                </div>
+      
+    }
+  }
+
     return (
       <div className="app">
         <div id="main">
@@ -67,27 +93,9 @@ function App() {
               isAuthenticated={isAuthenticated}
               onLogout={handleLogout}
             />
+              {/* Renders the loading animation or the homepage */}
+              {renderHomePage()}
 
-            { 
-            isAuthenticated ? 
-              (
-                <HomePage
-                  currentEmployee={currentEmployee}
-                  isAuthenticated={isAuthenticated}
-                />
-              )
-              :
-              (
-              <div className='login-required'>  
-                <Login
-                  onLogin={handleLogin}
-                />
-                <br /> 
-                <Link to="/signup">Not registered? Click here to create a new user!</Link>
-                <br /> 
-              </div>   
-              )
-              }
           </div>
           <div >
             <Footer />
@@ -95,13 +103,6 @@ function App() {
         </div>
       </div>
     );
-    } else {
-      return (
-        <div id="load-page">
-          <img src={logo} alt="LokStok Logo" className="load-logo"/>
-        </div>
-      );
-    }
 }
 
 export default App;
