@@ -38,10 +38,13 @@ class ItemsController < ApplicationController
     @item.destroy
   end
 
+  # the method used when an item is being pulled from the warehouse
   def create_item_job
+    # create an instance in the join table
     item_job = ItemJob.create!(item_id: params["item_id"], job_id: params["job_id"])
     item = Item.find(params["item_id"])
-    item.update(employee_id: params["employee_id"])
+    # remove item from active status, mark it as checked out, and assign to the logged in employee 
+    item.update(employee_id: params["employee_id"], active: params["active"], bin: "out")
     render json: item_job, status: :created
   end
 
