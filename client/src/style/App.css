@@ -176,6 +176,12 @@ li.cart-item {
   margin-top: 0.5em;
 }
 
+#loading {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #load-page {
   display: grid;
   height: 100vh;
@@ -195,5 +201,14 @@ li.cart-item {
   }
   100% {
     opacity: 100;
+  }
+}
+
+
+@media (max-width: 600px) {
+  #loading {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

@@ -25,10 +25,6 @@ function Signup() {
       });
   };
 
-  const goHome = () => {
-    navigate(`/home`);
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -54,7 +50,7 @@ function Signup() {
         });
         setErrorState(null);
         // navigate to HomePage
-        goHome();
+        navigate(`/home`);
       });
     } else {
       r.json().then((errors) => {

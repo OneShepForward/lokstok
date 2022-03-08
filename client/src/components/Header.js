@@ -7,7 +7,7 @@ import logo from "../image/lokstok_cover_photo.png";
 import Button from '@mui/material/Button';
 
 
-function Header({ currentEmployee, isAuthenticated, onLogout }) {
+function Header({ currentEmployee, onLogout }) {
 
 // if logged in, display a different nav  
 if (currentEmployee) { 
@@ -27,15 +27,11 @@ if (currentEmployee) {
             style={({ isActive }) => {
               return {
                 fontWeight: "bold",
-                // fontWeight: isActive ? "bold" : "",
-                // color: isActive ? "#3d6a66" : "",
                 color: "#1d2424",
                 backgroundImage: isActive ? "linear-gradient(315deg, #ffffff 0%, #69849b 100%)" : ""
               };
             }}
             to="/home"
-            // activeClassName="active"
-            // react-dom.development.js:67 Warning: React does not recognize the `activeClassName` prop on a DOM element...
           >Home</Button>
           
           <Button 
@@ -46,14 +42,10 @@ if (currentEmployee) {
             style={({ isActive }) => {
               return {
                 fontWeight: "bold",
-                // fontWeight: isActive ? "bold" : "",
-                // color: isActive ? "#3d6a66" : "",
                 color: "#1d2424",
-                // backgroundColor: isActive ? "#d0c3bd" : ""
                 backgroundImage: isActive ? "linear-gradient(315deg, #ffffff 0%, #69849b 100%)" : ""
               };
             }}
-            // activeClassName="active"
           >Inventory</Button>
           
           <Button 
@@ -64,19 +56,11 @@ if (currentEmployee) {
             style={({ isActive }) => {
               return {
                 fontWeight: "bold",
-                // fontWeight: isActive ? "bold" : "",
                 color: "#1d2424",
                 backgroundImage: isActive ? "linear-gradient(315deg, #ffffff 0%, #69849b 100%)" : ""
               };
             }}
-            // activeClassName="active"
           >Shipments</Button>
-          
-          {/* <Link 
-            to="/settings"
-            // activeClassName="active"
-          >Account Settings</Link>
-          */}
 
           <Button 
             component={NavLink}
@@ -85,7 +69,7 @@ if (currentEmployee) {
               fontWeight: "bold",
               color: "#1d2424",
             }}
-            to="/"
+            to="/home"
             onClick={() => onLogout()}  
           >Logout</Button>
 
@@ -115,7 +99,7 @@ if (currentEmployee) {
                 backgroundImage: isActive ? "linear-gradient(315deg, #ffffff 0%, #69849b 100%)" : ""
               };
             }}
-            to="/"
+            to="/home"
           >Login</Button>
           
           <Button 
