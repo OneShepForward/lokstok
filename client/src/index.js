@@ -19,6 +19,7 @@ import ItemInventory from './components/ItemInventory';
 import JobForm from './components/JobForm';
 import JobPage from './components/JobPage';
 import LoadScreen from './components/LoadScreen';
+import NotFound from './components/NotFound';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -35,14 +36,7 @@ ReactDOM.render(
         <Route path="new_job" element={<JobForm />} />
         <Route path="jobs/:jobId" element={<JobPage />} />
 
-        <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
+        <Route path="*" element={<NotFound />} />
         
       </Routes>
     </BrowserRouter>
