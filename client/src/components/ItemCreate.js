@@ -39,7 +39,7 @@ function ItemCreate() {
     part_id: null,
   });
 
-  // populate the list of available parts
+// populate the list of available parts
   useEffect(() => {
     fetch("/parts").then((res) => {
       if (res.ok) {
@@ -51,6 +51,7 @@ function ItemCreate() {
 
   }, []);
 
+// submitting items to the db
   function handleSubmit(e) {
       e.preventDefault();
 
@@ -219,6 +220,7 @@ function ItemCreate() {
   let checkDownloadCounter = 0
   const checkDownload = (data) => {
     // check that all of the item data made it into the CSV
+    // the first array in the array of arrays represent headers
     if (data.length > 1 && data.length > itemsCreated.length) {
       // if so, render CSVDownload component
       setDownload(true)
@@ -227,7 +229,7 @@ function ItemCreate() {
         setCsvData([["url", "item_id", "part_id", "part_description"]])
         setDownload(false)
       }, 3000)
-      // try 21 times
+      // try 21 times (arbitrary)
     } else if (checkDownloadCounter > 20) {
       console.error("Download failed")
     } else {
