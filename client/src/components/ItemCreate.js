@@ -39,6 +39,7 @@ function ItemCreate() {
     part_id: null,
   });
 
+  // populate the list of available parts
   useEffect(() => {
     fetch("/parts").then((res) => {
       if (res.ok) {
