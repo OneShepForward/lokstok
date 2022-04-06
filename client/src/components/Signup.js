@@ -56,6 +56,7 @@ function Signup() {
       r.json().then((errors) => {
         setErrorState(errors);
         setFormData({
+          ...formData,
           password: "",
           passwordConfirmation: "",
         });
@@ -65,10 +66,8 @@ function Signup() {
 }
 
 const renderErrors = () => {
-  return errorState.error.map((error) => {
-    return <>
-      <p className='error' key={Math.random()}>{error}</p>
-    </>
+  return errorState.error.map((error, index) => {
+    return <p className="error" key={index}> {error} </p>
   })
 }
 

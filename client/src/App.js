@@ -13,9 +13,9 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentEmployee, setCurrentEmployee] = useState(null);
 
-  // const [isLoaded, setLoaded] = useState(false)
   const [isLoaded, setLoaded] = useState(false)
 
+  // This useEffect checks the cookies for a valid session[:id] 
   useEffect(() => {
     fetch("/me").then((res) => {
       if (res.ok) {
@@ -29,20 +29,21 @@ function App() {
     
         // -- To prevent coded in load time, comment out this block of code
         // !!! But don't forget to comment in the setLoaded(true) above!!!
-          const timer = setTimeout(() => {
-            setLoaded(true);
-        }, 1500);
+            const timer = setTimeout(() => {
+              setLoaded(true);
+          }, 1500);
 
-        //cleanup function 
-        return function cleanup() {
-            console.log("Running cleanup");
-            // ✅ clear the interval so state is no longer updated
-            clearInterval(timer);
-            };
+          //cleanup function 
+          return function cleanup() {
+              console.log("Running cleanup");
+              // clear the interval so state is no longer updated
+              clearInterval(timer);
+              };
         // -- ^^ To prevent coded in load time, comment out this block of code ^^
 
   }, []);
 
+  // delete the session when the user clicks Logout
   const handleLogout = () => {
     fetch('/logout', {method: "DELETE"})
     .then(res => {
@@ -53,6 +54,7 @@ function App() {
         })
   }
 
+  // sets the user as logged in
   const handleLogin = (employee) => {
     setCurrentEmployee(employee);
     setIsAuthenticated(true);
@@ -61,11 +63,13 @@ function App() {
   const renderHomePage = () => {
     // renders the loading animation if the /me fetch hasn't completed yet
     if (isLoaded) {
+      // show the homepage if the user is logged in
       if (isAuthenticated) {
         return <HomePage
                   currentEmployee={currentEmployee}
                   isAuthenticated={isAuthenticated}
                 />
+      // show the login page if no user is logged in
       } else {
         return  <div className='login-required'>  
                   <Login
@@ -76,6 +80,7 @@ function App() {
                   <br /> 
                 </div>  
       }
+      // if the /me fetch has not completed, display the loading animation
     } else {
         return  <div className='loading-gif'>
                   <img src={loadingGif} alt="Loading animation" id="loading"/>
@@ -97,7 +102,7 @@ function App() {
               {renderHomePage()}
 
           </div>
-          <div >
+          <div>
             <Footer />
           </div>
         </div>
